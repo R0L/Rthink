@@ -1,0 +1,7 @@
+.idea
+.git
+composer.lock
+*.log
+thinkphp
+runtime
+
