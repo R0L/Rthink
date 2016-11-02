@@ -8,7 +8,7 @@ namespace application\admin\controller;
  * @version V1.0
  * @desc   
  */
-class Error extends Base{
+class Error extends Admin{
     
     public function index() {
         return "控制器不存在";

@@ -10,7 +10,7 @@ use ROL\Auth\Auth;
  * @version V1.0
  * @desc   
  */
-class Base extends Controller {
+class Admin extends Controller {
 
     //初始化
     public function _initialize() {

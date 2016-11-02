@@ -8,10 +8,11 @@ namespace application\admin\controller;
  * @version V1.0
  * @desc   
  */
-class Index extends Base{
-    
+class Index extends Admin {
+
     public function index() {
-        return "index";
+        $this->assign("data", "测试");
+        return $this->fetch("index");
     }
-    
+
 }
