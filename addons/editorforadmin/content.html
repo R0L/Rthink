@@ -26,7 +26,7 @@
 						urlType : 'absolute',
 						fileManagerJson : '{:url('fileManagerJson')}',
 						//uploadJson : '{:url('uploadJson')}' }
-						uploadJson : '{:addons_url("EditorForAdmin://Upload/ke_upimg")}',
+						uploadJson : '{:addon_url("editorforadmin://EditorUpload/ke_upimg")}',
 						extraFileUploadParams: {
 							session_id : '{:session_id()}'
 	                    }
@@ -54,7 +54,7 @@
 				window.UEDITOR_HOME_URL = "__STATIC__/ueditor";
 				window.UEDITOR_CONFIG.initialFrameHeight = parseInt('{$addons_config.editor_height}');
 				window.UEDITOR_CONFIG.scaleEnabled = {eq name="addons_config.editor_resize_type" value="1"}true{else /}false{/eq};
-				window.UEDITOR_CONFIG.imageUrl = '{:addons_url("EditorForAdmin://Upload/ue_upimg")}';
+				window.UEDITOR_CONFIG.imageUrl = '{:addon_url("editorforadmin://EditorUpload/ue_upimg")}';
 				window.UEDITOR_CONFIG.imagePath = '';
 				window.UEDITOR_CONFIG.imageFieldName = 'imgFile';
 				UE.getEditor('editor_id_{$addons_data.name}');
@@ -99,7 +99,7 @@
 			        "height" : "{$addons_config.editor_height}", //高度
 			        "lang"   : "zh-cn", //语言
 			        "tab"    : "    ", //Tab键插入的字符， 默认为四个空格
-					"uploader": "{:addons_url('Editor://Upload/upload')}"
+					"uploader": "{:addon_url('editorforadmin://EditorUpload/upload')}"
 			    };
 			    $('#editor_id_{$addons_data.name}').thinkeditor(options);
 			})

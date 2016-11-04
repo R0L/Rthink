@@ -28,7 +28,8 @@
         "loveteemo/qqconnect": "^1.2",
         "saltrc/thinkphp-alipay": "dev-master",
         "writethesky/php-excel-reader": "^1.0",
-        "rol/auth": "dev-master"
+        "rol/auth": "dev-master",
+        "topthink/think-testing": "^1.0"
     },
     "extra": {
         "think-path": "thinkphp"

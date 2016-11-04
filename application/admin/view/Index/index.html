@@ -15,7 +15,16 @@ and open the template in the editor.
         <div>{$data}</div>
         <img src="{:url('index/qrcode/view')}">
         
-        <div>{:hook('uploadhook', ['name'=>'name','value'=>'19,20,21,22'])}</div>
+        <div>{:hook('uploadhook', ['name'=>'name'])}</div>
         
+<!--        <label class="textarea">
+        <textarea name="XXX">我是SB</textarea>
+        {:hook('editorforadminhook', array('name'=>'XXX','value'=>'我是SB'))}
+        </label>-->
+        
+<!--        <form action='{:addon_url("editorforadmin://EditorUpload/ue_upimg")}' method="post" enctype="multipart/form-data" accept-charset="utf-8">
+            <input name="imgFile" type="file" />
+            <input type="submit" value="提交" />
+        </form>-->
     </body>
 </html>

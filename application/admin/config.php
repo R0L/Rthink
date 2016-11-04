@@ -1,14 +1,70 @@
 <?php
-
 return [
-    //模板参数替换
     'view_replace_str' => array(
-        '__CSS__' => '/static/admin/css',
-        '__JS__' => '/static/admin/js',
-        '__IMG__' => '/static/admin/images',
-        '__STATIC__' => '/static',
-        '__ADDONS__' => '/addons',
         '__ROOT__' => '/',
+        '__ADDONS__' => '/addons',
+        '__STATIC__' => '/static',
+        '__CSS__' => '/admin/css',
+        '__JS__' => '/admin/js',
+        '__IMG__' => '/admin/images',
     ),
     'default_filter' => ['strip_tags', 'htmlspecialchars'],
+    'editor_upload' => array(
+        'mimes' => '',
+        'maxSize' => 2 * 1024 * 1024,
+        'exts' => 'jpg,gif,png,jpeg',
+        'autoSub' => true,
+        'subName' => array('date', 'Y-m-d'),
+        'rootPath' => './Uploads/Editor/',
+        'savePath' => '',
+        'saveName' => array('uniqid', ''),
+        'saveExt' => '',
+        'replace' => false,
+        'hash' => true,
+        'callback' => false,
+    ),
+    'picture_upload' => array(
+        'size' => 2 * 1024 * 1024,
+        'ext' => 'jpg,gif,png,jpeg',
+        'rootPath' => './Uploads/Picture/',
+        'saveName' => 'date',
+        'replace' => false,
+    ),
+    'picture_upload_driver' => 'Qiniu',
+    'upload_local_config' => array(),
+    'upload_bcs_config' => array(
+        'AccessKey' => '',
+        'SecretKey' => '',
+        'bucket' => '',
+        'rename' => false
+    ),
+    'paginate' => [
+        'type' => 'bootstrap',
+        'var_page' => 'page',
+        'list_rows' => 15,
+    ],
+    'cache' => [
+        'type' => 'File',
+        'path' => CACHE_PATH,
+        'prefix' => '',
+        'expire' => 0,
+    ],
+    'session' => [
+        'id' => '',
+        'var_session_id' => '',
+        'prefix' => 'think',
+        'type' => '',
+        'auto_start' => true,
+    ],
+    'cookie' => [
+        'prefix' => 'yyg_admin_',
+        'expire' => 0,
+        'path' => '/',
+        'domain' => '',
+        'secure' => false,
+        'httponly' => '',
+        'setcookie' => true,
+    ],
+    'dispatch_error_tmpl' => APP_PATH . 'admin' . DS . 'view' . DS . 'public' . DS . 'error.html',
+    'dispatch_success_tmpl' => APP_PATH . 'admin' . DS . 'view' . DS . 'public' . DS . 'success.html',
 ];
