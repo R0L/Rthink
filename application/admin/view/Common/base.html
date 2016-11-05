@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{$meta_title|default="后台"}|RThink</title>
+        <link href="__CSS__/base.css" rel="stylesheet" type="text/css"/>
+        <link href="__STATIC__/main.css" rel="stylesheet" type="text/css"/>
+        <!--[if lt IE 9]>
+          <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        {block name="style"}{/block}
+    </head>
+    <body>
+        <div class="left">
+            {block name="menu"}{include file="Common/menu" /}{/block}
+        </div>
+        <div class="right">
+            <div class="top">
+                {block name="top"}{include file="Common/top" /}{/block}
+            </div>
+            <div class="content">
+                <div class="breadcrumb">
+                    <span>您的位置:</span>
+                    <span>首页</span>
+                    <span>首页</span>
+                    <span><a href="">首页</a>&gt;</span>
+                </div>
+                <div>
+                     {block name="body"}内容{/block}
+                </div>
+            </div>
+<!--            <div class="bottom">
+                {block name="bottom"}{include file="Common/bottom" /}{/block}
+            </div>-->
+        </div>
+
+        <script src="http://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+        <script>
+
+            $(function () {
+                $(".menu li").click(function () {
+                    $(".menu li").not($(this)).not($(this).parents(".menu li")).removeClass("active");
+                    $(this).toggleClass("active");
+                    return false;
+                });
+                $(".user").click(function () {
+                    $(this).toggleClass("active");
+                });
+            });
+
+        </script>
+        {block name="script"}{/block}
+    </body>
+</html>
