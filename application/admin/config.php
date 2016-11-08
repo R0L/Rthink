@@ -41,7 +41,7 @@ return [
     'paginate' => [
         'type' => 'bootstrap',
         'var_page' => 'page',
-        'list_rows' => 15,
+        'list_rows' => 10,
     ],
     'cache' => [
         'type' => 'File',
@@ -65,6 +65,6 @@ return [
         'httponly' => '',
         'setcookie' => true,
     ],
-    'dispatch_error_tmpl' => APP_PATH . 'admin' . DS . 'view' . DS . 'public' . DS . 'error.html',
-    'dispatch_success_tmpl' => APP_PATH . 'admin' . DS . 'view' . DS . 'public' . DS . 'success.html',
+//    'dispatch_error_tmpl' => APP_PATH . 'admin' . DS . 'view' . DS . 'public' . DS . 'error.html',
+//    'dispatch_success_tmpl' => APP_PATH . 'admin' . DS . 'view' . DS . 'public' . DS . 'success.html',
 ];

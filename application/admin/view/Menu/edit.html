@@ -1,9 +1,6 @@
 {extend name="common/base" /}
 
 {block name="body"}
-    <div class="main-title">
-        <h2>{:isset($info['id'])?'编辑':'新增'}后台菜单</h2>
-    </div>
     <form action="{:url()}" method="post" class="form-horizontal">
         <div class="form-item">
             <label class="item-label">标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
@@ -28,7 +25,7 @@
             <div class="controls">
                 <select name="pid">
                     {volist name="Menus" id="menu"}
-                        <option value="{$menu.id}">{$menu.title_show}</option>
+                        <option value="{$menu.id}">{$menu->title}</option>
                     {/volist}
                 </select>
             </div>
@@ -46,7 +43,7 @@
                 <input type="text" class="text input-large" name="tip" value="{$info.tip|default=''}">
             </div>
         </div>
-        <div class="form-item">
+        <div class="form-item umar-t50">
             <input type="hidden" name="id" value="{$info.id|default=''}">
             <button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>
             <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>

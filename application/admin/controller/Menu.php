@@ -3,6 +3,7 @@
 namespace application\admin\controller;
 
 use application\admin\model\Menu as MenuModel;
+use think\Cache;
 
 class Menu extends Admin {
 
@@ -29,10 +30,9 @@ class Menu extends Admin {
     
     public function add(){
         $this->assign('info',array('pid'=>input('pid')));
-        
         $Menu = new MenuModel();
-        $menus = array_merge(array(0=>array('id'=>0,'title_show'=>'顶级菜单')), $Menu->getMenu());
-        $this->assign('Menus', $menus);
+//        $menus = array_merge(array(0=>array('id'=>0,'title'=>'顶级菜单')),$Menu->getMenu());
+        $this->assign('Menus', $Menu->getMenu());
         $this->assign('meta_title','新增菜单');
         return $this->fetch('edit');
     }

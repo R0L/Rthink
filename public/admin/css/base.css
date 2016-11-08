@@ -42,7 +42,7 @@ img {
 	border:0 none;
 }
 a,a:hover,a:active {
-	color: #2d7200;
+	color: #3a4658;
 	text-decoration:none;
 }
 input,button,textarea,select,option {
@@ -60,6 +60,9 @@ input::-moz-focus-inner {
     padding: 0;
 }
 
+input{
+    height: 26px;
+}
 
 
 
@@ -118,6 +121,10 @@ input::-moz-focus-inner {
     width: 20px !important;
     height: 20px !important;
 }
+.second_page{
+    width: 20px !important;
+    height: 20px !important;
+}
 .flod{
     background:url('../images/icons-list.png') 0px -8px  no-repeat; 
 }
@@ -140,14 +147,16 @@ input::-moz-focus-inner {
     color: #fd9702;
 }
 .menu a{
-    text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     color: white;
     vertical-align: middle;
     display: inline-block;
     width:-moz-calc(100% - 44px*2);
     width:-webkit-calc(100% - 44px*2);
     width: calc(100% - 44px*2);
+}
+.frist>ul>li{
+    margin-bottom: 1px;
 }
 .second{
     display: none;
@@ -156,23 +165,30 @@ input::-moz-focus-inner {
     position: relative;
 }
 .third{
-    width: 100%;
+    width: 160px;
     color: black;
     position: absolute;
     left: 100%;
     top: 0%;
     display: none;
-}
-.third{
     background: #fd9702;
 }
 .angle{
     position: absolute;
-    top: 14px;
-    left: -19px;
+    top: 18px;
+    left: -6px;
 }
 
+li:hover>a{
+    color: #fd9702;
+}
+.third li:hover>a{
+    color: #3a4658;
+}
 
+.third a{
+    margin-left: 20px;
+}
 
 
 
@@ -182,22 +198,31 @@ input::-moz-focus-inner {
 .head_img{
     background:red  no-repeat; 
     display:inline-block; 
-    width:20px; 
-    height:20px;  
+    width:40px; 
+    height:40px;  
+    border-radius: 5px;
     vertical-align:middle;
     margin-left: 10px;
 }
 .user{
     float: right;
-    background-color: #3a4658;
-    width: 100px;
+    width: 140px;
     height: 100%;
     line-height: 60px;
+}
+.user a{
+    color: #3a4658;
+}
+.user:hover{
+    background-color: #3a4658;
+}
+.user:hover a{
+    color: white;
 }
 .user_angle{
     position: absolute;
     top: 28px;
-    right: 10px;
+    right: 0px;
     margin-right: 10px;
 }
 .user_extend{
@@ -220,7 +245,10 @@ div.user.active>div.user_extend{
 .content{
     margin: 10px 20px 0px 20px;
 }
-
+.body{
+    background-color: white;
+    padding: 20px 20px 50px 30px;
+}
 
 /* = 表单
 ------------------------------------------ */
@@ -254,20 +282,20 @@ div.user.active>div.user_extend{
 }
 .checkbox, .radio {
 	display: inline-block;
-	height: 20px;
-	line-height: 20px;
+	height: 26px;
+	line-height: 26px;
 }
 .checkbox input,
 .radio input {
 	margin-right: 5px;
 	*margin-right: 1px;
-	vertical-align: -1px;
+	vertical-align: -8px;
 }
 select {
 	padding: 2px;
-	height: 27px;
-	line-height: 27px;
-	border: 1px solid #ccc;
+	height: 34px;
+        width: 240px;
+	border: 1px solid #eee;
 	border-radius: 3px;
 }
 select[multiple] {
@@ -276,7 +304,7 @@ select[multiple] {
 
 /* 普通表单 */
 .form-horizontal .form-item {
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 .form-horizontal .item-label {
 	display: block;
@@ -292,7 +320,6 @@ select[multiple] {
 }
 .form-horizontal .controls {
 	overflow: hidden;
-	padding: 5px 5px 5px 0;
 }
 .form-horizontal .controls label + label {
 	margin-left: 15px;
@@ -481,7 +508,7 @@ label.textarea ~ .check-tips {
 .data-table thead th {
     text-align: left;
     color:#fff;
-    background-color: #353535;
+    background-color: #3a4658;
 }
 .data-table tbody tr {
 	background-color: #fefefe;
@@ -501,7 +528,7 @@ label.textarea ~ .check-tips {
 /* 常规按钮 */
 .btn {
     display: inline-block;
-    margin-right: 5px;
+    margin-left: 5px;
     padding: 6px 16px;
     font-size: 14px;
     line-height: 18px;
@@ -510,13 +537,13 @@ label.textarea ~ .check-tips {
     vertical-align: middle;
     cursor: pointer;
     border: 0 none;
-	background-color: #4bbd00;
+	/*background-color: #4bbd00;*/
 	*outline: 0 none;
 }
 .btn:hover {
     color: #ffffff;
     text-decoration: none;
-    background-color: #4cdb00;
+    /*background-color: #4cdb00;*/
     border-bottom: 0 none;
 }
 .submit-btn,
@@ -526,13 +553,40 @@ label.textarea ~ .check-tips {
     font-weight: bold;
     border-color: transparent;
 }
+.btn-return{
+    color: #3a4658;
+}
+
 .submit-btn {
-    background-color: #CC3900;
+    background-color: #fd9702;
 }
 .submit-btn:hover {
     color: #fff;
-    background-color: #ff2610;
+    background-color: #eb8b00;
 }
+
+.add-btn{
+    background-color:#61c362;
+}
+.del-btn{
+    background-color:#fd9701;
+}
+.export-btn{
+    background-color:#ff6055;
+}
+.sort-btn{
+    background-color:#4dc1f0;
+}
+
+.edit-a{
+    color: #61c362;
+}
+.del-a{
+    color: #fd9701;
+    padding-left: 10px;
+}
+
+
 .btn[disabled],
 .btn.disabled,
 .btn[disabled]:hover,
@@ -653,18 +707,26 @@ label.textarea ~ .check-tips {
 /* = 面包屑导航
 ------------------------------------------ */
 .breadcrumb {
-	color: #999;
+  margin: 10px 0px 20px 0px;
+  list-style: none;
 }
-.breadcrumb .home {
-	display: inline-block;
-	text-align: center;
-	line-height: 21px;
+.breadcrumb > li {
+  display: inline-block;
 }
-.breadcrumb .division {
-	margin: 0 5px;
+.breadcrumb > li + li:before {
+  padding: 0 5px;
+  color: #ccc;
+  content: "/\00a0";
 }
-.breadcrumb *{
-    font-size: 18px !important;
+.breadcrumb>li>a{
+    color: #bbb;
+}
+.breadcrumb > .active {
+  color: #fd9702;
+}
+.breadcrumb_title{
+    font-size: 28px;
+    color: #3a4658;
 }
 
 
@@ -868,4 +930,99 @@ label.textarea ~ .check-tips {
 }
 .update-version .success {
     color: #468847;
+}
+
+/**分页**/
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #428bca;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: #2a6496;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #fff;
+  cursor: default;
+  background-color: #428bca;
+  border-color: #428bca;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.pagination-lg > li > a,
+.pagination-lg > li > span {
+  padding: 10px 16px;
+  font-size: 18px;
+}
+.pagination-lg > li:first-child > a,
+.pagination-lg > li:first-child > span {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.pagination-lg > li:last-child > a,
+.pagination-lg > li:last-child > span {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.pagination-sm > li > a,
+.pagination-sm > li > span {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.pagination-sm > li:first-child > a,
+.pagination-sm > li:first-child > span {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.pagination-sm > li:last-child > a,
+.pagination-sm > li:last-child > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }

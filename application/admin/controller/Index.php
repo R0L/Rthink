@@ -11,8 +11,8 @@ namespace application\admin\controller;
 class Index extends Admin {
 
     public function index() {
-        $this->assign("data", "测试");
-        return $this->fetch("index_1");
+//        $this->assign("data", "测试");
+        return $this->fetch();
     }
 
 }

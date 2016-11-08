@@ -2,56 +2,35 @@
     <img src="__IMG__/logo.png" alt=""/>
 </div>
 <div class="menu frist">
-
     <ul>
+        {volist  name="_MENU_" id="menu"}
         <li>
             <div class="icon frist_page"></div>
-            <a>菜单一</a>
+            <a href="{:url($menu->url)}">{$menu->title}</a>
             <div class="icon flod"></div>
             <div class="menu second">
                 <ul>
+                    {volist  name="menu->_child" id="menu"}
                     <li>
-                        <div class="icon frist_page"></div>
-                        <a>菜单二</a>
+                        <div class="icon second_page"></div>
+                        <a href="{:url($menu->url)}">{$menu->title}</a>
+                        {if condition="$menu._child"}
                         <div class="icon flod"></div>
                         <div class="menu third">
                             <div class="triangle-left angle"></div>
                             <ul>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
+                                {volist  name="menu->_child" id="menu"}
+                                    <li><a href="{:url($menu->url)}">{$menu->title}</a></li>
+                                {/volist}
                             </ul>
                         </div>
+                        {/if}
                     </li>
+                    {/volist}
                 </ul>
             </div>
         </li>
-        <li>
-            <div class="icon frist_page"></div>
-            <a>菜单一</a>
-            <div class="icon flod"></div>
-            <div class="menu second">
-                <ul>
-                    <li>
-                        <div class="icon frist_page"></div>
-                        <a>菜单二</a>
-                        <div class="icon flod"></div>
-                        <div class="menu third">
-                            <div class="triangle-left angle"></div>
-                            <ul>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                                <li><a>菜单三</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </li>
+        {/volist}
     </ul>
 
 </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace application\admin\model;
+use application\common\model\Tree;
 
 /**
  * @author ROL
@@ -10,14 +11,13 @@ namespace application\admin\model;
  */
 class Menu extends Base{
     
-    
     public function menu(){
         return $this->hasOne('Menu',"id","pid");
     }
     
     public function getMenu() {
-        dump(self::all()->toArray());
-//        return model('Common/Tree')->toFormatTree();
+        $Tree = new Tree();
+        return $Tree->toTree(self::all());
     }
     
 }

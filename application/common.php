@@ -422,44 +422,6 @@ function time_format($time = NULL, $format = 'Y-m-d H:i') {
     return date($format, $time);
 }
 
-/**
- * 根据用户ID获取用户名
- * @param  integer $uid 用户ID
- * @return string       用户名
- */
-function get_username($uid = 0) {
-    static $list;
-    if (!($uid && is_numeric($uid))) { //获取当前登录用户名
-        return session('user_auth.username');
-    }
-
-    /* 获取缓存数据 */
-    if (empty($list)) {
-        $list = S('sys_active_user_list');
-    }
-
-    /* 查找用户信息 */
-    $key = "u{$uid}";
-    if (isset($list[$key])) { //已缓存，直接使用
-        $name = $list[$key];
-    } else { //调用接口获取用户信息
-        $User = new User\Api\UserApi();
-        $info = $User->info($uid);
-        if ($info && isset($info[1])) {
-            $name = $list[$key] = $info[1];
-            /* 缓存用户 */
-            $count = count($list);
-            $max = C('USER_MAX_CACHE');
-            while ($count-- > $max) {
-                array_shift($list);
-            }
-            S('sys_active_user_list', $list);
-        } else {
-            $name = '';
-        }
-    }
-    return $name;
-}
 
 /**
  * 小数转汇率
@@ -565,3 +527,24 @@ function think_encrypt($data, $key = '', $expire = 0) {
     }
     return str_replace(array('+','/','='),array('-','_',''),base64_encode($str));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***
+ * 20161108
+ * 
+ */
+
+
+

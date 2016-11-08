@@ -3,12 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/work/think/addons/upload/upload.html</file>
-            <file>file:/E:/work/think/public/addons/upload/css/uploadimages.css</file>
-            <file>file:/E:/work/think/addons/upload/Upload.php</file>
-            <file>file:/E:/work/think/addons/upload/config.php</file>
-            <file>file:/E:/work/think/application/common.php</file>
-            <file>file:/E:/work/think/application/admin/view/Index/index.html</file>
+            <file>file:/E:/work/Rthink/application/admin/view/Common/base.html</file>
+            <file>file:/E:/work/Rthink/application/admin/view/Category/edit.html</file>
+            <file>file:/E:/work/Rthink/application/admin/validate/Category.php</file>
+            <file>file:/E:/work/Rthink/application/admin/model/Base.php</file>
+            <file>file:/E:/work/Rthink/application/admin/controller/Category.php</file>
+            <file>file:/E:/work/Rthink/public/admin/js/common.js</file>
         </group>
     </open-files>
 </project-private>

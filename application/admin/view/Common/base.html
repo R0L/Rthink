@@ -22,30 +22,40 @@
                 {block name="top"}{include file="Common/top" /}{/block}
             </div>
             <div class="content">
-                <div class="breadcrumb">
-                    <span>您的位置:</span>
-                    <span>首页</span>
-                    <span>首页</span>
-                    <span><a href="">首页</a>&gt;</span>
-                </div>
-                <div>
-                     {block name="body"}内容{/block}
+                <div class="breadcrumb_title">商城</div>
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">2013</a></li>
+                    <li class="active">十一月</li>
+                </ol>
+                <div class="body">
+                    {block name="body"}内容{/block}
                 </div>
             </div>
-<!--            <div class="bottom">
+            <div class="bottom">
                 {block name="bottom"}{include file="Common/bottom" /}{/block}
-            </div>-->
+            </div>
         </div>
 
         <script src="http://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
+        <script src="__JS__/common.js"></script>
         <script>
 
             $(function () {
                 $(".menu li").click(function () {
-                    $(".menu li").not($(this)).not($(this).parents(".menu li")).removeClass("active");
-                    $(this).toggleClass("active");
+                    if($(this).find("ul").size()){
+                        $(".menu li").not($(this)).not($(this).parents(".menu li")).removeClass("active");
+                        $(this).toggleClass("active");
+                    }else{
+                        location.href = $(this).find("a").attr("href");
+                    }
                     return false;
                 });
+//                $("li a").each(function (i){
+//                    if($(this).attr("href") == "{$Think.server.request_uri}"){
+//                        $(this).parents("li").addClass("active");
+//                    }
+//                });
                 $(".user").click(function () {
                     $(this).toggleClass("active");
                 });

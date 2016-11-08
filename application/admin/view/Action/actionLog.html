@@ -23,38 +23,30 @@
         <table>
             <thead>
                 <tr>
-                    <th class="row-selected">
-                        <input class="checkbox check-all" type="checkbox">
-                    </th>
-                    <th>ID</th>
-                    <th>名称</th>
-                    <th>上级菜单</th>
-                    <th>URL</th>
-                    <th>排序</th>
-                    <th>隐藏</th>
-                    <th>操作</th>
+                    <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                    <th class="">编号</th>
+                    <th class="">行为名称</th>
+                    <th class="">记录信息</th>
+                    <th class="">执行者</th>
+                    <th class="">执行IP</th>
+                    <th class="">执行时间</th>
+                    <th class="">操作</th>
                 </tr>
             </thead>
             <tbody>
                 {notempty name="lists"}
-                {volist name="lists" id="menu"}
+                {volist name="lists" id="vo"}
                 <tr>
-                    <td><input class="ids row-selected" type="checkbox" name="id[]" value="{$menu.id}"></td>
-                    <td>{$menu.id}</td>
+                    <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
+			<td>{$vo.id} </td>
+			<td>{:get_action($vo['action_id'],'title')}</td>
+			<td><span>{$vo.remark}</span></td>
+                        <td>{:get_username($vo['user_id'])}</td>
+			<td><span>{$vo.action_ip}</span></td>
+			<td><span>{$vo.create_time_fromat}</span></td>
                     <td>
-                        <a href="{:url('index?pid='.$menu['id'])}">{$menu.title}</a>
-                    </td>
-                    <td>{$menu->menu->title|default='无'}</td>
-                    <td>{$menu.url}</td>
-                    <td>{$menu.sort}</td>
-                    <td>
-                        <a href="{:url('toogleHide',array('id'=>$menu['id'],'value'=>abs($menu['hide']-1)))}" class="ajax-get">
-                            {$menu.hide}
-                        </a>
-                    </td>
-                    <td>
-                        <a class="edit-a" title="编辑" href="{:url('edit?id='.$menu['id'])}">编辑</a>
-                        <a class="confirm ajax-get del-a" title="删除" href="{:url('del?id='.$menu['id'])}">删除</a>
+                        <a title="编辑" style="color: #61c362;" href="{:url('edit?id='.$menu['id'])}">编辑</a>
+                        <a class="confirm ajax-get" style="color: #fd9701;padding-left: 10px;" title="删除" href="{:url('del?id='.$menu['id'])}">删除</a>
                     </td>
                 </tr>
                 {/volist}
