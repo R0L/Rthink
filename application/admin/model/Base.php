@@ -11,15 +11,17 @@ use think\Model;
  * @desc   
  */
 class Base extends Model {
-    
-    protected $autoWriteTimestamp = true;
 
-    private $format='Y-m-d H:i';
-    
+    protected $autoWriteTimestamp = true;
+    private $format = 'Y-m-d H:i';
+
     //初始化
     protected function initialize() {
         parent::initialize();
     }
+    
+    //自动完成
+    protected $insert = ['status' => 1];
 
     /**
      * 信息的状态
@@ -27,8 +29,8 @@ class Base extends Model {
      * @param type $data
      * @return string
      */
-    public function getStatusTextAttr($status,$data) {
-        if(empty($status)){
+    public function getStatusTextAttr($status, $data) {
+        if (empty($status)) {
             $status = $data["status"];
         }
         $op_status = [-1 => '删除', 0 => '禁用', 1 => '正常', 2 => '待审核'];
@@ -40,21 +42,21 @@ class Base extends Model {
      * @param type $create_time
      * @return type
      */
-    public function getCreateTimeFromatAttr($create_time,$data) {
-        if(empty($create_time)){
+    public function getCreateTimeFromatAttr($create_time, $data) {
+        if (empty($create_time)) {
             $create_time = $data["create_time"];
         }
         $time = $create_time === NULL ? time() : intval($create_time);
         return date($this->format, $time);
     }
-    
+
     /**
      * 更新时间格式化
      * @param type $update_time
      * @return type
      */
-    public function getUpdateTimeFromatAttr($update_time,$data) {
-        if(empty($create_time)){
+    public function getUpdateTimeFromatAttr($update_time, $data) {
+        if (empty($create_time)) {
             $create_time = $data["update_time"];
         }
         $time = $update_time === NULL ? time() : intval($update_time);
@@ -63,5 +65,19 @@ class Base extends Model {
 
     //类型转换
     protected $type = [];
+
+    /**
+     * 数据添加和数据更新的处理
+     * @param type $data
+     * @param type $where
+     * @return type
+     */
+    public function deal($data = null, $where = null) {
+        $status_create = $this->isUpdate(array_key_exists("id", $data))->allowField(true)->validate(true)->save($data, $where);
+        if ($status_create) {
+            return $this->id;
+        }
+        return $status_create;
+    }
 
 }

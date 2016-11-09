@@ -11,13 +11,11 @@ use application\admin\model\Category as CategoryModel;
  * @desc   
  */
 class Category extends Admin {
-    
-    private $operator_model;
-    public function _initialize(){
+
+    public function _initialize() {
         parent::_initialize();
-        $this->operator_model = new CategoryModel();
     }
-    
+
     /**
      * 商品分类展示页面
      * @return type
@@ -25,25 +23,34 @@ class Category extends Admin {
     public function index() {
         $title = trim(input('title'));
         $page = trim(input('page'));
-        $lists = $this->model->paginate();
+        $Category = new CategoryModel();
+        $lists = $Category->where(["status" => 1, "title" => ["like", "%" . $title . "%"]])->paginate();
         $this->assign('lists', $lists);
         return $this->fetch();
     }
-    
-    
-    public function add() {
-        if(request()->isPost()){
-            $result = $this->operator_model->validate(true)->save();
-            if(!$result){
-                dump($this->operator_model->getError());
+
+    public function deal() {
+        $Category = new CategoryModel();
+        if (request()->isPost()) {
+            if ($Category->deal(input())) {
+                $this->success("操作成功", url("index"));
             }
-        }else{
+            $this->error("操作失败:" . $Category->getError());
+        } else {
+            ($id = input("param.id")) ? $this->assign("info", $Category->get($id)) : "";
             return $this->fetch("edit");
         }
     }
-    
-    public function edit() {
-        return $this->fetch();
+
+    public function del() {
+        $id = array_unique((array) input('param.id/a'), 0);
+        empty($id) && $this->error("不存在参数ID");
+        $Category = new CategoryModel();
+        $staus_deal = $Category->save(["status" => -1], ["id" => ["in", $id]]);
+        if ($staus_deal) {
+            $this->success("操作成功", url("index"));
+        }
+        $this->error("操作失败:" . $Category->getError());
     }
-    
+
 }

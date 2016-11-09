@@ -23,10 +23,22 @@
                 <tr>
                     <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
                     <th class="">编号</th>
-                    <th class="">栏目名称</th>
-                    <th class="">栏目图标</th>
-                    <th class="">排序</th>
-                    <th class="">显示</th>
+                    <th class="">商品名称</th>
+                    <th class="">商品介绍</th>
+                    <th class="">商品类型</th>
+                    <th class="">所属栏目</th>
+                    <th class="">所属品牌</th>
+                    <th class="">默认图片</th>
+                    <th class="">商品图片</th>
+                    <th class="">商品售价</th>
+                    <th class="">商品折后价</th>
+                    <th class="">购买次数</th>
+                    <th class="">所需总次</th>
+                    <th class="">商品倒计时</th>
+                    <th class="">商品总期</th>
+                    <th class="">商品当期</th>
+                    <th class="">商品排序</th>
+                    <th class="">商品状态</th>
                     <th class="">创建时间</th>
                     <th class="">更新时间</th>
                     <th class="">状态</th>
@@ -38,11 +50,23 @@
                 {volist name="lists" id="vo"}
                 <tr>
                     <td><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
-                        <td><span>{$vo.id}</span></td>
-                        <td><span>{$vo.title}</span></td>
-                        <td><span>{$vo.icon}</span></td>
-                        <td><span>{$vo.sort}</span></td>
-                        <td><span>{$vo.display}</span></td>
+                        <td><span>{$vo->id}</span></td>
+                        <td><span>{:mb_substr($vo->title,0,10)}</span></td>
+                        <td><span>{:mb_substr($vo->info,0,10)}</span></td>
+                        <td><span>{$vo->type}</span></td>
+                        <td><span>{$vo->category->title}</span></td>
+                        <td><span>{$vo->brand->title}</span></td>
+                        <td><span>{$vo->cover_id}</span></td>
+                        <td><span>{$vo->cover_list}</span></td>
+                        <td><span>{$vo->price}</span></td>
+                        <td><span>{$vo->buy_price}</span></td>
+                        <td><span>{$vo->buy_time}</span></td>
+                        <td><span>{$vo->total_time}</span></td>
+                        <td><span>{$vo->count_down}</span></td>
+                        <td><span>{$vo->total_periods}</span></td>
+                        <td><span>{$vo->current_periods}</span></td>
+                        <td><span>{$vo->sort}</span></td>
+                        <td><span>{$vo->goods_status_text}</span></td>
 			<td><span>{$vo.create_time_fromat}</span></td>
 			<td><span>{$vo.update_time_fromat}</span></td>
 			<td><span>{$vo.status_text}</span></td>

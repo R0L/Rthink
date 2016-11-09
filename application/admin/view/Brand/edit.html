@@ -2,36 +2,31 @@
 {block name="body"}
 <form action="{:url()}" method="post" class="form-horizontal">
     <div class="form-item">
-        <label class="item-label">父级栏目<span class="check-tips">（所属的上级栏目）</span></label>
+        <label class="item-label">所属栏目<span class="check-tips">（所属的上级栏目）</span></label>
         <div class="controls">
-            <select name="pid">
-                <option value="{$menu.id}">{$menu->title}</option>
+            <select name="category_id">
+                {foreach $categorys as $category}
+                <option value="{$category->id}">{$category->title}</option>
+                {/foreach}
             </select>
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目标题<span class="check-tips">（用于前端的栏目名称）</span></label>
+        <label class="item-label">品牌标题<span class="check-tips">（用于前端的品牌标题）</span></label>
         <div class="controls">
             <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目图标<span class="check-tips">（用于前端的栏目图标展示）</span></label>
+        <label class="item-label">品牌图标<span class="check-tips">（用于前端的品牌图标展示）</span></label>
         <div class="controls">
             <input type="text" class="text input-large" name="icon" value="{$info.icon|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目排序<span class="check-tips">（用于前端的栏目排序）</span></label>
+        <label class="item-label">品牌排序<span class="check-tips">（用于前端的品牌排序）</span></label>
         <div class="controls">
             <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
-        </div>
-    </div>
-    <div class="form-item">
-        <label class="item-label">栏目显隐<span class="check-tips">（是：表示隐藏，否：反之）</span></label>
-        <div class="controls">
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="hide" value="1">是</label>
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="hide" value="0">否</label>
         </div>
     </div>
     <div class="form-item umar-t50">

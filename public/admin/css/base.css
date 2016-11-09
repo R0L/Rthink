@@ -16,7 +16,7 @@ and open the template in the editor.
     padding: 0px;
     z-index: 0;
     font-family: "Microsoft YaHei";
-    font-size: 14px;
+    font-size: 12px;
 }
 html, body {
     height: 100%;
@@ -1025,4 +1025,79 @@ label.textarea ~ .check-tips {
 .pagination-sm > li:last-child > span {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+
+/* 提醒框 */
+.alert {
+	color: #c09853;
+	font-weight: bold;
+	border: 1px solid #fbeed5;
+	background-color: #fcf8e3;
+}
+.alert .close {
+    float: right;
+    position: relative;
+    top: -2px;
+    right: -21px;
+    font: bold 20px/20px arial; 
+	color: #c09853;
+    opacity: 0.4;
+}
+.alert .close:hover {
+	opacity: 0.6;
+}
+button.close {
+    padding: 0;
+    cursor: pointer;
+    border: 0 none;
+	background: none;
+}
+.close {
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #000000;
+    text-shadow: 0 1px 0 #ffffff;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+}
+.alert-info {
+    background-color: #61c362;
+    border-color: #d58512;
+    color: white;
+}
+.alert-error {
+	color: white;
+	border-color: #c9302c;
+	background-color: #ff6055;
+}
+.alert-success {
+    color: white;
+    background-color: #61c362;
+    border-color: #449d44;
+}
+#top-alert {
+    display: block;
+    top: 50px;
+    left: 220px;
+    right: 20px;
+    z-index: 3000;
+	margin-top: 20px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+    overflow: hidden;
+    font-size: 16px;
+}
+#top-alert .close{
+    right:35px;
+    position: fixed;
+    top:75px;
+}
+.alert-content{
+	margin-left: 14px;
+    max-width:600px;
+    word-wrap: break-word;
+    word-break: break-word;
 }
