@@ -39,14 +39,13 @@ class Goods extends Admin{
         $map = array();
         $map["status"] = 1;
         $map["goods_status"] = 1;
-        $map["total_time"] = ["elt","buy_time"];
+        $map["buy_time"] = ["egt","total_time"];
         $title = trim(input('title'));
         if(!empty($title)){
             $map["title"] = ["like", "%" . $title . "%"];
         }
         $Goods = new GoodsModel();
         $lists = $Goods->where($map)->paginate();
-        dump($lists);
         $this->assign('lists', $lists);
         return $this->fetch("index");
     }
