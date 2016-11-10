@@ -1,12 +1,12 @@
 <?php
+
 namespace application\admin\model;
 
 /**
  * @author ROL
- * @date 2016-10-29 11:35:45
+ * @date 2016-11-10 15:21:25
  * @version V1.0
  * @desc   
  */
-class Member extends User{
-    
+class Slider extends Base {
 }

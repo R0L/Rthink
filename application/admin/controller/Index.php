@@ -1,18 +1,17 @@
 <?php
 
 namespace application\admin\controller;
-
+use think\Controller;
 /**
  * @author ROL
  * @date 2016-10-29 11:55:16
  * @version V1.0
  * @desc   
  */
-class Index extends Admin {
+class Index extends Controller {
 
-    public function index() {
-//        $this->assign("data", "测试");
-        return $this->fetch();
+    public function login() {
+        return $this->fetch("user/login");
     }
 
 }

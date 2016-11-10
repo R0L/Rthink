@@ -1,12 +1,13 @@
 <?php
+
 namespace application\admin\model;
 
 /**
  * @author ROL
- * @date 2016-10-29 11:35:45
+ * @date 2016-11-10 10:18:08
  * @version V1.0
  * @desc   
  */
-class Member extends User{
-    
+class AuthGroupAccess extends Base {
+    //put your code here
 }

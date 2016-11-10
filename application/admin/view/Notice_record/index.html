@@ -1,0 +1,89 @@
+{extend name="common/base" /}
+{block name="body"}
+<div class="cf umar-b toolbar">
+    <!-- 高级搜索 -->
+    <div class="search-form cf">
+        <div class="sleft">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
+            <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
+        </div>
+    </div>
+    <div class="fr cf">
+        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
+        <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
+        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
+        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
+    </div>
+</div>
+
+<div class="data-table table-striped">
+    <form class="ids">
+        <table>
+            <thead>
+                <tr>
+                    <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                    <th class="">编号</th>
+                    <th class="">公告名称</th>
+                    <th class="">阅读用户</th>
+                    <th class="">操作状态</th>
+                    <th class="">创建时间</th>
+                    <th class="">更新时间</th>
+                    <th class="">状态</th>
+                    <th class="">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {notempty name="lists"}
+                {volist name="lists" id="vo"}
+                <tr>
+                    <td><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+                        <td><span>{$vo->id}</span></td>
+                        <td><span>{$vo->notice->title}</span></td>
+                        <td><span>{$vo->user->user_name}</span></td>
+                        <td><span>{$vo->notice_record_status_text}</span></td>
+			<td><span>{$vo->create_time_fromat}</span></td>
+			<td><span>{$vo->update_time_fromat}</span></td>
+			<td><span>{$vo->status_text}</span></td>
+                    <td>
+                        <a title="编辑" style="color: #61c362;" href="{:url('deal?id='.$vo['id'])}">编辑</a>
+                        <a class="confirm ajax-get" style="color: #fd9701;padding-left: 10px;" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
+                    </td>
+                </tr>
+                {/volist}
+                {else/}
+            <td colspan="10" class="text-center"> aOh! 暂时还没有内容! </td>
+            {/notempty}
+            </tbody>
+        </table>
+    </form>
+    <!-- 分页 -->
+    {$lists->render()}
+</div>
+{/block}
+
+{block name="script"}
+<script type="text/javascript">
+    $(function () {
+        //搜索功能
+        $("#search").click(function () {
+            var url = $(this).attr('url');
+            var query = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+            query = query.replace(/^&/g, '');
+            if (url.indexOf('?') > 0) {
+                url += '&' + query;
+            } else {
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+        //回车搜索
+        $(".search-input").keyup(function (e) {
+            if (e.keyCode === 13) {
+                $("#search").click();
+                return false;
+            }
+        });
+    });
+</script>
+{/block}

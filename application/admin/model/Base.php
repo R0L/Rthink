@@ -13,7 +13,7 @@ use think\Model;
 class Base extends Model {
 
     protected $autoWriteTimestamp = true;
-    private $format = 'Y-m-d H:i';
+    protected $format = 'Y-m-d H:i';
 
     //初始化
     protected function initialize() {
@@ -21,8 +21,26 @@ class Base extends Model {
     }
     
     //自动完成
-    protected $insert = ['status' => 1];
-
+    protected $auto = ['update_time'];
+    protected $insert = ['status' => 1,'create_time'];  
+    protected $update = [];  
+    
+    /**
+     * 创建时间自动完成
+     * @return type
+     */
+    protected function setCreateTimeAttr(){
+        return time();
+    }
+    
+    /**
+     * 更新时间自动完成
+     * @return type
+     */
+    protected function setUpdateTimeAttr(){
+        return time();
+    }
+    
     /**
      * 信息的状态
      * @param type $status
@@ -38,7 +56,7 @@ class Base extends Model {
     }
 
     /**
-     * 创建时间格式化
+     * 获取创建时间格式化
      * @param type $create_time
      * @return type
      */
@@ -51,16 +69,43 @@ class Base extends Model {
     }
 
     /**
-     * 更新时间格式化
+     * 获取更新时间格式化
      * @param type $update_time
      * @return type
      */
     public function getUpdateTimeFromatAttr($update_time, $data) {
-        if (empty($create_time)) {
+        if (empty($update_time)) {
             $create_time = $data["update_time"];
         }
         $time = $update_time === NULL ? time() : intval($update_time);
         return date($this->format, $time);
+    }
+    /**
+     * 获取是否显示的格式化
+     * @param type $display
+     * @param type $data
+     * @return string
+     */
+    public function getDisplayTextAttr($display, $data) {
+        if (empty($display)) {
+            $display = $data["display"];
+        }
+        $op_status = [0 => '否', 1 => '是'];
+        return $op_status[intval($display)];
+    }
+    
+    /**
+     * 获取终端类型的格式化
+     * @param type $terminal
+     * @param type $data
+     * @return string
+     */
+    public function getTerminalTextAttr($terminal, $data) {
+        if (empty($terminal)) {
+            $terminal = $data["terminal"];
+        }
+        $op_status = [1 => 'PC', 2 => 'WAP', 3 => "Android", 4 => "IOS", 5 => "WeChat"];
+        return $op_status[intval($terminal)];
     }
 
     //类型转换
@@ -79,5 +124,4 @@ class Base extends Model {
         }
         return $status_create;
     }
-
 }
