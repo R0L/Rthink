@@ -5,13 +5,18 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>登录|RThink</title>
-        <link href="__CSS__/base.css" rel="stylesheet" type="text/css"/>
-        <link href="__STATIC__/main.css" rel="stylesheet" type="text/css"/>
         <!--[if lt IE 9]>
           <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
         <style>
+            *{
+                margin: 0px;
+                padding: 0px;
+            }
+            html,body{
+                height: 100%;
+            }
             body{
                 background: url("__IMG__/login_bg.jpg") center no-repeat;
                 background-size: 100% 100%;
@@ -20,10 +25,10 @@
                 position: absolute;
                 top:50%;
                 left:50%;
-                margin-top: -189px;
+                margin-top: -195px;
                 margin-left: -160px;
                 width: 320px;
-                height: 378px;
+                height: 390px;
                 background-color: red;
                 text-align: center;
                 background-color: white;
@@ -43,7 +48,7 @@
                 background-color: transparent;
                 height: 30px;
                 width: 100%;
-                padding: 5px;
+                text-indent: 10px;
             }
             .login-code{
                 height: 30px;
@@ -60,14 +65,31 @@
                 float: right;
             }
             .login-bottom{
-                margin: 20px 30px 0px 30px;
+                margin: 30px 30px 0px 30px;
             }
             .login-bottom button{
                 height: 35px;
                 width: 100%;
                 background-color: #fd9702;
                 border-radius: 5px;
+                cursor: pointer;
+                transition: all .2s linear;
+            }
+             .login-bottom button:hover{
+                transition: all .2s linear;
+                padding-left: 20px;
+                background-color: #f09102;
+            }
+            button,button:hover{
                 border: none;
+                outline:none;
+            }
+            .bottom{
+                width: 100%;
+                position: fixed;
+                bottom: 40px;
+                text-align: center;
+                color: white;
             }
         </style>
     </head>
@@ -76,17 +98,23 @@
             <div class="login-logo">
                 <img src="__IMG__/login_logo.png" alt=""/>
             </div>
+            <form action="{:url('')}" method="post">
             <div class="login-body">
-                <input type="text" name="username" placeholder="用户帐号"/>
-                <input type="password" name="password" placeholder="用户密码"/>
-                <div class="login-code">
-                    <input type="text" name="code"  placeholder="验证码"/>
-                    <img src="{:captcha_src({'bg':})}" alt="验证码" onclick="this.src='{:captcha_src()}'" />
-                </div>
+                
+                    <input type="text" name="user_name" placeholder="用户帐号"/>
+                    <input type="password" name="password" placeholder="用户密码"/>
+                    <div class="login-code">
+                        <input type="text" name="code"  placeholder="验证码"/>
+                        <img src="{:captcha_src(1)}" alt="验证码" onclick="this.src='{:captcha_src()}'" />
+                    </div>
             </div>
             <div class="login-bottom">
-                <button><img src="__IMG__/login-buttom.png" alt=""/></button>
+                <button type="submit"><img src="__IMG__/login-buttom.png" alt=""/></button>
             </div>
+                </form>
+        </div>
+        <div class="bottom">
+            <span>四川腾驰网络信息有限公司</span>
         </div>
     </body>
 </html>

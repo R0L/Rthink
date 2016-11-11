@@ -110,6 +110,12 @@ class Base extends Model {
 
     //类型转换
     protected $type = [];
+    
+    
+    // 定义全局的查询范围
+    protected function base($query) {
+        $query->where('status', 1);
+    }
 
     /**
      * 数据添加和数据更新的处理

@@ -15,7 +15,7 @@ class Period extends Base {
         if (empty($periods_status)) {
             $periods_status = $data["periods_status"];
         }
-        $op_status = [0 => '开奖中',1=>'开奖结束'];
+        $op_status = [0 => '开奖中',1=>'已开奖'];
         return $op_status[intval($periods_status)];
     }
     

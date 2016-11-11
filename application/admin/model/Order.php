@@ -21,7 +21,7 @@ class Order extends Base {
         if (empty($status)) {
             $status = $data["status"];
         }
-        $op_status = [-2 => '加入购物车', -1 => '已购买', 0 => '购买失败', 1 => '已发货', 2 => '已签收', 3 => '已晒单'];
+        $op_status = [-1 => '未中奖', 0 => '加入购物车', 1 => '进行中', 2 => '已中奖', 3 => '已晒单'];
         return $op_status[intval($status)];
     }
     

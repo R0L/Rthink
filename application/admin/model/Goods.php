@@ -31,7 +31,7 @@ class Goods extends Base {
         if (empty($status)) {
             $status = $data["status"];
         }
-        $op_status = [-2 => '审核失败', -1 => '未审核/未上架', 0 => '已审核/未上架', 1 => '已上架/夺宝中', 2 => '已下架', 3 => '夺宝结束', 4 => '重新开始'];
+        $op_status = [-2 => '审核失败', -1 => '待审核', 0 => '已审核/待上线', 1 => '已上线/夺宝中', 2 => '已下架', 3 => '已结束'];
         return $op_status[intval($status)];
     }
     

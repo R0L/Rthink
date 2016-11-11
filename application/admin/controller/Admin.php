@@ -4,8 +4,11 @@ namespace application\admin\controller;
 
 use \think\Controller;
 use ROL\Auth\Auth;
-use application\admin\model\Menu as MenuModel;
+use application\admin\model\Menu;
+use application\admin\model\Member;
 use think\Cache;
+use think\Session;
+use think\Request;
 
 /**
  * @author ROL
@@ -17,15 +20,19 @@ class Admin extends Controller {
 
     //初始化
     public function _initialize() {
-        session("uid", 1);
-        session('user_auth.username', "admin");
-        session("user.group_id", 1);
-        if (session("uid") != 1) {
+        $user_id = Session::get('user_id');
+        $request = Request::instance();
+        $request->bind('user',Member::get($user_id));
+        
+        if ($user_id != 2) {
             $auth = new Auth();
-            if (!$auth->check($this->request->module() . '/' . $this->request->controller() . '/' . $this->request->action(), session('uid'))) {
+            if (!$auth->check($request->module() . '/' . $request->controller() . '/' . $request->action(), $user_id)) {
                 $this->error("你没有权限");
             }
         }
+        $auth = new Auth();
+        $groups = $auth->getGroups($user_id);
+        dump($groups[0]["rules"]);
 
 //        $menus = Cache::get(session("user.group_id"));
 //        if(!$menus){
@@ -33,7 +40,7 @@ class Admin extends Controller {
 //            Cache::set(session("user.group_id"),$Menu->getMenu());
 //            $menus = Cache::get(session("user.group_id"));
 //        }
-        $Menu = new MenuModel();
+        $Menu = new Menu();
         $menus = $Menu->getMenu();
         $this->assign("_MENU_", $menus);
     }

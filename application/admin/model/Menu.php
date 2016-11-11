@@ -17,7 +17,7 @@ class Menu extends Base{
     
     public function getMenu() {
         $Tree = new Tree();
-        return $Tree->toTree(self::all());
+        return $Tree->toTree(self::all(["hide"=>0]));
     }
     
 }
