@@ -6,21 +6,21 @@
         {volist  name="_MENU_" id="menu"}
         <li>
             <div class="icon frist_page"></div>
-            <a href="{:url($menu->url)}">{$menu->title}</a>
+            <a href="{:url($menu->name)}">{$menu->title}</a>
             <div class="icon flod"></div>
             <div class="menu second">
                 <ul>
                     {volist  name="menu->_child" id="menu"}
                     <li>
                         <div class="icon second_page"></div>
-                        <a href="{:url($menu->url)}">{$menu->title}</a>
+                        <a href="{:url($menu->name)}">{$menu->title}</a>
                         {if condition="$menu._child"}
                         <div class="icon flod"></div>
                         <div class="menu third">
                             <div class="triangle-left angle"></div>
                             <ul>
                                 {volist  name="menu->_child" id="menu"}
-                                    <li><a href="{:url($menu->url)}">{$menu->title}</a></li>
+                                    <li><a href="{:url($menu->name)}">{$menu->title}</a></li>
                                 {/volist}
                             </ul>
                         </div>

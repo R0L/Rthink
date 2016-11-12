@@ -1,0 +1,85 @@
+<!-- 管理员用户组新增和编辑页面 -->
+{extend name="common/base" /}
+{block name="style"}
+<style ype="text/css">
+    label{
+        font-size:12px;
+        padding: 5px;
+    }
+    input{
+        height:17px;
+        vertical-align:text-top;
+        margin-top:0;
+    }
+    .level{
+        margin: 20px 0px;
+        border: 1px solid red;
+        padding: 10px;
+    }
+    .level div{
+        margin: 5px 0px 5px 20px;
+    }
+</style>
+{/block}
+{block name="body"}
+<div>
+    <form action="{:url()}" method="post" class="form-horizontal">
+        {volist  name="list" id="menu"}
+        <div class="level menu">
+            <label><input type="checkbox" name="ids[]" {if condition="$menu.checked"} checked="checked"{/if} value="{$menu.id}"/>{$menu.title}</label>
+            {volist  name="menu->_child" id="menu"}
+            <div class="menu">
+                <label><input type="checkbox" name="ids[]" {if condition="$menu.checked"} checked="checked"{/if} value="{$menu.id}"/>{$menu.title}</label>
+                {volist  name="menu->_child" id="menu"}
+                <div  class="menu">
+                    <label><input type="checkbox" name="ids[]" {if condition="$menu.checked"} checked="checked"{/if} value="{$menu.id}"/>{$menu.title}</label>
+                </div>
+                {/volist}
+            </div>
+            {/volist}
+        </div>
+        {/volist}
+        <div class="form-item umar-t50">
+            {if condition=:isset($info['id'])}
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            {/if}
+            <button class="btn submit-btn ajax-posts" type="submit">确 定</button>
+            <button class="btn btn-return" onclick="goBack()">返 回</button>
+        </div>
+    </form>
+</div>
+{/block}
+{block name="script"}
+<script>
+    $(function () {
+
+        $("input[type='checkbox']").click(function () {
+            if ($(this).is(':checked')) {
+                $(this).parent("label").nextAll("div.menu").find("input:not(:checked)").each(function () {
+                    $(this).prop("checked", true);
+                });
+                $(this).parents(".menu").each(function () {
+                    $(this).prevAll("label").find("input:not(:checked)").prop("checked", true);
+                });
+            } else {
+                $(this).parent("label").nextAll("div.menu").find("input:checked").each(function () {
+                    $(this).prop("checked", false);
+                });
+                $(this).parents(".menu").each(function () {
+                    $(this).prevAll("label").find("input:checked").prop("checked", false);
+                });
+            }
+        });
+        
+        function getCheckboxStrs(ids){
+            $("input[name='"+ids+"']:checkbox").each(function(){ 
+                if($(this).attr("checked")){
+                    arrs.push($(this).val());
+                }
+            });
+            return arrs.join(",");
+        }
+        
+    });
+</script>
+{/block}

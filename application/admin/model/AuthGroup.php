@@ -8,7 +8,9 @@ namespace application\admin\model;
  * @desc   
  */
 class AuthGroup extends Base {
-    
-    
-    
+    protected $autoWriteTimestamp = false;
+     //自动完成
+    protected $auto = [];
+    protected $insert = ['status' => 1];  
+    protected $update = [];
 }

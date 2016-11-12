@@ -7,5 +7,18 @@ namespace application\admin\model;
  * @desc   
  */
 class AuthRule extends Base{
-    //put your code here
+    
+    protected $autoWriteTimestamp = false;
+     //自动完成
+    protected $auto = [];
+    protected $insert = ['status' => 1];  
+    protected $update = [];  
+    
+    /**
+     * AuthRule中的父类
+     * @return type
+     */
+    public function authrule(){
+        return $this->hasOne('AuthRule',"id","pid");
+    }
 }

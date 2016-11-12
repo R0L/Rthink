@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/work/Rthink/application/admin/view/User/login.html</file>
+            <file>file:/E:/work/Rthink/application/admin/controller/AuthManager.php</file>
+            <file>file:/E:/work/Rthink/application/admin/logic/AuthGroup.php</file>
+            <file>file:/E:/work/Rthink/application/admin/view/Auth_manager/accessAdd.html</file>
         </group>
     </open-files>
 </project-private>

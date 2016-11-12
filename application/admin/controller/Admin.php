@@ -4,7 +4,7 @@ namespace application\admin\controller;
 
 use \think\Controller;
 use ROL\Auth\Auth;
-use application\admin\model\Menu;
+use application\admin\logic\AuthGroup;
 use application\admin\model\Member;
 use think\Cache;
 use think\Session;
@@ -27,21 +27,17 @@ class Admin extends Controller {
         if ($user_id != 2) {
             $auth = new Auth();
             if (!$auth->check($request->module() . '/' . $request->controller() . '/' . $request->action(), $user_id)) {
-                $this->error("你没有权限");
+                $this->error("你没有权限","common/login");
             }
         }
-        $auth = new Auth();
-        $groups = $auth->getGroups($user_id);
-        dump($groups[0]["rules"]);
-
 //        $menus = Cache::get(session("user.group_id"));
 //        if(!$menus){
 //            $Menu = new MenuModel();
 //            Cache::set(session("user.group_id"),$Menu->getMenu());
 //            $menus = Cache::get(session("user.group_id"));
 //        }
-        $Menu = new Menu();
-        $menus = $Menu->getMenu();
+        $AuthGroup = new AuthGroup();
+        $menus = $AuthGroup->selectByModule();
         $this->assign("_MENU_", $menus);
     }
 

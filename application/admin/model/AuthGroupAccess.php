@@ -8,6 +8,10 @@ namespace application\admin\model;
  * @version V1.0
  * @desc   
  */
-class AuthGroupAccess extends Base {
-    //put your code here
+class AuthGroupAccess extends \think\Model {
+    
+    public function member(){
+        return $this->belongsTo('Member',"uid","id");
+    }
+    
 }
