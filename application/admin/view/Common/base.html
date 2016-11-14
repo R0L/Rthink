@@ -22,11 +22,15 @@
                 {block name="top"}{include file="Common/top" /}{/block}
             </div>
             <div class="content">
-                <div class="breadcrumb_title">商城</div>
+                <div class="breadcrumb_title">{:end($_MP_)->title}</div>
                 <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">2013</a></li>
-                    <li class="active">十一月</li>
+                    {foreach $_MP_ as $key=>$menu }
+                    {eq name="$key" value=":count($_MP_)-1"}
+                        <li class="active">{$menu->title}</li>
+                    {else/}
+                    <li><a href="{:url($menu->name)}">{$menu->title}</a></li>
+                    {/eq}
+                    {/foreach}
                 </ol>
                 <div class="body">
                     <div id="top-alert" class="fixed alert alert-error" style="display: none;margin-bottom: 20px;">

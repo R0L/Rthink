@@ -3,6 +3,7 @@
 namespace application\admin\controller;
 
 use application\admin\model\Category as CategoryModel;
+use think\Request;
 
 /**
  * @author ROL
@@ -20,37 +21,47 @@ class Category extends Admin {
      * 商品分类展示页面
      * @return type
      */
-    public function index() {
-        $title = trim(input('title'));
-        $page = trim(input('page'));
-        $Category = new CategoryModel();
-        $lists = $Category->where(["status" => 1, "title" => ["like", "%" . $title . "%"]])->paginate();
+    public function index(Request $request) {
+        $map = [];
+        $title = $request->param("title");
+        if (empty($title)) {
+            $map["title"] = ["like", "%" . $title . "%"];
+        }
+        $lists = CategoryModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
 
-    public function deal() {
-        $Category = new CategoryModel();
+    /**
+     * 商品分类编辑或者添加
+     * @param Request $request
+     * @return type
+     */
+    public function deal(Request $request) {
         if (request()->isPost()) {
-            if ($Category->deal(input())) {
+            $deal = CategoryModel::deal($request->param());
+            if ($deal) {
                 $this->success("操作成功", url("index"));
             }
-            $this->error("操作失败:" . $Category->getError());
+            $this->error("操作失败");
         } else {
-            ($id = input("param.id")) ? $this->assign("info", $Category->get($id)) : "";
+            ($id = input("param.id")) ? $this->assign("info", CategoryModel::getLineData(["id" => $id])) : "";
             return $this->fetch("edit");
         }
     }
 
-    public function del() {
-        $id = array_unique((array) input('param.id/a'), 0);
+    /**
+     * 商品分类删除
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $id = array_unique((array) $request->param('param.id/a'), 0);
         empty($id) && $this->error("不存在参数ID");
-        $Category = new CategoryModel();
-        $staus_deal = $Category->save(["status" => -1], ["id" => ["in", $id]]);
+        $staus_deal = CategoryModel::del(["id" => ["in", $id]]);
         if ($staus_deal) {
             $this->success("操作成功", url("index"));
         }
-        $this->error("操作失败:" . $Category->getError());
+        $this->error("操作失败");
     }
 
 }

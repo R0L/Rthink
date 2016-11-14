@@ -67,9 +67,9 @@ class AuthManager extends Admin {
     public function accessAdd(Request $reqesut) {
         
         if($reqesut->isPost()){
-            $addToGroup = AuthGroup::addToGroup(input());
+            $addToGroup = AuthGroup::addToAccess($reqesut->param());
             if($addToGroup){
-                $this->success("添加成功");
+                $this->success("添加成功","index");
             }else{
                 $this->error("添加失败");
             }
@@ -84,6 +84,18 @@ class AuthManager extends Admin {
         return $this->fetch();
     }
     
-    public function accessDel() {
+    /**
+     * 权限管理-成员授权-删除
+     * @param Request $reqesut
+     */
+    public function accessDel(Request $reqesut) {
+        $uid = $reqesut->param("uid");
+        $uid || $this->error("不存在参数uid");
+        $delToAccess = AuthGroup::delToAccess($uid);
+        if($delToAccess){
+            $this->success("删除成功");
+        }else{
+            $this->error("删除失败");
+        }
     }
 }

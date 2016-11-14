@@ -1,0 +1,39 @@
+{extend name="common/base" /}
+{block name="body"}
+<form action="{:url()}" method="post" class="form-horizontal">
+    <div class="form-item">
+        <label class="item-label">配置分组<span class="check-tips">（配置所属不同的分组）</span></label>
+        <div class="controls">
+            <select name="config_type">
+                {foreach $config_type_list as $key=>$config_type}
+                <option value="{$key}">{$config_type}</option>
+                {/foreach}              
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">配置名称<span class="check-tips">（用于Config调用标志）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">配置标题<span class="check-tips">（用于表示配置信息）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+        </div>
+    </div>
+    <div class="form-item umar-t50">
+        {if condition=:isset($info['id'])}
+        <input type="hidden" name="id" value="{$info.id|default=''}">
+        {/if}
+        <button class="btn submit-btn ajax-posts" type="submit">确 定</button>
+        <button class="btn btn-return" onclick="goBack()">返 回</button>
+    </div>
+</form>
+{/block}
+
+{block name="script"}
+<script type="text/javascript">
+</script>
+{/block}

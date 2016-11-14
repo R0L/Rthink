@@ -7,5 +7,12 @@ namespace application\admin\model;
  * @desc   
  */
 class UserInfo extends Base {
-    //put your code here
+    protected $autoWriteTimestamp = false;
+     //自动完成
+    protected $auto = [];
+    protected $insert = [];  
+    protected $update = [];
+    
+    protected function base($query) {
+    }
 }

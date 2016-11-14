@@ -3,6 +3,7 @@
 namespace application\admin\controller;
 
 use application\admin\model\User as UserModel;
+use think\Request;
 
 /**
  * @author ROL
@@ -12,15 +13,13 @@ use application\admin\model\User as UserModel;
  */
 class User extends Admin {
 
-    public function index() {
+    public function index(Request $request) {
         $map = array();
-        $map["status"] = 1;
-        $title = trim(input('title'));
+        $title = $request->param("title");
         if (!empty($title)) {
             $map["user_name|mobile|email|real_name"] = ["like", "%" . $title . "%"];
         }
-        $User = new UserModel();
-        $lists = $User->where($map)->paginate();
+        $lists = UserModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }

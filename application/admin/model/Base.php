@@ -104,7 +104,7 @@ class Base extends Model {
         if (empty($terminal)) {
             $terminal = $data["terminal"];
         }
-        $op_status = [1 => 'PC', 2 => 'WAP', 3 => "Android", 4 => "IOS", 5 => "WeChat"];
+        $op_status = [1=>'系统',2 => 'PC', 3 => 'WAP', 4 => "Android", 5 => "IOS", 6 => "WeChat"];
         return $op_status[intval($terminal)];
     }
 
@@ -123,11 +123,55 @@ class Base extends Model {
      * @param type $where
      * @return type
      */
-    public function deal($data = null, $where = null) {
-        $status_create = $this->isUpdate(array_key_exists("id", $data))->allowField(true)->validate(true)->save($data, $where);
-        if ($status_create) {
-            return $this->id;
+//    public function deal($data = null, $where = null) {
+//        $status_create = $this->isUpdate(array_key_exists("id", $data))->allowField(true)->validate(true)->save($data, $where);
+//        if ($status_create) {
+//            return $this->id;
+//        }
+//        return $status_create;
+//    }
+    
+    
+    
+    /**
+     * 分页
+     */
+    public static function paginate($map = null) {
+        return parent::where($map)->paginate();
+    }
+    
+    /**
+     * 操作数据的更新或添加
+     * @param type $data
+     * @param type $map
+     * @return type
+     */
+    public static function deal($data,$map = NULL) {
+        if(in_array("id", $data)){
+            return self::update($data, $map);
         }
-        return $status_create;
+        $create = self::create($data);
+        if(empty($create)){
+            return false;
+        }
+        return $create->id;
+    }
+    
+    /**
+     * 根据id删除
+     * @param type $map
+     * @return type
+     */
+    public static function del($map = NULL) {
+        return parent::update(["status"=>-1],$map);
+    }
+    
+    /**
+     * 根据id查询
+     * @param type $map
+     * @return type
+     */
+    public static function getLineData($map) {
+        return parent::get($map);
     }
 }

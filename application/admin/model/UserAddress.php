@@ -9,7 +9,6 @@ namespace application\admin\model;
  * @desc   
  */
 class UserAddress extends Base {
-
     
     /**
      * 地址是否默认

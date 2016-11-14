@@ -1,19 +1,18 @@
 {extend name="common/base" /}
-
 {block name="body"}
-
 <div class="cf umar-b toolbar">
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入记录信息">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
             <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('clear')}">清 空</a>
+        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <button class="btn export-btn ajax-post confirm" url="{:url('import')}" target-form="ids">导 出</button>
+        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
+        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
     </div>
 </div>
 
@@ -22,27 +21,34 @@
         <table>
             <thead>
                 <tr>
-                    <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
-                    <th class="">编号</th>
-                    <th class="">行为名称</th>
-                    <th class="">记录信息</th>
-                    <th class="">执行IP</th>
-                    <th class="">执行时间</th>
-                    <th class="">操作</th>
+                    <th class="row-selected">
+                            <input class="checkbox check-all" type="checkbox">
+                    </th>
+                    <th>ID</th>
+                    <th>名称</th>
+                    <th>标题</th>
+                    <th>分组</th>
+                    <th>创建时间</th>
+                    <th>更新时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tbody>
                 {notempty name="lists"}
                 {volist name="lists" id="vo"}
                 <tr>
-                    <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
-			<td>{$vo.id} </td>
-			<td>{$vo->action->title}</td>
-			<td><span>{$vo.remark}</span></td>
-			<td><span>{$vo.action_ip}</span></td>
-			<td><span>{$vo.create_time_fromat}</span></td>
+                        <td><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+                        <td><span>{$vo.id}</span></td>
+                        <td><span>{$vo.name}</span></td>
+                        <td><span>{$vo.title}</span></td>
+                        <td><span>{$vo.config_type_text}</span></td>
+                        <td><span>{$vo.create_time_fromat}</span></td>
+                        <td><span>{$vo.update_time_fromat}</span></td>
+			<td><span>{$vo.status_text}</span></td>
                     <td>
-                        <a class="confirm ajax-get del-a"  title="删除" href="{:url('del?id='.$menu['id'])}">删除</a>
+                        <a title="编辑" class="edit-a" href="{:url('deal?id='.$vo['id'])}">编辑</a>
+                        <a class="confirm ajax-get del-a" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
                     </td>
                 </tr>
                 {/volist}

@@ -5,7 +5,9 @@ namespace application\admin\controller;
 use \think\Controller;
 use ROL\Auth\Auth;
 use application\admin\logic\AuthGroup;
+use application\admin\logic\Config as ConfigLogic;
 use application\admin\model\Member;
+use think\Config;
 use think\Cache;
 use think\Session;
 use think\Request;
@@ -21,24 +23,37 @@ class Admin extends Controller {
     //初始化
     public function _initialize() {
         $user_id = Session::get('user_id');
+        
+        empty($user_id) && $this->error("你还没有登录,请先登录！","common/login");
+        
         $request = Request::instance();
         $request->bind('user',Member::get($user_id));
+        $request->bind('group_id',AuthGroup::getGroupIdByuid($user_id));
         
         if ($user_id != 2) {
             $auth = new Auth();
             if (!$auth->check($request->module() . '/' . $request->controller() . '/' . $request->action(), $user_id)) {
-                $this->error("你没有权限","common/login");
+                $this->error("你没有权限");
             }
         }
-//        $menus = Cache::get(session("user.group_id"));
-//        if(!$menus){
-//            $Menu = new MenuModel();
-//            Cache::set(session("user.group_id"),$Menu->getMenu());
-//            $menus = Cache::get(session("user.group_id"));
-//        }
-        $AuthGroup = new AuthGroup();
-        $menus = $AuthGroup->selectByModule();
+        $menus = Cache::get($request->group_id);
+        if(empty($menus)){
+            Cache::set($request->group_id,AuthGroup::selectByModuleUserId($request->module(),$user_id));
+            $menus = Cache::get($request->group_id);
+        };
+        $menuParent = AuthGroup::getMenuParent($request->path());
+//        $menuParent = AuthGroup::getMenuParent($request->module() . '/' . $request->controller() . '/' . $request->action());
+        
+        $this->assign("_MP_", array_reverse($menuParent));
+        
         $this->assign("_MENU_", $menus);
+        
+        Config::set(ConfigLogic::getConfig());
+        
+        
+        
+        $objPHPExcel = new \ROL\PHPExcel\PHPExcel();
+        dump($objPHPExcel);
     }
 
     //前置操作
@@ -47,24 +62,4 @@ class Admin extends Controller {
     public function _empty() {
         return "操作不存在";
     }
-
-    /**
-     * 默认index
-     * @return type
-     */
-    public function index() {
-        return $this->fetch();
-    }
-
-    /**
-     * 
-     */
-    public function del() {
-        
-    }
-
-    public function edit() {
-        
-    }
-
 }
