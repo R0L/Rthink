@@ -31,7 +31,6 @@
                     <th>上级菜单</th>
                     <th>URL</th>
                     <th>排序</th>
-                    <th>隐藏</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -44,14 +43,9 @@
                     <td>
                         <a href="{:url('index?pid='.$menu['id'])}">{$menu.title}</a>
                     </td>
-                    <td>{$menu->menu->title|default='无'}</td>
-                    <td>{$menu.url}</td>
+                    <td>{$menu->authrule->title|default='无'}</td>
+                    <td>{$menu.name}</td>
                     <td>{$menu.sort}</td>
-                    <td>
-                        <a href="{:url('toogleHide',array('id'=>$menu['id'],'value'=>abs($menu['hide']-1)))}" class="ajax-get">
-                            {$menu.hide}
-                        </a>
-                    </td>
                     <td>
                         <a class="edit-a" title="编辑" href="{:url('edit?id='.$menu['id'])}">编辑</a>
                         <a class="confirm ajax-get del-a" title="删除" href="{:url('del?id='.$menu['id'])}">删除</a>

@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\ActionLog;
+use application\admin\logic\ActionLog;
 use think\Request;
 
 /**
@@ -22,8 +22,37 @@ class Action extends Admin {
         return $this->fetch();
     }
     
-    public function clear() {
-        return true;
+    /**
+     * 清空行为日志
+     * @param Request $request
+     */
+    public function clear(Request $request) {
+        $statusClear = ActionLog::del(["status"=>1]);
+        if($statusClear){
+            $this->success("操作成功");
+        }
+        $this->error("操作失败");
+    }
+    
+    /**
+     * 行为日志删除
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $statusDel = ActionLog::del(["id"=>["in",$request->param("ids/a")]]);
+        if($statusDel){
+            $this->success("操作成功");
+        }
+        $this->error("操作失败");
+    }
+    
+    /**
+     * 导出行为日志列表
+     * @param Request $request
+     */
+    public function import(Request $request) {
+        $selectToActionLog = ActionLog::selectToActionLog($request->param("ids/a"));
+        create_xls($selectToActionLog,"行为日志列表".date("Y-m-d H:i:s").".xls");
     }
 
 }

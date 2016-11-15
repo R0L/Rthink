@@ -164,7 +164,7 @@ window.updateAlert = function (text, c) {
         }
     } else {
         if (top_alert.hasClass('block')) {
-//            top_alert.removeClass('block').slideUp(1000);
+//            top_alert.removeClass('block').slideUp(200);
             // content.animate({paddingTop:'-=55'},200);
         }
     }

@@ -31,10 +31,11 @@ class AuthGroup extends AuthGroupModel {
      * @param type $module
      * @return type
      */
-    public static function selectByModule($module=null,$userId = null,$rules = null) {
+    public static function selectByModule($module=null,$userId = null,$rules = null,$isMenus = true) {
         $map =  [];
         $module&&$map["module"] = $module;
         $rules&&$map["id"] = ["in",$rules];
+        $isMenus && $map["is_meuns"] = 1;
         $Tree = new Tree();
         
         $authRuleAll = AuthRule::all($map);

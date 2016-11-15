@@ -577,7 +577,13 @@ label.textarea ~ .check-tips {
 .export-btn{
     background-color:#ff6055;
 }
+.export-btn-out{
+    background-color:#428bca;
+}
 .sort-btn{
+    background-color:#4dc1f0;
+}
+.clear-btn{
     background-color:#4dc1f0;
 }
 
@@ -1044,7 +1050,7 @@ label.textarea ~ .check-tips {
     top: -2px;
     right: -21px;
     font: bold 20px/20px arial; 
-	color: #c09853;
+	color: #fefefe;
     opacity: 0.4;
 }
 .alert .close:hover {
@@ -1094,9 +1100,9 @@ button.close {
     font-size: 16px;
 }
 #top-alert .close{
-    right:35px;
+    right:54px;
     position: fixed;
-    top:75px;
+    top:200px;
 }
 .alert-content{
 	margin-left: 14px;

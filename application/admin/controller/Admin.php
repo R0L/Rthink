@@ -27,10 +27,10 @@ class Admin extends Controller {
         empty($user_id) && $this->error("你还没有登录,请先登录！","common/login");
         
         $request = Request::instance();
-        $request->bind('user',Member::get($user_id));
+        $request->bind('user',Member::useGlobalScope(false)->get(["status"=>1,"id"=>$user_id]));
         $request->bind('group_id',AuthGroup::getGroupIdByuid($user_id));
         
-        if ($user_id != 2) {
+        if ($request->group_id != 1) {
             $auth = new Auth();
             if (!$auth->check($request->module() . '/' . $request->controller() . '/' . $request->action(), $user_id)) {
                 $this->error("你没有权限");
@@ -41,19 +41,13 @@ class Admin extends Controller {
             Cache::set($request->group_id,AuthGroup::selectByModuleUserId($request->module(),$user_id));
             $menus = Cache::get($request->group_id);
         };
-        $menuParent = AuthGroup::getMenuParent($request->path());
-//        $menuParent = AuthGroup::getMenuParent($request->module() . '/' . $request->controller() . '/' . $request->action());
+//        $menuParent = AuthGroup::getMenuParent($request->path());
+        $menuParent = AuthGroup::getMenuParent($request->module() . '/' . $request->controller() . '/' . $request->action());
         
         $this->assign("_MP_", array_reverse($menuParent));
-        
         $this->assign("_MENU_", $menus);
         
         Config::set(ConfigLogic::getConfig());
-        
-        
-        
-        $objPHPExcel = new \ROL\PHPExcel\PHPExcel();
-        dump($objPHPExcel);
     }
 
     //前置操作

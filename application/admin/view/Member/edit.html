@@ -2,39 +2,19 @@
 {block name="body"}
 <form action="{:url()}" method="post" class="form-horizontal">
     <div class="form-item">
-        <label class="item-label">父级栏目<span class="check-tips">（所属的上级栏目）</span></label>
+        <label class="item-label">用户帐号<span class="check-tips">（用于后台登陆的用户帐号）</span></label>
         <div class="controls">
-            <select name="pid">
-                <option value="{$menu.id}">{$menu->title}</option>
-            </select>
+            <input type="text" class="text input-large" name="title" value="{$info.user_name|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目标题<span class="check-tips">（用于前端的栏目名称）</span></label>
+        <label class="item-label">用户密码<span class="check-tips">（用于后台登陆的用户密码）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
-        </div>
-    </div>
-    <div class="form-item">
-        <label class="item-label">栏目图标<span class="check-tips">（用于前端的栏目图标展示）</span></label>
-        <div class="controls">
-            <input type="text" class="text input-large" name="icon" value="{$info.icon|default=''}">
-        </div>
-    </div>
-    <div class="form-item">
-        <label class="item-label">栏目排序<span class="check-tips">（用于前端的栏目排序）</span></label>
-        <div class="controls">
-            <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
-        </div>
-    </div>
-    <div class="form-item">
-        <label class="item-label">栏目显隐<span class="check-tips">（是：表示隐藏，否：反之）</span></label>
-        <div class="controls">
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="hide" value="1">是</label>
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="hide" value="0">否</label>
+            <input type="text" class="text input-large" name="icon" value="{$info.password|default=''}">
         </div>
     </div>
     <div class="form-item umar-t50">
+        <input type="hidden" name="pid" value="{$info.pid|default=''}">
         {if condition=:isset($info['id'])}
         <input type="hidden" name="id" value="{$info.id|default=''}">
         {/if}

@@ -26,9 +26,11 @@
         "rol/umeng": "dev-master",
         "endroid/qrcode": "^1.7",
         "loveteemo/qqconnect": "^1.2",
-        "saltrc/thinkphp-alipay": "dev-master",
-        "writethesky/php-excel-reader": "^1.0",
-        "rol/auth": "dev-master"
+        "rol/auth": "dev-master",
+        "PHPOffice/PHPExcel": "^1.8",
+        "riverslei/payment": "^2.6",
+        "phpmailer/phpmailer": "^5.2",
+        "rol/chuanglan": "dev-master"
     },
     "extra": {
         "think-path": "thinkphp"

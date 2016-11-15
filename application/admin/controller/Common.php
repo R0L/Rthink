@@ -49,4 +49,32 @@ class Common extends Controller{
         
     }
     
+    
+    public function execl() {
+        $data = array(
+            array(NULL, 2010, 2011, 2012),
+            array('Q1',   12,   15,   21),
+            array('Q2',   56,   73,   86),
+            array('Q3',   52,   61,   69),
+            array('Q4',   30,   32,    0),
+           );
+
+        create_xls($data);
+    }
+    
+    
+    public function mail() {
+
+        $send_mail = send_mail("2080775740@qq.com", "测试测试", "测试测试测试测试测试测试");
+        
+        dump($send_mail);
+        
+    }
+    
+    
+    public function Chuanglan() {
+        $ChuanglanSMS = new \ROL\Chuanglan\ChuanglanSMS("国讯通");
+        
+        $ChuanglanSMS->sendVoice("13281563075", "4546");
+    }
 }

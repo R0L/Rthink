@@ -11,8 +11,8 @@
     <div class="fr cf">
         <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
+        <a class="btn export-btn-out" href="{:url('import')}">导 出</a>
+        <a class="btn export-btn" href="{:url('import')}">导 入</a>
     </div>
 </div>
 

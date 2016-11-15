@@ -3,6 +3,7 @@
 namespace application\admin\model;
 
 use think\Model;
+use think\Session;
 
 /**
  * @author ROL
@@ -114,7 +115,12 @@ class Base extends Model {
     
     // 定义全局的查询范围
     protected function base($query) {
-        $query->where('status', 1);
+        $map['status'] = 1;
+        $user_id = Session::get("user_id");
+        if(!in_array($user_id,[1] ) ){
+           $map['pub_id'] = $user_id;
+        }
+        $query->where($map);
     }
 
     /**
@@ -163,6 +169,7 @@ class Base extends Model {
      * @return type
      */
     public static function del($map = NULL) {
+        $user_id = Session::get('user_id');
         return parent::update(["status"=>-1],$map);
     }
     
@@ -171,7 +178,17 @@ class Base extends Model {
      * @param type $map
      * @return type
      */
-    public static function getLineData($map) {
+    public static function getLineData($map=NULL) {
         return parent::get($map);
+    }
+    
+    
+    /**
+     * 根据条件清空
+     * @param type $map
+     * @return type
+     */
+    public static function clear($map=NULL) {
+        return parent::destroy($map);
     }
 }

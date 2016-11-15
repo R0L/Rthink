@@ -13,4 +13,10 @@ class AuthGroup extends Base {
     protected $auto = [];
     protected $insert = ['status' => 1];  
     protected $update = [];
+    
+    // 定义全局的查询范围
+    protected function base($query) {
+        $map['status'] = 1;
+        $query->where($map);
+    }
 }

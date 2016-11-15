@@ -1,4 +1,5 @@
 <?php
+
 namespace application\admin\model;
 
 /**
@@ -7,6 +8,12 @@ namespace application\admin\model;
  * @version V1.0
  * @desc   
  */
-class Member extends User{
-    
+class Member extends User {
+
+// 定义全局的查询范围
+    protected function base($query) {
+        $map['status'] = 1;
+        $query->where($map);
+    }
+
 }

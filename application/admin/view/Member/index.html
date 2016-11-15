@@ -4,15 +4,14 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入帐号">
             <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
+        <a class="btn add-btn" href="{:url('deal')}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
+        <a class="btn export-btn-out" href="{:url('import')}">导 出</a>
     </div>
 </div>
 
@@ -24,7 +23,6 @@
                     <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
                     <th class="">编号</th>
                     <th class="">用户账户</th>
-                    <th class="">用户姓名</th>
                     <th class="">登录次数</th>
                     <th class="">注册IP</th>
                     <th class="">注册时间</th>
