@@ -27,7 +27,12 @@ class Admin extends Controller {
         empty($user_id) && $this->error("你还没有登录,请先登录！","common/login");
         
         $request = Request::instance();
-        $request->bind('user',Member::useGlobalScope(false)->get(["status"=>1,"id"=>$user_id]));
+        $user = Member::useGlobalScope(false)->get(["status"=>1,"id"=>$user_id]);
+        $request->bind('user',$user);
+        if($user->pid){
+            $user = Member::useGlobalScope(false)->get(["status"=>1,"id"=>$user->pid]);
+        }
+        $request->bind('pubuser',$user);
         $request->bind('group_id',AuthGroup::getGroupIdByuid($user_id));
         
         if ($request->group_id != 1) {

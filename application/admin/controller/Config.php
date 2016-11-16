@@ -17,7 +17,8 @@ class Config extends Admin {
      * @return type
      */
     public function website(Request $request) {
-        $lists = ConfigLogic::paginate($request->param());
+        $param = $request->except("page");
+        $lists = ConfigLogic::paginate($param);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
@@ -59,14 +60,49 @@ class Config extends Admin {
     }
     
     
+    /**
+     * 导出
+     * @param Request $request
+     */
+    public function export(Request $request) {
+        $selectToConfig = ConfigLogic::selectToConfig($request->param("ids/a"));
+        create_xls($selectToConfig,"网站配置列表".date("Y-m-d H:i:s").".xls");
+    }
     
+    /**
+     * 导入
+     * @param Request $request
+     */
+    public function import(Request $request){
+        return;
+    }
+    
+    /**
+     * 设置界面的共有方法
+     * @param Request $request
+     * @param type $ConfigType
+     */
+    private function setConfig(Request $request,$ConfigType=0){
+        if($request->isPost()){
+            $statusUpdate = ConfigLogic::updateByConfigType($request->param("id/a"),$request->param("value/a"));
+            if($statusUpdate){
+                $this->success("操作成功");
+            }
+            $this->error("操作失败");
+        }
+        $selectByConfigType = ConfigLogic::selectByConfigType($ConfigType);
+        $this->assign("info_list",$selectByConfigType);
+        return $this->fetch("config");
+    }
+
+
     /**
      * 支付配置
      * @param Request $request
      * @return type
      */
     public function payment(Request $request) {
-        return $this->fetch();
+        return $this->setConfig($request, ConfigLogic::CONFIG_PAYMENT);
     }
     /**
      * 短信配置
@@ -74,7 +110,7 @@ class Config extends Admin {
      * @return type
      */
     public function message(Request $request) {
-        return $this->fetch();
+        return $this->setConfig($request, ConfigLogic::CONFIG_MESSAGE);
     }
     /**
      * 邮件配置
@@ -82,7 +118,7 @@ class Config extends Admin {
      * @return type
      */
     public function mail(Request $request) {
-        return $this->fetch();
+        return $this->setConfig($request, ConfigLogic::CONFIG_MAIL);
     }
     
 }

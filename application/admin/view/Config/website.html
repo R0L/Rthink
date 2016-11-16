@@ -4,14 +4,14 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
-            <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入标题名称">
+            <a class="sch-btn" href="javascript:;" id="search" url="{:url('website')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
         <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn-out" href="{:url('import')}">导 出</a>
+        <a class="btn export-btn-out" href="{:url('export')}">导 出</a>
         <a class="btn export-btn" href="{:url('import')}">导 入</a>
     </div>
 </div>
@@ -25,9 +25,9 @@
                             <input class="checkbox check-all" type="checkbox">
                     </th>
                     <th>ID</th>
-                    <th>名称</th>
-                    <th>标题</th>
-                    <th>分组</th>
+                    <th>配置名称</th>
+                    <th>配置标题</th>
+                    <th>配置分组</th>
                     <th>创建时间</th>
                     <th>更新时间</th>
                     <th>状态</th>

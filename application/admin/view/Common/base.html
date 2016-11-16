@@ -22,6 +22,7 @@
                 {block name="top"}{include file="Common/top" /}{/block}
             </div>
             <div class="content">
+                {notempty name="_MP_"}
                 <div class="breadcrumb_title">{:end($_MP_)->title}</div>
                 <ol class="breadcrumb">
                     {foreach $_MP_ as $key=>$menu }
@@ -32,6 +33,7 @@
                     {/eq}
                     {/foreach}
                 </ol>
+                {/notempty}
                 <div class="body">
                     <div id="top-alert" class="fixed alert alert-error" style="display: none;margin-bottom: 20px;">
                         <button class="close fixed" style="margin-top: 4px;">&times;</button>

@@ -3,9 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/work/Rthink/application/admin/controller/AuthManager.php</file>
-            <file>file:/E:/work/Rthink/application/admin/logic/AuthGroup.php</file>
-            <file>file:/E:/work/Rthink/application/admin/view/Auth_manager/accessAdd.html</file>
+            <file>file:/E:/work/Rthink/application/admin/controller/AuthRule.php</file>
+            <file>file:/E:/work/Rthink/application/admin/logic/AuthRule.php</file>
+            <file>file:/E:/work/Rthink/application/admin/view/auth_rule/edit.html</file>
+            <file>file:/E:/work/Rthink/application/admin/view/Common/menu.html</file>
         </group>
     </open-files>
 </project-private>

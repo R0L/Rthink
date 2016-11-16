@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use think\Request;
-use application\admin\model\AuthRule as AuthRuleModel;
+use application\admin\logic\AuthRule as AuthRuleLogic;
 
 
 /**
@@ -21,21 +21,33 @@ class AuthRule extends Admin {
         $pid = $request->param("pid", 0);
         $map["pid"] = $pid;
         if (empty($pid)) {
-            $data = AuthRuleModel::get($pid);
+            $data = AuthRuleLogic::get($pid);
             $this->assign('data', $data);
         }
         if($title = $request->param("title")){
             $map["title"] = $title;
         }
-        $lists = AuthRuleModel::paginate($map);
+        $lists = AuthRuleLogic::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
     
-    public function add(){
-        $this->assign('info',array('pid'=>input('pid')));
-//        $menus = array_merge(array(0=>array('id'=>0,'title'=>'顶级菜单')),$Menu->getMenu());
-//        $this->assign('Menus', $Menu->getMenu());
+    public function add(Request $request){
+        return  $this->deal($request);
+    }
+    
+    private function deal(Request $request) {
+        if($request->isPost()){
+            
+        }
+        $id = $request->param("id");
+        if($id){
+            $authRuleGet = AuthRuleLogic::getLineData(["id"=>$id]);
+            $this->assign("info", $authRuleGet);
+        }else{
+            $this->assign("info", ["id"=>0]);
+        }
+        $this->assign('menus',AuthRuleLogic::selectToMenus());
         return $this->fetch('edit');
     }
 }

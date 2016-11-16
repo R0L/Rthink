@@ -153,7 +153,7 @@ class Base extends Model {
      * @return type
      */
     public static function deal($data,$map = NULL) {
-        if(in_array("id", $data)){
+        if(array_key_exists("id", $data)){
             return self::update($data, $map);
         }
         $create = self::create($data);
@@ -169,8 +169,15 @@ class Base extends Model {
      * @return type
      */
     public static function del($map = NULL) {
-        $user_id = Session::get('user_id');
         return parent::update(["status"=>-1],$map);
+    }
+    /**
+     * 根据ids删除
+     * @param type $ids
+     * @return type
+     */
+    public static function delByIds($ids = []) {
+        return parent::update(["status"=>-1],["id"=>["in",$ids]]);
     }
     
     /**

@@ -24,9 +24,31 @@
             <label class="item-label">上级菜单<span class="check-tips">（所属的上级菜单）</span></label>
             <div class="controls">
                 <select name="pid">
-                    {volist name="Menus" id="menu"}
-                        <option value="{$menu.id}">{$menu->title}</option>
-                    {/volist}
+                        {volist  name="menus" id="menu"}
+                            {if condition="$menu->id eq $info.id"}
+                                <option value="{$menu->id}" selected="selected">{$menu->title}</option>
+                            {else/}
+                                <option value="{$menu->id}">{$menu->title}</option>
+                            {/if}
+                            <optgroup>
+                            {volist  name="menu->_child" id="menu"}
+                                {if condition="$menu->id eq $info.id"}
+                                    <option value="{$menu.id}" selected="selected">{$menu->title}</option>
+                                {else/}
+                                    <option value="{$menu.id}">{$menu->title}</option>
+                                {/if}
+                                <optgroup>
+                                {volist  name="menu->_child" id="menu"}
+                                    {if condition="$menu->id eq $info.id"}
+                                        <option value="{$menu.id}" selected="selected">{$menu->title}</option>
+                                    {else/}
+                                        <option value="{$menu.id}">{$menu->title}</option>
+                                    {/if}
+                                {/volist}
+                                </optgroup>
+                            {/volist}
+                            </optgroup>
+                        {/volist}
                 </select>
             </div>
         </div>

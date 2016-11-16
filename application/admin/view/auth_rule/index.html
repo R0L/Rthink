@@ -13,13 +13,11 @@
     <div class="fr cf">
         <a class="btn add-btn" href="{:url('add',array('pid'=>input('get.pid',0)))}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
     </div>
 </div>
 
 <div class="data-table table-striped">
-    <form class="ids">
+    <form>
         <table>
             <thead>
                 <tr>
@@ -27,7 +25,7 @@
                         <input class="checkbox check-all" type="checkbox">
                     </th>
                     <th>ID</th>
-                    <th>名称</th>
+                    <th>菜单名称</th>
                     <th>上级菜单</th>
                     <th>URL</th>
                     <th>排序</th>
@@ -43,7 +41,7 @@
                     <td>
                         <a href="{:url('index?pid='.$menu['id'])}">{$menu.title}</a>
                     </td>
-                    <td>{$menu->authrule->title|default='无'}</td>
+                    <td>{$menu.authrule.title|default='无'}</td>
                     <td>{$menu.name}</td>
                     <td>{$menu.sort}</td>
                     <td>
