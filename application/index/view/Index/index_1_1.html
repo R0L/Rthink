@@ -13,9 +13,11 @@ and open the template in the editor.
     <body>
         <div><img src="{:captcha_src()}" alt="验证码" onclick="this.src='{:captcha_src()}'" /></div>
         <div>{$data}</div>
+        <img src="{:url('index/qrcode/view')}">
         
-        {my:umeditor/}
-        <img src="{:url('index/qrcode/view')}"/>
+        <div>{:hook('uploadhook', ['name'=>'xxx','status'=>false])}</div>
+        
+        <ueditor />
         
     </body>
 </html>

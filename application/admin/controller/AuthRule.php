@@ -32,13 +32,48 @@ class AuthRule extends Admin {
         return $this->fetch();
     }
     
+    /**
+     * 菜单添加
+     * @param Request $request
+     * @return type
+     */
     public function add(Request $request){
         return  $this->deal($request);
     }
     
+    /**
+     * 菜单编辑
+     * @param Request $request
+     * @return type
+     */
+    public function edit(Request $request) {
+        return  $this->deal($request);
+    }
+    
+    /**
+     * 菜单删除
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $delByIds = AuthRuleLogic::delByIds($request->param("id/a"));
+        if ($delByIds) {
+            $this->success("操作成功");
+        }
+        $this->success("操作失败");
+    }
+
+    /**
+     * 菜单编辑或添加
+     * @param Request $request
+     * @return type
+     */
     private function deal(Request $request) {
         if($request->isPost()){
-            
+            $statusDeal = AuthRuleLogic::deal($request->param());
+            if($statusDeal){
+                $this->success("操作成功","index");
+            }
+            $this->success("操作失败");
         }
         $id = $request->param("id");
         if($id){

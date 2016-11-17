@@ -1110,3 +1110,19 @@ button.close {
     word-wrap: break-word;
     word-break: break-word;
 }
+
+
+
+/*
+列表图片处理
+*/
+
+img.cover{
+    width:24px;
+    height:24px;
+}
+img.cover:hover{
+    -webkit-transform:scale(10,10);
+    -moz-transform:scale(10,10);
+    -transform:scale(10,10);
+}

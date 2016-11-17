@@ -4,15 +4,13 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入幻灯片名称">
             <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
+        <a class="btn add-btn" href="{:url('add')}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
     </div>
 </div>
 
@@ -28,7 +26,6 @@
                     <th class="">幻灯片链接</th>
                     <th class="">点击次数</th>
                     <th class="">排序</th>
-                    <th class="">显示</th>
                     <th class="">创建时间</th>
                     <th class="">更新时间</th>
                     <th class="">状态</th>
@@ -40,19 +37,18 @@
                 {volist name="lists" id="vo"}
                 <tr>
                     <td><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
-                        <td><span>{$vo->id}</span></td>
-                        <td><span>{$vo->title}</span></td>
-                        <td><span>{$vo->picture_id}</span></td>
-                        <td><span>{$vo->link}</span></td>
-                        <td><span>{$vo->click_id}</span></td>
-                        <td><span>{$vo->sort}</span></td>
-                        <td><span>{$vo->display}</span></td>
-			<td><span>{$vo->create_time_fromat}</span></td>
-			<td><span>{$vo->update_time_fromat}</span></td>
-			<td><span>{$vo->status_text}</span></td>
+                        <td><span>{$vo.id}</span></td>
+                        <td><span>{$vo.title}</span></td>
+                        <td><span>{:get_cover_html($vo.picture_id)}</span></td>
+                        <td><span>{$vo.link}</span></td>
+                        <td><span>{$vo.click_id}</span></td>
+                        <td><span>{$vo.sort}</span></td>
+			<td><span>{$vo.create_time_fromat}</span></td>
+			<td><span>{$vo.update_time_fromat}</span></td>
+			<td><span>{$vo.status_text}</span></td>
                     <td>
-                        <a title="编辑" style="color: #61c362;" href="{:url('deal?id='.$vo['id'])}">编辑</a>
-                        <a class="confirm ajax-get" style="color: #fd9701;padding-left: 10px;" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
+                        <a title="编辑" class="edit-a" href="{:url('edit?id='.$vo['id'])}">编辑</a>
+                        <a class="confirm ajax-get del-a" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
                     </td>
                 </tr>
                 {/volist}

@@ -1,15 +1,11 @@
 <?php
-namespace application\admin\model;
 
-use think\Model;
+namespace application\admin\model;
 
 /**
  * 图片模型
- * 负责图片的上传
  */
-class Picture extends Model {
-
-    protected $autoWriteTimestamp = false;
+class Picture extends Base {
 
     /**
      * 文件上传

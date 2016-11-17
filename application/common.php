@@ -77,7 +77,6 @@ function arr2str($arr, $glue = ',') {
     return implode($glue, $arr);
 }
 
-
 /**
  * 设置跳转页面URL
  * 使用函数再次封装，方便以后选择不同的存储方式（目前使用cookie存储）
@@ -98,23 +97,15 @@ function get_redirect_url() {
 }
 
 /**
- * 获取链接信息
- * @param int $link_id
- * @param string $field
- * @return 完整的链接信息或者某一字段
- *
+ * 后台获取图片展示
+ * @param type $cover_id
+ * @return type
  */
-function get_link($link_id = null, $field = 'url') {
-    $link = '';
-    if (empty($link_id)) {
-        return $link;
+function get_cover_html($cover_id) {
+    if (is_numeric($cover_id)) {
+        $cover_id = get_cover($cover_id, "path");
     }
-    $link = M('Url')->getById($link_id);
-    if (empty($field)) {
-        return $link;
-    } else {
-        return $link[$field];
-    }
+    return "<img class='cover' src='" . $cover_id . "'>";
 }
 
 /**
@@ -143,7 +134,6 @@ function time_format($time = NULL, $format = 'Y-m-d H:i') {
     return date($format, $time);
 }
 
-
 /**
  * 小数转汇率
  * @param type $float
@@ -159,6 +149,7 @@ function flaot_to_rate($float) {
 /* * *
  * 手机/PC端浏览器判断
  */
+
 function ismobile() {
     // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
     if (isset($_SERVER['HTTP_X_WAP_PROFILE']))
@@ -195,6 +186,7 @@ function ismobile() {
 /* * *
  * 生成订单号
  */
+
 function trade_no() {
     list($usec, $sec) = explode(" ", microtime());
     $usec = substr(str_replace('0.', '', $usec), 0, 4);
@@ -205,6 +197,7 @@ function trade_no() {
 /* * *
  * 判断数组的深度
  */
+
 function array_depth($a) {
     if (is_array($a)) {
         $max_depth = 0;
@@ -228,38 +221,27 @@ function array_depth($a) {
  * @author 麦当苗儿 <zuojiazi@vip.qq.com>
  */
 function think_encrypt($data, $key = '', $expire = 0) {
-    $key  = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
+    $key = md5(empty($key) ? C('DATA_AUTH_KEY') : $key);
     $data = base64_encode($data);
-    $x    = 0;
-    $len  = strlen($data);
-    $l    = strlen($key);
+    $x = 0;
+    $len = strlen($data);
+    $l = strlen($key);
     $char = '';
 
     for ($i = 0; $i < $len; $i++) {
-        if ($x == $l) $x = 0;
+        if ($x == $l)
+            $x = 0;
         $char .= substr($key, $x, 1);
         $x++;
     }
 
-    $str = sprintf('%010d', $expire ? $expire + time():0);
+    $str = sprintf('%010d', $expire ? $expire + time() : 0);
 
     for ($i = 0; $i < $len; $i++) {
-        $str .= chr(ord(substr($data, $i, 1)) + (ord(substr($char, $i, 1)))%256);
+        $str .= chr(ord(substr($data, $i, 1)) + (ord(substr($char, $i, 1))) % 256);
     }
-    return str_replace(array('+','/','='),array('-','_',''),base64_encode($str));
+    return str_replace(array('+', '/', '='), array('-', '_', ''), base64_encode($str));
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 function is_login() {
     $user_id = session('user_id');
@@ -429,5 +411,53 @@ function execute_action($rules = false, $action_id = null, $user_id = null) {
     return $return;
 }
 
-
-
+/**
+ * 上传文件类型控制 此方法仅限ajax上传使用
+ * @param  string   $path    字符串 保存文件路径示例： /Upload/image/
+ * @param  string   $format  文件格式限制
+ * @param  integer  $maxSize 允许的上传文件最大值 52428800
+ * @return booler   返回ajax的json格式数据
+ */
+function ajax_upload($path = 'file', $format = 'empty', $maxSize = '52428800') {
+    ini_set('max_execution_time', '0');
+    // 去除两边的/
+    $path = trim($path, '/');
+    // 添加Upload根目录
+    $path = strtolower(substr($path, 0, 6)) === 'upload' ? ucfirst($path) : 'Upload/' . $path;
+    // 上传文件类型控制
+    $ext_arr = array(
+        'image' => array('gif', 'jpg', 'jpeg', 'png', 'bmp'),
+        'photo' => array('jpg', 'jpeg', 'png'),
+        'flash' => array('swf', 'flv'),
+        'media' => array('swf', 'flv', 'mp3', 'wav', 'wma', 'wmv', 'mid', 'avi', 'mpg', 'asf', 'rm', 'rmvb'),
+        'file' => array('doc', 'docx', 'xls', 'xlsx', 'ppt', 'htm', 'html', 'txt', 'zip', 'rar', 'gz', 'bz2', 'pdf')
+    );
+    if (!empty($_FILES)) {
+        // 上传文件配置
+        $config = array(
+            'maxSize' => $maxSize, // 上传文件最大为50M
+            'rootPath' => './', // 文件上传保存的根路径
+            'savePath' => './' . $path . '/', // 文件上传的保存路径（相对于根路径）
+            'saveName' => array('uniqid', ''), // 上传文件的保存规则，支持数组和字符串方式定义
+            'autoSub' => true, // 自动使用子目录保存上传文件 默认为true
+            'exts' => isset($ext_arr[$format]) ? $ext_arr[$format] : '',
+        );
+        // 实例化上传
+        $upload = new \Think\Upload($config);
+        // 调用上传方法
+        $info = $upload->upload();
+        $data = array();
+        if (!$info) {
+            // 返回错误信息
+            $error = $upload->getError();
+            $data['error_info'] = $error;
+            echo json_encode($data);
+        } else {
+            // 返回成功信息
+            foreach ($info as $file) {
+                $data['name'] = trim($file['savepath'] . $file['savename'], '.');
+                echo json_encode($data);
+            }
+        }
+    }
+}

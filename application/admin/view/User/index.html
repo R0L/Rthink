@@ -4,20 +4,19 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入用户账户">
             <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
+        <a class="btn add-btn" href="{:url('add')}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
+        <a class="btn export-btn-out" href="{:url('export')}">导 出</a>
     </div>
 </div>
 
 <div class="data-table table-striped">
-    <form class="ids">
+    <form>
         <table>
             <thead>
                 <tr>
@@ -30,7 +29,7 @@
                     <th class="">用户头像</th>
                     <th class="">登录次数</th>
                     <th class="">用户积分</th>
-                    <th class="">用户账户</th>
+                    <th class="">账户余额</th>
                     <th class="">用户红包</th>
                     <th class="">用户地址</th>
                     <th class="">注册IP</th>
@@ -45,7 +44,7 @@
                 {notempty name="lists"}
                 {volist name="lists" id="vo"}
                 <tr>
-                    <td><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
+                    <td><input class="ids"  type="checkbox" name="id[]" value="{$vo.id}" /></td>
                         <td><span>{$vo.id}</span></td>
                         <td><span>{$vo.user_name}</span></td>
                         <td><span>{$vo.mobile}</span></td>
@@ -63,8 +62,8 @@
 			<td><span>{$vo.last_login_time_fromat}</span></td>
 			<td><span>{$vo.status_text}</span></td>
                     <td>
-                        <a title="编辑" style="color: #61c362;" href="{:url('deal?id='.$vo['id'])}">编辑</a>
-                        <a class="confirm ajax-get" style="color: #fd9701;padding-left: 10px;" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
+                        <a title="编辑" class="edit-a" href="{:url('edit?id='.$vo['id'])}">编辑</a>
+                        <a class="confirm ajax-get del-a" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
                     </td>
                 </tr>
                 {/volist}

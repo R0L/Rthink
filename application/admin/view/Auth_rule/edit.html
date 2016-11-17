@@ -1,0 +1,68 @@
+{extend name="common/base" /}
+
+{block name="body"}
+    <form action="{:url()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">上级菜单<span class="check-tips">（所属的上级菜单）</span></label>
+            <div class="controls">
+                <select name="pid">
+                        {volist  name="menus" id="menu"}
+                            {if condition="$menu->id eq $info.id"}
+                                <option value="{$menu->id}" selected="selected">&nbsp;&nbsp;{$menu->title}</option>
+                            {else/}
+                                <option value="{$menu->id}">&nbsp;&nbsp;{$menu->title}</option>
+                            {/if}
+                            {volist  name="menu->_child" id="menu"}
+                                {if condition="$menu->id eq $info.id"}
+                                    <option value="{$menu.id}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
+                                {else/}
+                                    <option value="{$menu.id}">&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
+                                {/if}
+                                {volist  name="menu->_child" id="menu"}
+                                    {if condition="$menu->id eq $info.id"}
+                                        <option value="{$menu.id}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
+                                    {else/}
+                                        <option value="{$menu.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
+                                    {/if}
+                                {/volist}
+                            {/volist}
+                        {/volist}
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">菜单名称<span class="check-tips">（用于后台显示的菜单名称）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">菜单链接<span class="check-tips">（U函数解析的URL或者外链）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">菜单排序<span class="check-tips">（用于后台显示的菜单排序）</span></label>
+            <div class="controls">
+                <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">显示/隐藏<span class="check-tips">（用于后台显示的菜单展示）</span></label>
+            <div class="controls">
+                <label class="radio"><input type="radio" name="is_menu" value="1">是</label>
+                <label class="radio"><input type="radio" name="is_menu" value="0" checked="checked">否</label>
+            </div>
+        </div>
+        <div class="form-item umar-t50">
+            {if condition="$info['id']"}
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            {/if}
+            <button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="goBack()">返 回</button>
+        </div>
+    </form>
+{/block}
+{block name="script"}
+{/block}

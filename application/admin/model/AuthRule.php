@@ -20,6 +20,21 @@ class AuthRule extends Base{
         $query->where($map);
     }
     
+    
+    /**
+     * 菜单显示的状态
+     * @param type $is_menu
+     * @param type $data
+     * @return string
+     */
+    public function getIsMenuTextAttr($is_menu, $data) {
+        if (empty($is_menu)) {
+            $is_menu = $data["is_menu"];
+        }
+        $op_status = [0 => '隐藏', 1 => '显示'];
+        return $op_status[intval($is_menu)];
+    }
+    
     /**
      * AuthRule中的父类
      * @return type

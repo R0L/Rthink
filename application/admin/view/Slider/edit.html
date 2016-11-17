@@ -2,41 +2,49 @@
 {block name="body"}
 <form action="{:url()}" method="post" class="form-horizontal">
     <div class="form-item">
-        <label class="item-label">父级栏目<span class="check-tips">（所属的上级栏目）</span></label>
-        <div class="controls">
-            <select name="pid">
-                <option value="{$menu.id}">{$menu->title}</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-item">
-        <label class="item-label">栏目标题<span class="check-tips">（用于前端的栏目名称）</span></label>
+        <label class="item-label">幻灯片名称<span class="check-tips">（用于前端的幻灯片名称）</span></label>
         <div class="controls">
             <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目图标<span class="check-tips">（用于前端的栏目图标展示）</span></label>
+        <label class="item-label">幻灯片图片<span class="check-tips">（用于前端的栏目图标展示）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="icon" value="{$info.icon|default=''}">
+            <div>{:hook('uploadhook', ['name'=>'picture_id','status'=>false])}</div>
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目排序<span class="check-tips">（用于前端的栏目排序）</span></label>
+        <label class="item-label">幻灯片链接<span class="check-tips">（用于前端的幻灯片链接）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="link" value="{$info.link|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">幻灯片点击次数<span class="check-tips">（用于前端的幻灯片点击次数）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="click_id" value="{$info.click_id|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">幻灯片	排序<span class="check-tips">（用于前端的幻灯片排序）</span></label>
         <div class="controls">
             <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
         </div>
     </div>
-    <div class="form-item">
-        <label class="item-label">栏目显隐<span class="check-tips">（是：表示隐藏，否：反之）</span></label>
-        <div class="controls">
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="hide" value="1">是</label>
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="hide" value="0">否</label>
-        </div>
-    </div>
+     <div class="form-item">
+            <label class="item-label">幻灯片状态</label>
+            <div class="controls">
+                <select name="status">
+                    <option value="0">禁止</option>
+                    <option value="1">正常</option>
+                </select>
+            </div>
+     </div>
     <div class="form-item umar-t50">
+        <input type="hidden" name="member_id" value="{$info.member_id}">
+        <input type="hidden" name="pub_id" value="{$info.pub_id}">
         {if condition=:isset($info['id'])}
-        <input type="hidden" name="id" value="{$info.id|default=''}">
+        <input type="hidden" name="id" value="{$info.id}">
         {/if}
         <button class="btn submit-btn ajax-posts" type="submit">确 定</button>
         <button class="btn btn-return" onclick="goBack()">返 回</button>

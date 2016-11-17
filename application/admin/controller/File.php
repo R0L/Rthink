@@ -1,7 +1,10 @@
 <?php
 
 namespace application\admin\controller;
-use ROL\Upload;
+use ROL\Upload\Upload;
+use think\Request;
+use think\Config;
+use application\admin\model\Picture;
 /**
  * 文件控制器
  * 主要用于下载模型的文件上传和下载
@@ -32,7 +35,6 @@ class File extends Admin {
     }
 
     /* 下载文件 */
-
     public function download($id = null) {
         if (empty($id) || !is_numeric($id)) {
             $this->error('参数错误！');
@@ -47,23 +49,20 @@ class File extends Admin {
     /**
      * 上传图片 
      */
-    public function uploadPicture() {
-        //TODO: 用户登录检测   
-        /* 调用文件上传组件上传文件 */
-        $file = request()->file('download');
+    public function uploadPicture(Request $request) {
+        $file = $request->file('download');
         if (empty($file)) {
             $this->error('请选择上传文件');
         }
-        //TODO:上传到远程服务器 
-        $driver = config('PICTURE_UPLOAD_DRIVER');
-        $setting = config('PICTURE_UPLOAD');
+        $driver = Config::get('PICTURE_UPLOAD_DRIVER');
+        $setting = Config::get('PICTURE_UPLOAD');
         /* 调用文件上传组件上传文件 */
         $this->uploader = new Upload($setting, $driver);
-        $info = $this->uploader->upload($_FILES);
+        $info = $this->uploader->upload();
          /* 记录图片信息 */
         $return['status'] = 0;
         if ($info) {
-            $Picture = model('Picture');
+            $Picture = new Picture();
             $info = $Picture->upload($file,$setting);
             if ($info) {
                 $return['status'] = 1;

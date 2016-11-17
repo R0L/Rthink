@@ -13,6 +13,11 @@ use think\Request;
  */
 class User extends Admin {
 
+    /**
+     * 商城用户管理
+     * @param Request $request
+     * @return type
+     */
     public function index(Request $request) {
         $map = array();
         $title = $request->param("title");
@@ -22,6 +27,22 @@ class User extends Admin {
         $lists = UserModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
+    }
+    
+    public function add(Request $request) {
+        return $this->deal($request);
+    }
+    
+    public function edit(Request $request) {
+        return $this->deal($request);
+    }
+    
+    private function deal(Request $request){
+        if($request->isPost()){
+            
+        }
+       return $this->fetch("edit");
+        
     }
 
 }

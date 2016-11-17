@@ -2,37 +2,67 @@
 {block name="body"}
 <form action="{:url()}" method="post" class="form-horizontal">
     <div class="form-item">
-        <label class="item-label">父级栏目<span class="check-tips">（所属的上级栏目）</span></label>
+        <label class="item-label">用户账户<span class="check-tips">（用于用户登录的账户）</span></label>
         <div class="controls">
-            <select name="pid">
-                <option value="{$menu.id}">{$menu->title}</option>
-            </select>
+            <input type="text" class="text input-large" name="user_name" value="{$info.user_name|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目标题<span class="check-tips">（用于前端的栏目名称）</span></label>
+        <label class="item-label">用户手机<span class="check-tips">（用于用户登录的手机号码）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+            <input type="text" class="text input-large" name="mobile" value="{$info.mobile|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目图标<span class="check-tips">（用于前端的栏目图标展示）</span></label>
+        <label class="item-label">用户邮箱<span class="check-tips">（用于用户登录的邮箱）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="icon" value="{$info.icon|default=''}">
+            <input type="text" class="text input-large" name="email" value="{$info.email|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目排序<span class="check-tips">（用于前端的栏目排序）</span></label>
+        <label class="item-label">用户姓名<span class="check-tips">（用户的真实姓名，用于中奖之后，收货名单）</span></label>
         <div class="controls">
-            <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
+            <input type="text" class="text input-large" name="real_name" value="{$info.real_name|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目显隐<span class="check-tips">（是：表示隐藏，否：反之）</span></label>
+        <label class="item-label">用户头像</label>
         <div class="controls">
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="hide" value="1">是</label>
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="hide" value="0">否</label>
+            <input type="text" class="text input-large" name="portrait" value="{$info.portrait|default=''}">
         </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">用户积分</label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="score" value="{$info.score|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">账户余额</label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="amount" value="{$info.amount|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">用户红包</label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="amount" value="{$info.amount|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">用户地址</label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="address_id" value="{$info.address_id|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">用户状态<span class="check-tips"></span></label>
+         <div class="controls">
+             <select name="pid">
+                 <option value="0">禁止</option>
+                 <option value="1" selected="selected">正常</option>
+             </select>
+         </div>
     </div>
     <div class="form-item umar-t50">
         {if condition=:isset($info['id'])}

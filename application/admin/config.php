@@ -27,11 +27,12 @@ return [
         'size' => 2 * 1024 * 1024,
         'ext' => 'jpg,gif,png,jpeg',
         'rootPath' => './Uploads/Picture/',
-        'saveName' => 'date',
         'replace' => false,
+        'saveName' => array('uniqid', '')
     ),
-    'picture_upload_driver' => 'Qiniu',
-    'upload_local_config' => array(),
+    'picture_upload_driver' => 'local',
+    'upload_local_config' => array(
+    ),
     'upload_bcs_config' => array(
         'AccessKey' => '',
         'SecretKey' => '',

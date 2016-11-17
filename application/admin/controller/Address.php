@@ -3,6 +3,9 @@
 namespace application\admin\controller;
 
 use application\admin\model\UserAddress;
+use application\admin\model\Amap;
+
+use think\Request;
 
 /**
  * @author ROL
@@ -21,6 +24,12 @@ class Address extends Admin {
         }
         $UserAddress = new UserAddress();
         $lists = $UserAddress->where($map)->paginate();
+        $this->assign('lists', $lists);
+        return $this->fetch();
+    }
+    
+    public function manage(Request $request) {
+        $lists = Amap::paginate($request->except("page"));
         $this->assign('lists', $lists);
         return $this->fetch();
     }

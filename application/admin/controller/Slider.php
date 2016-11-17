@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use application\admin\model\Slider as SliderModel;
-
+use think\Request;
 /**
  * @author ROL
  * @date 2016-11-10 15:20:09
@@ -10,16 +10,72 @@ use application\admin\model\Slider as SliderModel;
  * @desc   
  */
 class Slider  extends Admin{
-    public function index() {
-        $map = array();
-        $map["status"] = 1;
-        $title = trim(input('title'));
-        if (!empty($title)) {
+    
+    /**
+     * 幻灯片管理列表展示
+     * @param Request $request
+     * @return type
+     */
+    public function index(Request $request) {
+        $map = [];
+        if ($title = $request->param("title")) {
             $map["title"] = ["like", "%" . $title . "%"];
         }
-        $Slider = new SliderModel();
-        $lists = $Slider->where($map)->paginate();
+        $lists = SliderModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
+    /**
+     * 幻灯片添加
+     * @param Request $request
+     * @return type
+     */
+    public function add(Request $request) {
+        return $this->deal($request);
+    }
+    /**
+     * 幻灯片编辑
+     * @param Request $request
+     * @return type
+     */
+    public function edit(Request $request) {
+        return $this->deal($request);
+    }
+    
+    /**
+     * 幻灯片删除
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $delByIds = SliderModel::delByIds($request->param("id/a"));
+        if($delByIds){
+            $this->success("操作成功");
+        }
+        $this->error("操作失败");
+    }
+    
+    /**
+     * 幻灯片管理编辑或者添加
+     * @param Request $request
+     * @return type
+     */
+    private function deal(Request $request){
+        if($request->isPost()){
+            $statusDeal = SliderModel::deal($request->param());
+            if($statusDeal){
+                $this->success("操作成功");
+            }
+            $this->error("操作失败");
+        }
+        $id = $request->param("id");
+        if($id){
+            $sliderGet = SliderModel::getLineData(["id"=>$id]);
+            $this->assign("info", $sliderGet);
+        }else{
+            $this->assign("info", ["member_id"=>$request->user->id,"pub_id"=>$request->pubuser->id]);
+        }
+        return $this->fetch("edit");
+    }
+    
+    
 }
