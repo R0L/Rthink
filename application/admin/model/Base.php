@@ -110,7 +110,9 @@ class Base extends Model {
     }
 
     //类型转换
-    protected $type = [];
+    protected $type = [
+        'picture_id'      =>  'array',
+    ];
     
     
     // 定义全局的查询范围
@@ -156,7 +158,7 @@ class Base extends Model {
         if(array_key_exists("id", $data)){
             return self::update($data, $map);
         }
-        $create = self::create($data);
+        $create = self::create($data); //20161118
         if(empty($create)){
             return false;
         }

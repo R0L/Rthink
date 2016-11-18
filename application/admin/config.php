@@ -23,7 +23,9 @@ return [
         'hash' => true,
         'callback' => false,
     ),
-    'picture_upload' => array(
+    'picture_upload_driver' => 'local',
+    'upload_local_config' => array(
+    ),'picture_upload' => array(
         'size' => 2 * 1024 * 1024,
         'ext' => 'jpg,gif,png,jpeg',
         'rootPath' => './Uploads/Picture/',

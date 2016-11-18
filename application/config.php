@@ -23,7 +23,14 @@ return [
     'template'             => [
 //        'taglib_pre_load' => 'application\\common\\taglib\\My'
         'taglib_pre_load' => 'application\common\taglib\My'
-    ]
+    ],
+    
+    
+    
+    
+    
+    
+    'picture_upload' => [],
 ];
 
 

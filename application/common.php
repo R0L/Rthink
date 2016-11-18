@@ -105,7 +105,7 @@ function get_cover_html($cover_id) {
     if (is_numeric($cover_id)) {
         $cover_id = get_cover($cover_id, "path");
     }
-    return "<img class='cover' src='" . $cover_id . "'>";
+    return "<img class=\"cover\" src=\"" . $cover_id . "\">";
 }
 
 /**

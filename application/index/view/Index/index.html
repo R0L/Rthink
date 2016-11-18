@@ -9,13 +9,14 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/static/jquery-2.0.3.min.js" type="text/javascript"></script>
     </head>
     <body>
         <div><img src="{:captcha_src()}" alt="验证码" onclick="this.src='{:captcha_src()}'" /></div>
         <div>{$data}</div>
         
-        {my:umeditor/}
         <img src="{:url('index/qrcode/view')}"/>
         
+{my:webuploader a='t'/}        
     </body>
 </html>

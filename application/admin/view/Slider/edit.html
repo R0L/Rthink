@@ -10,7 +10,7 @@
     <div class="form-item">
         <label class="item-label">幻灯片图片<span class="check-tips">（用于前端的栏目图标展示）</span></label>
         <div class="controls">
-            <div>{:hook('uploadhook', ['name'=>'picture_id','status'=>false])}</div>
+            <div>{my:webuploader limit="1" name="picture_id" list="$info['picture_id']|default=''"/}</div>
         </div>
     </div>
     <div class="form-item">
