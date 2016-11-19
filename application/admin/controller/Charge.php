@@ -2,6 +2,7 @@
 
 namespace application\admin\controller;
 use application\admin\model\Charge as ChargeModel;
+use think\Request;
 /**
  * @author ROL
  * @date 2016-11-10 16:23:31
@@ -11,55 +12,31 @@ use application\admin\model\Charge as ChargeModel;
 class Charge extends Admin {
     
     /**
-     * 账户管理
+     * 充值记录管理
      * @return type
      */
-    public function index() {
-        $map = array();
-        $map["status"] = 1;
-        $charge_status = trim(input('charge_status'));
-        if (!empty($charge_status)) {
-            $map["charge_status"] = $charge_status;
+    public function index(Request $request,$map=[]) {
+        if($title = $request->param("title")){
+            $map["charge_code"] = ["like", "%" . $title . "%"];
         }
-        $Charge = new ChargeModel();
-        $lists = $Charge->where($map)->paginate();
-        $this->assign('lists', $lists);
-        return $this->fetch();
+        $lists = ChargeModel::paginate($map);
+        $this->assign("lists", $lists);
+        return $this->fetch("index");
     }
     
     /**
      * 充值管理
      * @return type
      */
-    public function recharge() {
-        $map = array();
-        $map["status"] = 1;
-        $map["money"]=["egt",0];
-        $charge_status = trim(input('charge_status'));
-        if (!empty($charge_status)) {
-            $map["charge_status"] = $charge_status;
-        }
-        $Charge = new ChargeModel();
-        $lists = $Charge->where($map)->paginate();
-        $this->assign('lists', $lists);
-        return $this->fetch("index");
+    public function recharge(Request $request) {
+        return $this->index($request, ["money"=>["egt",0]]);
     }
     
     /**
      * 消费管理
      * @return type
      */
-    public function consumption() {
-        $map = array();
-        $map["status"] = 1;
-        $map["money"]=["lt",0];
-        $charge_status = trim(input('charge_status'));
-        if (!empty($charge_status)) {
-            $map["charge_status"] = $charge_status;
-        }
-        $Charge = new ChargeModel();
-        $lists = $Charge->where($map)->paginate();
-        $this->assign('lists', $lists);
-        return $this->fetch("index");
+    public function consumption(Request $request) {
+        return $this->index($request, ["money"=>["lt",0]]);
     }
 }

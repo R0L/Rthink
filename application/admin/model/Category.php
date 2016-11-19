@@ -9,7 +9,6 @@ namespace application\admin\model;
  * @desc   
  */
 class Category extends Base {
-
     
     /**
      * 查询所有终极的栏目
@@ -18,6 +17,4 @@ class Category extends Base {
     public function getLastLevelCategory() {
         return $this->all(["id"=>["not in",$this->column('pid')]]);
     }
-    
-
 }

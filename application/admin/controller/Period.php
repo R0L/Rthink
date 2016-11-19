@@ -1,7 +1,7 @@
 <?php
 namespace application\admin\controller;
 use application\admin\service\Period as PeriodService;
-
+use think\Request;
 /**
  * @author ROL
  * @date 2016-11-10 12:41:08
@@ -10,21 +10,44 @@ use application\admin\service\Period as PeriodService;
  */
 class Period extends Admin {
     
-    public function index() {
-        $map = array();
-        $map["status"] = 1;
-        $title = trim(input('title'));
-        if(!empty($title)){
-            $map["title"] = ["like", "%" . $title . "%"];
+    /**
+     * 期数列表总操作
+     * @param Request $request
+     * @param type $periods_status
+     * @return type
+     */
+    public function index(Request $request,$periods_status) {
+        $map = [];
+        if($title = $request->param("title")){
+            $map["periods_name"] = ["like", "%" . $title . "%"];
         }
-        $periods_status = trim(input('periods_status'));
-        if(!empty($periods_status)){
-            $map["periods_status"] = $periods_status;
+        if(empty($periods_status)){
+            $periods_status = $request->param("periods_status",  PeriodService::PERIODS_INLOTTERY);
         }
-        $Period = new PeriodService();
-        $lists = $Period->where($map)->paginate();
+        $map["periods_status"] = $periods_status;
+        $lists = PeriodService::paginate($map);
         $this->assign('lists', $lists);
-        return $this->fetch();
+        $this->assign('periods_status', $periods_status);
+        return $this->fetch("index");
+    }
+    
+    
+    /**
+     * 期数 开奖中
+     * @param Request $request
+     * @return type
+     */
+    public function inlottery(Request $request) {
+        return $this->index($request, PeriodService::PERIODS_INLOTTERY);
+    }
+    
+    /**
+     * 期数 已开奖
+     * @param Request $request
+     * @return type
+     */
+    public function haslottery(Request $request) {
+        return $this->index($request, PeriodService::PERIODS_HASLOTTERY);
     }
     
 }

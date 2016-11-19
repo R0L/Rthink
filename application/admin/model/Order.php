@@ -11,6 +11,14 @@ namespace application\admin\model;
 class Order extends Base {
     
     
+    const ORDER_SHOPPINGCART = 0 ;// 加入购物车
+    const ORDER_HAVEINHAND = 1 ;// 进行中
+    const ORDER_HASWONTHEPRIZE = 2 ;// 已中奖
+    const ORDER_NOTWINNING = -1 ;// 未中奖
+    const ORDER_SUNSHEET = -1 ;// 已晒单
+    
+    public static $orderStstus=[-1 => '未中奖', 0 => '加入购物车', 1 => '进行中', 2 => '已中奖', 3 => '已晒单'];
+    
     /**
      * 获取订单状态
      * @param type $status
@@ -21,8 +29,7 @@ class Order extends Base {
         if (empty($status)) {
             $status = $data["status"];
         }
-        $op_status = [-1 => '未中奖', 0 => '加入购物车', 1 => '进行中', 2 => '已中奖', 3 => '已晒单'];
-        return $op_status[intval($status)];
+        return self::$orderStstus[intval($status)];
     }
     
     /**

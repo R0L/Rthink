@@ -29,7 +29,8 @@
         "PHPOffice/PHPExcel": "^1.8",
         "riverslei/payment": "^2.6",
         "phpmailer/phpmailer": "^5.2",
-        "rol/chuanglan": "dev-master"
+        "rol/chuanglan": "dev-master",
+        "jasonroman/flot": "^1.0"
     },
     "extra": {
         "think-path": "thinkphp"

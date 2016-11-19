@@ -4,15 +4,11 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
-            <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入期数名称">
+            <a class="sch-btn" href="javascript:;" id="search" url="{:url('index',['periods_status'=>$periods_status])}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
-        <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
     </div>
 </div>
 
@@ -41,19 +37,18 @@
                 {volist name="lists" id="vo"}
                 <tr>
                     <td><input type="checkbox" name="id[]" value="{$vo.id}" /></td>
-                        <td><span>{$vo->id}</span></td>
-                        <td><span>{$vo->periods_name}</span></td>
-                        <td><span>{$vo->periods_no}</span></td>
-                        <td><span>{:mb_substr($vo->goods->title,0,10)}</span></td>
-                        <td><span>{$vo->buy_time}</span></td>
-                        <td><span>{$vo->lucky_number}</span></td>
-                        <td><span>{$vo->user->user_name}</span></td>
-			<td><span>{$vo->periods_status_text}</span></td>
-			<td><span>{$vo->create_time_fromat}</span></td>
-			<td><span>{$vo->update_time_fromat}</span></td>
-			<td><span>{$vo->status_text}</span></td>
+                        <td><span>{$vo.id}</span></td>
+                        <td><span>{$vo.periods_name}</span></td>
+                        <td><span>{$vo.periods_no}</span></td>
+                        <td><span>{:mb_substr($vo.goods.title,0,10)}</span></td>
+                        <td><span>{$vo.buy_time}</span></td>
+                        <td><span>{$vo.lucky_number}</span></td>
+                        <td><span>{$vo.user.user_name}</span></td>
+			<td><span>{$vo.periods_status_text}</span></td>
+			<td><span>{$vo.create_time_fromat}</span></td>
+			<td><span>{$vo.update_time_fromat}</span></td>
+			<td><span>{$vo.status_text}</span></td>
                     <td>
-                        <a title="编辑" style="color: #61c362;" href="{:url('deal?id='.$vo['id'])}">编辑</a>
                         <a class="confirm ajax-get" style="color: #fd9701;padding-left: 10px;" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
                     </td>
                 </tr>

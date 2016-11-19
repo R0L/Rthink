@@ -75,6 +75,7 @@ input{
     height: 100%;
     background-color: #3a4658;
     position: fixed;
+    z-index: 10;
 }
 .right{
     float: right;

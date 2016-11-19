@@ -2,8 +2,9 @@
 
 namespace application\admin\controller;
 use application\admin\model\Goods as GoodsModel;
+use application\admin\logic\Category;
 use application\admin\model\Brand;
-use application\admin\model\Category;
+use think\Request;
 /**
  * @author ROL
  * @date 2016-11-8 14:50:08
@@ -13,26 +14,59 @@ use application\admin\model\Category;
 class Goods extends Admin{
     
     /**
-     * 全部商品展示页面
+     * 商品展示公有方法
+     * @param Request $request
+     * @param type $goods_status
      * @return type
      */
-    public function index() {
-        $map = array();
-        $map["status"] = 1;
-        $title = trim(input('title'));
-        if(!empty($title)){
+    public function index(Request $request,$goods_status) {
+        $map = [];
+        if(empty($goods_status)){
+            $goods_status = $request->param("goods_status",0);
+        }
+        if($title = $request->param("title")){
             $map["title"] = ["like", "%" . $title . "%"];
         }
-        $goods_status = trim(input('goods_status'));
-        if(!empty($goods_status)){
-            $map["goods_status"] = $goods_status;
-        }
-        $Goods = new GoodsModel();
-        $lists = $Goods->where($map)->paginate();
+        $map["goods_status"] = $goods_status;
+        $lists = GoodsModel::paginate($map);
         $this->assign('lists', $lists);
-        return $this->fetch();
+        $this->assign('goods_status', $goods_status);
+        return $this->fetch("index");
     }
     
+    
+    /**
+     * 待审核
+     * @param Request $request
+     * @return type
+     */
+    public function nochecked(Request $request) {
+        return $this->index($request, GoodsModel::GOODS_NOCHECKED);
+    }
+    /**
+     * 已审核/待上线
+     * @param Request $request
+     * @return type
+     */
+    public function checked(Request $request) {
+        return $this->index($request, GoodsModel::GOODS_CHECKED);
+    }
+    /**
+     * 已上线/夺宝中
+     * @param Request $request
+     * @return type
+     */
+    public function online(Request $request) {
+        return $this->index($request, GoodsModel::GOODS_ONLINE);
+    }
+    /**
+     * 已结束
+     * @param Request $request
+     * @return type
+     */
+    public function complete(Request $request) {
+        return $this->index($request, GoodsModel::GOODS_COMPLETE);
+    }
     
     
     public function dd() {
@@ -50,34 +84,64 @@ class Goods extends Admin{
         return $this->fetch("index");
     }
     
-
-    public function deal() {
-        $Brand = new BrandModel();
-        if (request()->isPost()) {
-            if ($Brand->deal(input())) {
-                $this->success("操作成功", url("index"));
+    
+    
+    /**
+     * 商品添加
+     * @param Request $request
+     */
+    public function add(Request $request) {
+        return $this->deal($request);
+    }
+    
+    /**
+     * 商品编辑
+     * @param Request $request
+     */
+    public function edit(Request $request) {
+        return $this->deal($request);
+    }
+    
+    /**
+     * 商品的操作
+     * @param Request $request
+     * @return type
+     */
+    private function deal(Request $request) {
+        if ($request->isPost()) {
+            $statusDeal = GoodsModel::deal($request->except("file"));
+            if ($statusDeal) {
+                $this->success("操作成功", "nochecked");
             }
-            $this->error("操作失败:" . $Brand->getError());
+            $this->error("操作失败:");
         } else {
+            $id = $request->param("id");
+            if($id){
+                $goodsGet = GoodsModel::getLineData($id);
+                $this->assign("info", $goodsGet);
+            }
             
-            //返回终极栏目
-            $Category = new Category();
-            $this->assign("categorys",$Category->getLastLevelCategory());
+            //返回栏目
+            $selectToCategory = Category::selectToCategoryTree();
+            $this->assign("category_list",$selectToCategory);
+            //返回品牌
+            $all = Brand::all();
+            $this->assign("brand_list",$all);
             
-            ($id = input("param.id")) ? $this->assign("info", $Brand->get($id)) : "";
             return $this->fetch("edit");
         }
     }
 
-    public function del() {
-        $id = array_unique((array) input('param.id/a'), 0);
-        empty($id) && $this->error("不存在参数ID");
-        $Brand = new BrandModel();
-        $staus_deal = $Brand->save(["status" => -1], ["id" => ["in", $id]]);
-        if ($staus_deal) {
-            $this->success("操作成功", url("index"));
+    /**
+     * 删除商品
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $delByIds = GoodsModel::delByIds($request->param('param.id/a'));
+        if ($delByIds) {
+            $this->success("操作成功", "index");
         }
-        $this->error("操作失败:" . $Brand->getError());
+        $this->error("操作失败:");
     }
     
 }

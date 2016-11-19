@@ -2,36 +2,120 @@
 {block name="body"}
 <form action="{:url()}" method="post" class="form-horizontal">
     <div class="form-item">
-        <label class="item-label">父级栏目<span class="check-tips">（所属的上级栏目）</span></label>
+        <label class="item-label">商品分区<span class="check-tips">（所属的商品分区）</span></label>
         <div class="controls">
-            <select name="pid">
-                <option value="{$menu.id}">{$menu->title}</option>
+            <select name="type">
+                <option value="1" selected="selected">一元区</option>
+                <option value="5">五元区</option>
+                <option value="10">十元区</option>
             </select>
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目标题<span class="check-tips">（用于前端的栏目名称）</span></label>
+        <label class="item-label">商品类型<span class="check-tips">（所属的商品类型）</span></label>
+        <div class="controls">
+            <select name="category_id">
+                {foreach $category_list as $category}
+                <option value="{$category->id}">{$category->title}</option>
+                    {foreach $category->_child as $category}
+                        <option value="{$category->id}">&nbsp;&nbsp;{$category->title}</option>
+                        {foreach $category->_child as $category}
+                            <option value="{$category->id}">&nbsp;&nbsp;&nbsp;&nbsp;{$category->title}</option>
+                        {/foreach}
+                    {/foreach}
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">商品品牌<span class="check-tips">（所属的商品品牌）</span></label>
+        <div class="controls">
+            <select name="brand_id">
+                {foreach $brand_list as $brand}
+                    <option value="{$brand->id}">{$brand->title}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">商品名称</label>
         <div class="controls">
             <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目图标<span class="check-tips">（用于前端的栏目图标展示）</span></label>
+        <label class="item-label">商品介绍</label>
         <div class="controls">
-            <input type="text" class="text input-large" name="icon" value="{$info.icon|default=''}">
+            <input type="text" class="text input-large" name="info" value="{$info.info|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目排序<span class="check-tips">（用于前端的栏目排序）</span></label>
+        <label class="item-label">商品图片</label>
         <div class="controls">
-            <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
+            <div>{my:webuploader limit="1" name="cover_id" list="$info['cover_id']|default=''"/}</div>
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">栏目显隐<span class="check-tips">（是：表示隐藏，否：反之）</span></label>
+        <label class="item-label">商品图片列表</label>
         <div class="controls">
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="hide" value="1">是</label>
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="hide" value="0">否</label>
+            <div>{my:webuploader limit="4" name="cover_list" list="$info['cover_list']|default=''"/}</div>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">商品内容</label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="content" value="{$info.content|default=''}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">商品价格</label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="price" value="{$info.price|default=0.00}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">商品售价</label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="buy_price" value="{$info.buy_price|default=0.00}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">购买次数</label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="buy_time" value="{$info.buy_time|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">所需总次<span class="check-tips">（默认为0，通过价格和分区价格计算获得）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="total_time" value="{$info.total_time|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">倒计时间<span class="check-tips">（即将开奖的时间开始倒计时,单位ms，0默认为300000ms）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="count_down" value="{$info.count_down|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">总期数<span class="check-tips">（商品一共发行的期数，默认值 1）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="total_periods" value="{$info.total_periods|default=1}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">当前期数<span class="check-tips">（为现在商品发行的当前期数）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-large" name="current_periods" value="{$info.current_periods|default=1}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">商品状态</label>
+        <div class="controls">
+            <select name="status">
+                <option value="0">禁止</option>
+                <option value="1" selected="selected" >正常</option>
+            </select>
         </div>
     </div>
     <div class="form-item umar-t50">

@@ -5,7 +5,15 @@
         <label class="item-label">父级栏目<span class="check-tips">（所属的上级栏目）</span></label>
         <div class="controls">
             <select name="pid">
-                <option value="{$menu.id}">{$menu->title}</option>
+                {foreach $category_list as $category}
+                <option value="{$category->id}">{$category->title}</option>
+                    {foreach $category->_child as $category}
+                        <option value="{$category->id}">&nbsp;&nbsp;{$category->title}</option>
+                        {foreach $category->_child as $category}
+                            <option value="{$category->id}">&nbsp;&nbsp;&nbsp;&nbsp;{$category->title}</option>
+                        {/foreach}
+                    {/foreach}
+                {/foreach}
             </select>
         </div>
     </div>
@@ -30,11 +38,13 @@
     <div class="form-item">
         <label class="item-label">栏目显隐<span class="check-tips">（是：表示隐藏，否：反之）</span></label>
         <div class="controls">
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="hide" value="1">是</label>
-            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="hide" value="0">否</label>
+            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="1"}checked="checked"{/eq} name="display" value="1">是</label>
+            <label class="radio"><input type="radio" {eq name="$info.display|default=1" value="0"}checked="checked"{/eq} name="display" value="0">否</label>
         </div>
     </div>
     <div class="form-item umar-t50">
+        <input type="hidden" name="member_id" value="{$info.member_id}">
+        <input type="hidden" name="pub_id" value="{$info.pub_id}">
         {if condition=:isset($info['id'])}
         <input type="hidden" name="id" value="{$info.id|default=''}">
         {/if}

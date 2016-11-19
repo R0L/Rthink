@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\Category as CategoryModel;
+use application\admin\logic\Category as CategoryLogic;
 use think\Request;
 
 /**
@@ -13,9 +13,6 @@ use think\Request;
  */
 class Category extends Admin {
 
-    public function _initialize() {
-        parent::_initialize();
-    }
 
     /**
      * 商品分类展示页面
@@ -27,25 +24,55 @@ class Category extends Admin {
         if (empty($title)) {
             $map["title"] = ["like", "%" . $title . "%"];
         }
-        $lists = CategoryModel::paginate($map);
+        $lists = CategoryLogic::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
+    
+    
+    /**
+     * 商品分类添加
+     * @param Request $request
+     * @return type
+     */
+    public function add(Request $request) {
+        return $this->deal($request);
+    }
+    
+    /**
+     * 商品分类编辑
+     * @param Request $request
+     * @return type
+     */
+    public function edit(Request $request) {
+        return $this->deal($request);
+    }
+    
 
     /**
      * 商品分类编辑或者添加
      * @param Request $request
      * @return type
      */
-    public function deal(Request $request) {
-        if (request()->isPost()) {
-            $deal = CategoryModel::deal($request->param());
+    private function deal(Request $request) {
+        if ($request->isPost()) {
+            $deal = CategoryLogic::deal($request->param());
             if ($deal) {
-                $this->success("操作成功", url("index"));
+                $this->success("操作成功", "index");
             }
             $this->error("操作失败");
         } else {
-            ($id = input("param.id")) ? $this->assign("info", CategoryModel::getLineData(["id" => $id])) : "";
+            $id = $request->param("id");
+            if($id){
+                $categoryGet = CategoryLogic::getLineData($id);
+                $this->assign("info",$categoryGet);
+            }else{
+                $this->assign("info", ["member_id"=>$request->user->id,"pub_id"=>$request->pubuser->id]);
+            }
+            
+            $categoryTree = CategoryLogic::selectToCategoryTree();
+            $this->assign("category_list",$categoryTree);
+            
             return $this->fetch("edit");
         }
     }
@@ -55,11 +82,9 @@ class Category extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $id = array_unique((array) $request->param('param.id/a'), 0);
-        empty($id) && $this->error("不存在参数ID");
-        $staus_deal = CategoryModel::del(["id" => ["in", $id]]);
-        if ($staus_deal) {
-            $this->success("操作成功", url("index"));
+        $stausDeal = CategoryLogic::delByIds($request->param('param.id/a'));
+        if ($stausDeal) {
+            $this->success("操作成功", "index");
         }
         $this->error("操作失败");
     }

@@ -11,12 +11,22 @@ namespace application\admin\model;
 class Period extends Base {
 
     
+    const PERIODS_INLOTTERY = 0 ;// 开奖中
+    const PERIODS_HASLOTTERY = 1 ;// 已开奖
+    
+    public static $periodsStstus=[0 => '开奖中',1=>'已开奖'];
+    
+    /**
+     * 获取期数状态
+     * @param type $periods_status
+     * @param type $data
+     * @return type
+     */
     public function getPeriodsStatusTextAttr($periods_status, $data) {
         if (empty($periods_status)) {
             $periods_status = $data["periods_status"];
         }
-        $op_status = [0 => '开奖中',1=>'已开奖'];
-        return $op_status[intval($periods_status)];
+        return self::$periodsStstus[intval($periods_status)];
     }
     
     /**
