@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 127.0.0.1
-Source Server Version : 50715
-Source Host           : 127.0.0.1:3306
+Source Server         : localhost
+Source Server Version : 50624
+Source Host           : localhost:3306
 Source Database       : tp
 
 Target Server Type    : MYSQL
-Target Server Version : 50715
+Target Server Version : 50624
 File Encoding         : 65001
 
-Date: 2016-11-21 17:25:05
+Date: 2016-11-21 21:18:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -7682,12 +7682,11 @@ CREATE TABLE `tp_auth_rule` (
   `sort` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_rule
 -- ----------------------------
-INSERT INTO `tp_auth_rule` VALUES ('0', '测试', '1', 'admin', 't', '-1', '', '0', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', '1', '', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('2', '统计界面', '1', 'admin', 'admin/index/index', '1', '', '1', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', '1', '', '0', '1', '1');
@@ -7754,6 +7753,7 @@ INSERT INTO `tp_auth_rule` VALUES ('63', '其他', '1', 'admin', '', '1', '', '9
 INSERT INTO `tp_auth_rule` VALUES ('64', '新增分类', '1', 'admin', 'admin/category/add', '1', '', '25', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('65', '新增品牌', '1', 'admin', 'admin/brand/add', '1', '', '26', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('66', '新增商品', '1', 'admin', 'admin/goods/add', '1', '', '28', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('67', '测试', '1', 'admin', 't', '-1', '', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for tp_brand
@@ -7825,7 +7825,7 @@ CREATE TABLE `tp_category` (
   `member_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of tp_category
@@ -7839,7 +7839,7 @@ INSERT INTO `tp_category` VALUES ('12', '潮流新品', '0', 'icon icon-fashion'
 INSERT INTO `tp_category` VALUES ('13', '其他商品', '0', 'icon icon-th', '7', '1', '', '', '', '1450770304', '1450770304', '1', '1', '1');
 INSERT INTO `tp_category` VALUES ('50', '平板', '4', null, '0', '0', '', '', '', '0', '0', '1', '1', '1');
 INSERT INTO `tp_category` VALUES ('14', '手机', '4', null, '0', '0', '', '', '', '0', '0', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('0', '顶级分类', '0', null, '0', '0', '', '', '', '0', '0', '0', '1', '1');
+INSERT INTO `tp_category` VALUES ('53', '顶级分类', '0', null, '0', '0', '', '', '', '0', '0', '0', '1', '1');
 INSERT INTO `tp_category` VALUES ('52', '2', '4', '2', '0', '1', '', '', '', '1479522744', '1479522744', '1', '1', '1');
 
 -- ----------------------------
@@ -7970,31 +7970,6 @@ INSERT INTO `tp_config` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问
 INSERT INTO `tp_config` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1', '1', '1');
 INSERT INTO `tp_config` VALUES ('40', 'TT', '0', '串串', '0', '', '', '1479102437', '1479102821', '-1', null, '0', '1', '1');
 INSERT INTO `tp_config` VALUES ('39', 'GG', '0', '测试', '0', '', '', '1479102390', '1479102817', '-1', null, '0', '1', '1');
-
--- ----------------------------
--- Table structure for tp_file
--- ----------------------------
-DROP TABLE IF EXISTS `tp_file`;
-CREATE TABLE `tp_file` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件ID',
-  `name` char(30) NOT NULL DEFAULT '' COMMENT '原始文件名',
-  `savename` char(20) NOT NULL DEFAULT '' COMMENT '保存名称',
-  `savepath` char(30) NOT NULL DEFAULT '' COMMENT '文件保存路径',
-  `ext` char(5) NOT NULL DEFAULT '' COMMENT '文件后缀',
-  `mime` char(40) NOT NULL DEFAULT '' COMMENT '文件mime类型',
-  `size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
-  `md5` char(32) NOT NULL DEFAULT '' COMMENT '文件md5',
-  `sha1` char(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
-  `location` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '文件保存位置',
-  `create_time` int(10) unsigned NOT NULL COMMENT '上传时间',
-  `pub_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_md5` (`md5`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文件表';
-
--- ----------------------------
--- Records of tp_file
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for tp_goods

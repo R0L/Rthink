@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\logic\Category as CategoryLogic;
+use application\common\logic\Category as CategoryLogic;
 use think\Request;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use think\Request;
-use application\admin\logic\AuthRule as AuthRuleLogic;
+use application\common\logic\AuthRule as AuthRuleLogic;
 
 
 /**

@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\model\Slider as SliderModel;
+use application\common\model\Slider as SliderModel;
 use think\Request;
 /**
  * @author ROL

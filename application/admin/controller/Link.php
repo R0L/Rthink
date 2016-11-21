@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use think\Request;
-use application\admin\model\Link as LinkModel;
+use application\common\model\Link as LinkModel;
 /**
  * @author ROL
  * @date 2016-11-18 16:02:43

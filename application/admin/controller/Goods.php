@@ -1,9 +1,9 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\model\Goods as GoodsModel;
-use application\admin\logic\Category;
-use application\admin\model\Brand;
+use application\common\model\Goods as GoodsModel;
+use application\common\logic\Category;
+use application\common\model\Brand;
 use think\Request;
 /**
  * @author ROL

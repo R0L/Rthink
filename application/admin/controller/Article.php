@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use think\Request;
-use application\admin\model\Article as ArticleModel;
+use application\common\model\Article as ArticleModel;
 /**
  * @author ROL
  * @date 2016-11-18 16:02:43

@@ -2,8 +2,8 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\UserAddress;
-use application\admin\model\Amap;
+use application\common\model\UserAddress;
+use application\common\model\Amap;
 
 use think\Request;
 

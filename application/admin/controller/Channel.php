@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\Channel as ChannelModel;
+use application\common\model\Channel as ChannelModel;
 use think\Request;
 
 /**

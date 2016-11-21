@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\model\Charge as ChargeModel;
+use application\common\model\Charge as ChargeModel;
 use think\Request;
 /**
  * @author ROL

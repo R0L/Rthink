@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\model\Notice as NoticeModel;
+use application\common\model\Notice as NoticeModel;
 use \think\Request;
 
 /**

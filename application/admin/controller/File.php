@@ -4,7 +4,7 @@ namespace application\admin\controller;
 use ROL\Upload\Upload;
 use think\Request;
 use think\Config;
-use application\admin\model\Picture;
+use application\common\model\Picture;
 /**
  * 文件控制器
  * 主要用于下载模型的文件上传和下载

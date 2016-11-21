@@ -4,7 +4,7 @@ namespace application\admin\controller;
 
 use think\Controller;
 use think\Request;
-use application\admin\service\Member;
+use application\common\service\Member;
 use think\Session;
 
 /**

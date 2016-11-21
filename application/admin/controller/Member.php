@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\model\Member as MemberModel;
+use application\common\model\Member as MemberModel;
 use think\Request;
 /**
  * @author ROL

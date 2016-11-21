@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\logic\Config as ConfigLogic;
+use application\common\logic\Config as ConfigLogic;
 use think\Request;
 /**
  * @author ROL

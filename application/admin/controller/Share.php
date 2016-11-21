@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\Share as ShareModel;
+use application\common\model\Share as ShareModel;
 
 /**
  * @author ROL

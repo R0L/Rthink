@@ -9,7 +9,7 @@ use application\common\model\UserInfo as UserInfoModel;
  * @version V1.0
  * @desc   
  */
-class UserInfo extends UserInfoModel {
+class UserInfo extends UserInfoModel{
     
     
     /**

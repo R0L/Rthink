@@ -8,7 +8,7 @@ use application\common\model\Code as CodeModel;
  * @version V1.0
  * @desc   
  */
-class Code{
+class Code extends CodeModel{
     
     
     /**

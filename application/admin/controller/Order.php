@@ -1,6 +1,6 @@
 <?php
 namespace application\admin\controller;
-use application\admin\service\Order as OrderService;
+use application\common\logic\Order as OrderLogic;
 use think\Request;
 /**
  * @author ROL
@@ -25,7 +25,7 @@ class Order extends Admin {
             $order_status = $request->param("order_status");
         }
         $map["order_status"] = $order_status;
-        $lists = OrderService::paginate($map);
+        $lists = OrderLogic::paginate($map);
         $this->assign('lists', $lists);
         $this->assign("order_status", $order_status);
         return $this->fetch("index");
@@ -37,7 +37,7 @@ class Order extends Admin {
      * @return type
      */
     public function shoppingcart(Request $request) {
-        return $this->index($request, OrderService::ORDER_SHOPPINGCART);
+        return $this->index($request, OrderLogic::ORDER_SHOPPINGCART);
     }
     
     /**
@@ -46,7 +46,7 @@ class Order extends Admin {
      * @return type
      */
     public function haveinhand(Request $request) {
-        return $this->index($request, OrderService::ORDER_HAVEINHAND);
+        return $this->index($request, OrderLogic::ORDER_HAVEINHAND);
     }
     
     /**
@@ -55,7 +55,7 @@ class Order extends Admin {
      * @return type
      */
     public function haswontheprize(Request $request) {
-        return $this->index($request, OrderService::ORDER_HASWONTHEPRIZE);
+        return $this->index($request, OrderLogic::ORDER_HASWONTHEPRIZE);
     }
     
     /**
@@ -64,7 +64,7 @@ class Order extends Admin {
      * @return type
      */
     public function notwinning(Request $request) {
-        return $this->index($request, OrderService::ORDER_NOTWINNING);
+        return $this->index($request, OrderLogic::ORDER_NOTWINNING);
     }
     
     /**
@@ -73,7 +73,7 @@ class Order extends Admin {
      * @return type
      */
     public function sunsheet(Request $request) {
-        return $this->index($request, OrderService::ORDER_SUNSHEET);
+        return $this->index($request, OrderLogic::ORDER_SUNSHEET);
     }
     
 }

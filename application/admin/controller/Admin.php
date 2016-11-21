@@ -4,9 +4,9 @@ namespace application\admin\controller;
 
 use \think\Controller;
 use ROL\Auth\Auth;
-use application\admin\logic\AuthGroup;
-use application\admin\logic\Config as ConfigLogic;
-use application\admin\model\Member;
+use application\common\logic\AuthGroup;
+use application\common\logic\Config as ConfigLogic;
+use application\common\model\Member;
 use think\Config;
 use think\Cache;
 use think\Session;

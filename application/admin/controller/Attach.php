@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use think\Request;
-use application\admin\model\Picture;
+use application\common\model\Picture;
 use application\common\controller\Attach as CommonAttach;
 /**
  * @author ROL

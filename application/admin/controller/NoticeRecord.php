@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\admin\model\NoticeRecord as NoticeRecordModel;
+use application\common\model\NoticeRecord as NoticeRecordModel;
 /**
  * @author ROL
  * @date 2016-11-10 15:56:19

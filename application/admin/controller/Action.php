@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\logic\ActionLog;
+use application\common\logic\ActionLog;
 use think\Request;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\Brand as BrandModel;
-use application\admin\model\Category;
+use application\common\model\Brand as BrandModel;
+use application\common\model\Category;
 use think\Request;
 
 /**

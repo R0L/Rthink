@@ -2,8 +2,8 @@
 
 namespace application\admin\controller;
 
-use application\admin\logic\AuthGroup;
-use application\admin\model\AuthGroupAccess;
+use application\common\logic\AuthGroup;
+use application\common\model\AuthGroupAccess;
 use think\Request;
 
 /**
