@@ -461,3 +461,17 @@ function ajax_upload($path = 'file', $format = 'empty', $maxSize = '52428800') {
         }
     }
 }
+
+
+/**
+ * 
+ * @param type $str
+ * @param type $key
+ * @return type
+ */
+//function think_md5($str, $key = 'RLthink123456789'){
+//	return '' === $str ? '' : md5(sha1($str) . $key);
+//}
+function think_md5($str){
+	return '' === $str ? '' : md5($str);
+}

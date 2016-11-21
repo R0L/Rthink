@@ -25,7 +25,6 @@
                     <th class="">用户账户</th>
                     <th class="">用户手机</th>
                     <th class="">用户邮箱</th>
-                    <th class="">用户姓名</th>
                     <th class="">用户头像</th>
                     <th class="">登录次数</th>
                     <th class="">用户积分</th>
@@ -49,13 +48,12 @@
                         <td><span>{$vo.user_name}</span></td>
                         <td><span>{$vo.mobile}</span></td>
                         <td><span>{$vo.email}</span></td>
-                        <td><span>{$vo.real_name}</span></td>
                         <td><span>{$vo.userinfo.portrait}</span></td>
                         <td><span>{$vo.login_num}</span></td>
                         <td><span>{$vo.userinfo.score}</span></td>
                         <td><span>{$vo.userinfo.amount}</span></td>
                         <td><span>{$vo.userinfo.red_packets}</span></td>
-                        <td><span>{$vo.userinfo.address_id}</span></td>
+                        <td><span>{$vo.userinfo.address_id|default="暂无"}-{$vo.userinfo.address}</span></td>
                         <td><span>{$vo.register_ip}</span></td>
 			<td><span>{$vo.register_time_fromat}</span></td>
                         <td><span>{$vo.last_login_ip}</span></td>

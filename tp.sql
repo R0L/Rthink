@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-11-19 17:23:58
+Date: 2016-11-21 17:25:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -7896,6 +7896,24 @@ INSERT INTO `tp_charge` VALUES ('1', '201611100007', '1', '100.00', '充值了',
 INSERT INTO `tp_charge` VALUES ('2', '201611100009', '1', '-10.00', '消费了', '1451750400', '1451750400', '4', '1', '1', '1', '1');
 
 -- ----------------------------
+-- Table structure for tp_code
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_code`;
+CREATE TABLE `tp_code` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `mobile` varchar(11) NOT NULL DEFAULT '',
+  `code` varchar(20) NOT NULL,
+  `create_time` int(10) NOT NULL,
+  `update_time` int(10) NOT NULL,
+  `status` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tp_code
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for tp_config
 -- ----------------------------
 DROP TABLE IF EXISTS `tp_config`;
@@ -8698,26 +8716,24 @@ INSERT INTO `tp_slider` VALUES ('5', '幻灯片名称', '0', '48', '0', '0', '14
 DROP TABLE IF EXISTS `tp_user`;
 CREATE TABLE `tp_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(30) DEFAULT NULL,
-  `mobile` varchar(11) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `password` varchar(10) DEFAULT NULL,
-  `login_num` int(11) DEFAULT NULL,
-  `register_ip` varchar(15) DEFAULT NULL,
-  `last_login_ip` varchar(15) DEFAULT NULL,
-  `register_time` int(10) DEFAULT NULL,
-  `last_login_time` int(10) DEFAULT NULL,
-  `real_name` varchar(255) DEFAULT NULL,
-  `status` int(1) DEFAULT NULL,
-  `pub_id` int(11) DEFAULT NULL,
-  `member_id` int(11) DEFAULT NULL,
+  `user_name` varchar(30) NOT NULL,
+  `mobile` varchar(11) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password` varchar(10) NOT NULL,
+  `login_num` int(11) NOT NULL,
+  `register_ip` varchar(15) NOT NULL,
+  `last_login_ip` varchar(15) NOT NULL,
+  `register_time` int(10) NOT NULL,
+  `last_login_time` int(10) NOT NULL,
+  `status` tinyint(2) NOT NULL,
+  `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_user
 -- ----------------------------
-INSERT INTO `tp_user` VALUES ('1', '天空下的海', '13281563075', '2080775740@qq.com', 'qwe12358', '10', '192.168.0.7', '192.168.0.7', '1451750400', '1451750400', '李瑞', '1', '1', '1');
+INSERT INTO `tp_user` VALUES ('1', '天空下的海', '13281563075', '2080775740@qq.com', 'qwe12358', '10', '192.168.0.7', '192.168.0.7', '1451750400', '1451750400', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_user_address
@@ -8752,16 +8768,18 @@ DROP TABLE IF EXISTS `tp_user_info`;
 CREATE TABLE `tp_user_info` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `score` int(10) NOT NULL,
-  `amount` double(10,2) NOT NULL,
-  `portrait` varchar(255) NOT NULL,
-  `address_id` int(11) NOT NULL,
+  `score` int(10) NOT NULL DEFAULT '0',
+  `amount` double(10,2) NOT NULL DEFAULT '0.00',
+  `portrait` int(11) DEFAULT NULL,
+  `address` varchar(30) DEFAULT NULL,
+  `address_id` int(11) DEFAULT NULL,
   `info` varchar(255) NOT NULL,
-  `red_packets` double(10,2) NOT NULL,
+  `red_packets` double(10,2) NOT NULL DEFAULT '0.00',
+  `nick_name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_user_info
 -- ----------------------------
-INSERT INTO `tp_user_info` VALUES ('1', '1', '1000', '238.00', '1', '1', '我就是我!', '300.00');
+INSERT INTO `tp_user_info` VALUES ('1', '1', '1000', '238.00', '1', '1', null, '我就是我!', '300.00', '111');

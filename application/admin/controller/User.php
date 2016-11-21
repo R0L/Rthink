@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\admin\model\User as UserModel;
+use application\common\model\User as UserModel;
 use think\Request;
 
 /**

@@ -28,13 +28,14 @@
                 <ol class="breadcrumb">
                     {foreach $_MP_ as $key=>$menu }
                     {eq name="$key" value=":count($_MP_)-1"}
-                        <li class="active">{$menu->title}</li>
+                    <li class="active">{$menu->title}</li>
                     {else/}
                     <li><a href="{:url($menu->name)}">{$menu->title}</a></li>
                     {/eq}
                     {/foreach}
                 </ol>
                 {/notempty}
+                {block name="body-top"}{/block}
                 <div class="body">
                     <div id="top-alert" class="fixed alert alert-error" style="display: none;margin-bottom: 20px;">
                         <button class="close fixed" style="margin-top: 4px;">&times;</button>
@@ -53,10 +54,10 @@
 
             $(function () {
                 $(".menu li").click(function () {
-                    if($(this).find("ul").size()){
+                    if ($(this).find("ul").size()) {
                         $(".menu li").not($(this)).not($(this).parents(".menu li")).removeClass("active");
                         $(this).toggleClass("active");
-                    }else{
+                    } else {
                         location.href = $(this).find("a").attr("href");
                     }
                     return false;

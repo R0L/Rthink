@@ -2,7 +2,8 @@
 
 namespace application\common\model;
 
-use think\model;
+use think\Model;
+use think\Session;
 
 /**
  * @author ROL
@@ -10,91 +11,192 @@ use think\model;
  * @version V1.0
  * @desc   
  */
-class Base extends model {
-    
-    //自动完成
-    protected $auto = [];
-    protected $insert = [];  
-    protected $update = []; 
+class Base extends Model {
+
+    protected $autoWriteTimestamp = true;
+    protected $format = 'Y-m-d H:i';
+
+    /**
+     * 数据状态
+     * @var type 
+     */
+    public static $STATUS = [-1 => '删除', 0 => '禁用', 1 => '正常'];
+    public static $DISPLAY = [0 => '否', 1 => '是'];
+    public static $TERMINAL = [1 => '系统', 2 => 'PC', 3 => 'WAP', 4 => "Android", 5 => "IOS", 6 => "WeChat"];
+
+    const STATUS_DEL = -1; //删除
+    const STATUS_DISABLE = 0; //禁用
+    const STATUS_NORMAL = 1; //正常
+    const DISPLAY_NO = 0; //否
+    const DISPLAY_YES = 1; //是
+    const TERMINAL_SYSTEM = 1; //系统
+    const TERMINAL_PC = 2; //PC
+    const TERMINAL_WAP = 3; //WAP
+    const TERMINAL_ANDROID = 4; //Android
+    const TERMINAL_IOS = 5; //IOS
+    const TERMINAL_WECHAT = 6; //WeChat
 
     //初始化
+
     protected function initialize() {
         parent::initialize();
+        $this->validate = true;
     }
 
-    //获取器
-    public function getStatusAttr($value) {
-        $status = [-1 => '删除', 0 => '禁用', 1 => '正常', 2 => '待审核'];
-        return $status[$value];
+    //自动完成
+    protected $auto = ['update_time'];
+    protected $insert = ['status' => self::STATUS_NORMAL, 'create_time'];
+    protected $update = [];
+
+    /**
+     * 创建时间自动完成
+     * @return type
+     */
+    protected function setCreateTimeAttr() {
+        return time();
     }
 
-    //修改器
-    public function setNameAttr($value, $data) {
-        return serialize($data);
+    /**
+     * 更新时间自动完成
+     * @return type
+     */
+    protected function setUpdateTimeAttr() {
+        return time();
+    }
+
+    /**
+     * 信息的状态
+     * @param type $status
+     * @param type $data
+     * @return string
+     */
+    public function getStatusTextAttr($status, $data) {
+        if (empty($status)) {
+            $status = $data["status"];
+        }
+        return self::$STATUS[intval($status)];
+    }
+
+    /**
+     * 获取创建时间格式化
+     * @param type $create_time
+     * @return type
+     */
+    public function getCreateTimeFromatAttr($create_time, $data) {
+        if (empty($create_time)) {
+            $create_time = $data["create_time"];
+        }
+        $time = $create_time === NULL ? time() : intval($create_time);
+        return date($this->format, $time);
+    }
+
+    /**
+     * 获取更新时间格式化
+     * @param type $update_time
+     * @return type
+     */
+    public function getUpdateTimeFromatAttr($update_time, $data) {
+        if (empty($update_time)) {
+            $update_time = $data["update_time"];
+        }
+        $time = $update_time === NULL ? time() : intval($update_time);
+        return date($this->format, $time);
+    }
+
+    /**
+     * 获取是否显示的格式化
+     * @param type $display
+     * @param type $data
+     * @return string
+     */
+    public function getDisplayTextAttr($display, $data) {
+        if (empty($display)) {
+            $display = $data["display"];
+        }
+        return self::$DISPLAY[intval($display)];
+    }
+
+    /**
+     * 获取终端类型的格式化
+     * @param type $terminal
+     * @param type $data
+     * @return string
+     */
+    public function getTerminalTextAttr($terminal, $data) {
+        if (empty($terminal)) {
+            $terminal = $data["terminal"];
+        }
+        return self::$TERMINAL[intval($terminal)];
     }
 
     //类型转换
-    protected $type = [];
+    protected $type = [
+    ];
+
+    // 定义全局的查询范围
+    protected function base($query) {
+        $map['status'] = self::STATUS_NORMAL;
+        $query->where($map);
+    }
 
     /**
-     * 添加
-     * @param type $data 添加数据
-     * @return boolean 成功的时候返回添加的ID
+     * 分页
      */
-    public function add($data) {
-        if ($this->allowField(true)->data($data)->save()) {
-            return $this->id;
-        } else {
+    public static function paginate($map = null) {
+        return parent::where($map)->paginate();
+    }
+
+    /**
+     * 操作数据的更新或添加
+     * @param type $data
+     * @param type $map
+     * @return type
+     */
+    public static function deal($data, $map = NULL) {
+        if (array_key_exists("id", $data)) {
+            return self::update($data, $map);
+        }
+        $create = self::create($data); //20161118
+        if (empty($create)) {
             return false;
         }
+        return $create->id;
     }
 
     /**
-     * 多数据处理：添加或者更新
-     * @param type $list 数据
-     * @param type $status 默认 true 表示 有主键值时是更新，没有时田间；false 只会添加
-     * @return boolean
+     * 根据id删除
+     * @param type $map
+     * @return type
      */
-    public function saveAll($list, $status = true) {
-        return $this->saveAll($list, $status);
+    public static function del($map = NULL) {
+        return parent::update(["status" => self::STATUS_DEL], $map);
     }
 
     /**
-     * 删除
-     * @param type $map 删除条件
-     * @return boolean
+     * 根据ids删除
+     * @param type $ids
+     * @return type
      */
-    public function delete($map) {
-        return self::destroy($map);
+    public static function delByIds($ids = []) {
+        return parent::update(["status" => self::STATUS_DEL], ["id" => ["in", $ids]]);
     }
 
     /**
-     * 更新
-     * @param type $data 更新数据，含有主键的时候，可以不添加更新条件
-     * @param type $map 更新条件
-     * @return boolean
+     * 根据id查询
+     * @param type $map
+     * @return type
      */
-    public function update($data, $map = true) {
-        return self::where($map)->update($data);
+    public static function getLineData($map = NULL) {
+        return parent::get($map);
     }
 
     /**
-     * 获取单条数据
-     * @param type $map 查询条件
-     * @return 单条数据
+     * 根据条件清空
+     * @param type $map
+     * @return type
      */
-    public function find($map) {
-        if(is_array($map))
-        return self::get($map);
-    }
-
-    /**
-     * 获取多条数据
-     * @param type $map 查询条件
-     * @return 多条数据
-     */
-    public function select($map) {
-        return self::all($map);
+    public static function clear($map = NULL) {
+        return parent::destroy($map);
     }
 
 }
