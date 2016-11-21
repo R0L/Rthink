@@ -162,6 +162,27 @@ class Base extends Model {
         }
         return $create->id;
     }
+    
+    
+    /**
+     * 数据添加
+     * @param type $data
+     * @return type
+     */
+    public function add($data) {
+        return $this->validate(true)->all($data);
+    }
+    
+    /**
+     * 数据编辑
+     * @param type $data
+     * @param type $where
+     * @return type
+     */
+    public function edit($data,$where) {
+        return $this->validate(true)->update($data, $where);
+    }
+    
 
     /**
      * 根据id删除
