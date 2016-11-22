@@ -1,0 +1,91 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2016-11-2, 16:38:44
+    Author     : ROL
+*/
+
+.hidden{
+    display: none;
+}
+.uhide{
+    display: none;
+}
+.fr{
+    float: right;
+}
+.fl{
+    float: left;
+}
+.triangle-left {
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-right: 6px solid #fd9702;
+    border-bottom: 6px solid transparent;
+}
+.triangle-bottom {
+    width: 0;
+    height: 0;
+    border-left: 3px solid transparent;
+    border-top: 5px solid #fd9702;
+    border-right: 3px solid transparent;
+}
+.triangle-top {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-bottom: 20px solid #fd9702;
+    border-right: 10px solid transparent;
+}
+.umar-b{
+    margin-bottom: 10px;
+}
+.toolbar{
+    height: 30px;
+}
+.umar-t50{
+    margin-top: 50px;
+}
+
+
+
+/*
+上传文件css
+*/
+
+.uploader-list .file-item{
+    display: inline-block;
+    margin: 0 5px;
+}
+.webuploader-pick{
+    background-color: #3a4658 !important;
+}
+
+/*
+图片处理css
+*/
+
+img.cover{
+    width:60px;
+    height:60px;
+}
+img.cover:hover{
+/*    -webkit-transform:scale(10,10);
+    -moz-transform:scale(10,10);
+    -transform:scale(10,10);*/
+}
+
+
+/*
+阿里共用css
+*/
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }
