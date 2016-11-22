@@ -15,6 +15,11 @@ use think\Session;
  */
 class Common extends Controller {
 
+    /**
+     * 登录
+     * @param Request $request
+     * @return type
+     */
     public function login(Request $request) {
 
         if ($request->isPost()) {
@@ -49,6 +54,25 @@ class Common extends Controller {
         return $this->fetch("user/login");
     }
 
+    /**
+     * 注销
+     */
+    public function loginOut() {
+        Session::clear();
+        $this->redirect("common/login");
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function execl() {
         $data = array(
             array(NULL, 2010, 2011, 2012),

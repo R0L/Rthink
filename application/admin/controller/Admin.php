@@ -4,9 +4,9 @@ namespace application\admin\controller;
 
 use \think\Controller;
 use ROL\Auth\Auth;
-use application\common\logic\AuthGroup;
-use application\common\logic\Config as ConfigLogic;
-use application\common\model\Member;
+use application\common\service\Meun;
+use application\common\service\Member;
+use application\common\api\Config as ConfigApi;
 use think\Config;
 use think\Cache;
 use think\Session;
@@ -25,15 +25,18 @@ class Admin extends Controller {
         $user_id = Session::get('user_id');
         
         empty($user_id) && $this->error("你还没有登录,请先登录！","common/login");
+        $meun = new Meun();
+        $member = new Member();
         
         $request = Request::instance();
-        $user = Member::useGlobalScope(false)->get(["status"=>1,"id"=>$user_id]);
+        
+        $user = $member->getMemberById($user_id);
         $request->bind('user',$user);
         if($user->pid){
-            $user = Member::useGlobalScope(false)->get(["status"=>1,"id"=>$user->pid]);
+            $user = $member->getMemberById($user->pid);
         }
         $request->bind('pubuser',$user);
-        $request->bind('group_id',AuthGroup::getGroupIdByuid($user_id));
+        $request->bind('group_id',$meun->getGroupIdByuid($user_id));
         
         if ($request->group_id != 1) {
             $auth = new Auth();
@@ -43,16 +46,16 @@ class Admin extends Controller {
         }
         $menus = Cache::get($request->group_id);
         if(empty($menus)){
-            Cache::set($request->group_id,AuthGroup::selectByModuleUserId($request->module(),$user_id));
+            Cache::set($request->group_id,$meun->selectByModuleUserId($request->module(),$user_id));
             $menus = Cache::get($request->group_id);
         };
-//        $menuParent = AuthGroup::getMenuParent($request->path());
-        $menuParent = AuthGroup::getMenuParent($request->module() . '/' . $request->controller() . '/' . $request->action());
+        $menuParent = $meun->getMenuParent($request->module() . '/' . $request->controller() . '/' . $request->action());
         
         $this->assign("_MP_", array_reverse($menuParent));
         $this->assign("_MENU_", $menus);
         
-        Config::set(ConfigLogic::getConfig());
+        //加载所有的配置文件
+        Config::set(ConfigApi::lists());
     }
 
     //前置操作

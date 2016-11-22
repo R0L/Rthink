@@ -7,19 +7,19 @@
             <div class="controls">
                 <select name="pid">
                         {volist  name="menus" id="menu"}
-                            {if condition="$menu->id eq $info.id"}
+                            {if condition="$menu->id eq $info.pid"}
                                 <option value="{$menu->id}" selected="selected">&nbsp;&nbsp;{$menu->title}</option>
                             {else/}
                                 <option value="{$menu->id}">&nbsp;&nbsp;{$menu->title}</option>
                             {/if}
                             {volist  name="menu->_child" id="menu"}
-                                {if condition="$menu->id eq $info.id"}
+                                {if condition="$menu->id eq $info.pid"}
                                     <option value="{$menu.id}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
                                 {else/}
                                     <option value="{$menu.id}">&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
                                 {/if}
                                 {volist  name="menu->_child" id="menu"}
-                                    {if condition="$menu->id eq $info.id"}
+                                    {if condition="$menu->id eq $info.pid"}
                                         <option value="{$menu.id}" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
                                     {else/}
                                         <option value="{$menu.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$menu->title}</option>
@@ -51,8 +51,8 @@
         <div class="form-item">
             <label class="item-label">显示/隐藏<span class="check-tips">（用于后台显示的菜单展示）</span></label>
             <div class="controls">
-                <label class="radio"><input type="radio" name="is_menu" value="1">是</label>
-                <label class="radio"><input type="radio" name="is_menu" value="0" checked="checked">否</label>
+                <label class="radio"><input {if condition="!empty($info.is_menu) and $info.is_menu eq 1 "}checked="checked"{/if} type="radio" name="is_menu" value="1">是</label>
+                <label class="radio"><input {if condition="!empty($info.is_menu) and $info.is_menu eq 0"}checked="checked"{/if} type="radio" name="is_menu" value="0">否</label>
             </div>
         </div>
         <div class="form-item umar-t50">

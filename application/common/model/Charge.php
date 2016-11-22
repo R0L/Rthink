@@ -30,6 +30,9 @@ class Charge extends Base {
     public static $chargeTypeStatus = [0 => '系统支付', 1 => '支付宝支付',2=>'微信支付',3=>"银联支付",4=>"积分支付",5=>"红包支付",6=>"提现"];
     
     
+    
+    protected $insert = ['status' => self::STATUS_NORMAL,'charge_status'=>0, 'create_time'];
+    
     /**
      * 获取账单的状态的格式化
      * @param type $charge_status

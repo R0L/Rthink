@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Config extends Base {
+class Config extends BaseCommon {
     
     const CONFIG_SYSTEM = 0; //系统配置
     const CONFIG_WEBSITE = 1; //网站配置

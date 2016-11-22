@@ -3,6 +3,7 @@
 namespace application\admin\controller;
 use think\Request;
 use application\common\logic\AuthRule as AuthRuleLogic;
+use application\common\service\Meun;
 
 
 /**
@@ -80,9 +81,10 @@ class AuthRule extends Admin {
             $authRuleGet = AuthRuleLogic::getLineData(["id"=>$id]);
             $this->assign("info", $authRuleGet);
         }else{
-            $this->assign("info", ["id"=>0]);
+            $this->assign("info", ["pid"=>0]);
         }
-        $this->assign('menus',AuthRuleLogic::selectToMenus());
+        $meun = Meun();
+        $this->assign('menus',$meun->selectToMenus());
         return $this->fetch('edit');
     }
 }

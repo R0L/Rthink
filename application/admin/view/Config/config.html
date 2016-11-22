@@ -3,11 +3,34 @@
 <form action="{:url()}" method="post" class="form-horizontal">
     {foreach $info_list as $info}
     <div class="form-item">
-        <label class="item-label">{$info.title}<span class="check-tips">（{$info.remark}）</span></label>
-        <div class="controls">
-            <input type="hidden" name="id[]" value="{$info.id}">
-            <input type="text" class="text input-large" name="value[]" value="{$info.value|default=''}">
-        </div>
+            <label class="item-label">{$info.title}<span class="check-tips">（{$info.remark}）</span> </label>
+            <div class="controls">
+            {switch name="info.type"}
+            {case value="0"}
+            <input type="text" class="text input-small" name="config[{$info.name}]" value="{$info.value}">
+            {/case}
+            {case value="1"}
+            <input type="text" class="text input-large" name="config[{$info.name}]" value="{$info.value}">
+            {/case}
+            {case value="2"}
+            <label class="textarea input-large">
+                    <textarea name="config[{$info.name}]">{$info.value}</textarea>
+            </label>
+            {/case}
+            {case value="3"}
+            <label class="textarea input-large">
+                    <textarea name="config[{$info.name}]">{$info.value}</textarea>
+            </label>
+            {/case}
+            {case value="4"}
+            <select name="config[{$info.name}]">
+                    {volist name=":parse_config_attr($info['extra'])" id="vo"}
+                            <option value="{$key}" {eq name="info.value" value="$key"}selected{/eq}>{$vo}</option>
+                    {/volist}
+            </select>
+            {/case}
+            {/switch}
+            </div>
     </div>
     {/foreach}
     <div class="form-item umar-t50">

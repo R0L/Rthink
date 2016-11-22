@@ -112,19 +112,31 @@ input{
     line-height: 45px;
     cursor: pointer;
 }
-.menu .icon{
+/*
+20161122
+*/
+.menu svg{
+    color: white;
+    font-size: 20px;   
+}
+.menu svg.icon{
+    margin: 0px 10px 0px 10px;
+    display:inline-block; 
+    vertical-align:middle;
+}
+.menu div.icon{
     margin: 0px 10px 0px 10px;
     display:inline-block; 
     width:8px; 
-    height:8px;  
+    height:8px; 
     vertical-align:middle;
 }
-.frist_page{
+/*.frist_page{
     background:url('../images/frist_page_default.png') center no-repeat; 
     background-size: 100% 100%;
     width: 20px !important;
     height: 20px !important;
-}
+}*/
 .second_page{
     width: 20px !important;
     height: 20px !important;
@@ -200,7 +212,11 @@ li:hover>a{
 头部用户信息模块
 */
 .head_img{
-    background:red  no-repeat; 
+    /*background:red  no-repeat;*/ /*20161122*/ 
+    background: url('../images/user-logo.png') center center no-repeat;
+    background-size: 100% 100%;
+    
+    
     display:inline-block; 
     width:40px; 
     height:40px;  

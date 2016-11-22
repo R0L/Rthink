@@ -5,9 +5,7 @@
     <ul>
         {volist  name="_MENU_" id="menu"}
         <li>
-            <!--<div class="icon frist_page"></div>-->
-            <svg class="icon" aria-hidden="true"><use xlink:href="#{$menu->condition}"></use></svg>
-            
+            <div class="icon frist_page"></div>
             <a href="{:url($menu->name)}">{$menu->title}</a>
             <div class="icon flod"></div>
             <div class="menu second">

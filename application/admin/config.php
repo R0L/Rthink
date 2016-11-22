@@ -55,7 +55,7 @@ return [
     'session' => [
         'id' => '',
         'var_session_id' => '',
-        'prefix' => 'think',
+        'prefix' => 'Rthink',
         'type' => '',
         'auto_start' => true,
     ],

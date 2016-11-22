@@ -1,7 +1,7 @@
 <?php
 
 namespace application\common\service;
-use application\common\logic\Member;
+use application\common\logic\Member as MemberLogic;
 /**
  * @author ROL
  * @date 2016-11-11 11:43:07
@@ -12,8 +12,12 @@ class Member{
     
     
     public function getMemberByUserName($UserName) {
-        $MemberLogic = new MemberLogic();
-        return $MemberLogic->getMemberByUserName($UserName);
+        return MemberLogic::getMemberByUserName($UserName);
+    }
+    
+    
+    public function getMemberById($id) {
+        return MemberLogic::get($id);
     }
     
     

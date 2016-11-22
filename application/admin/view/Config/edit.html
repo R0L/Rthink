@@ -6,21 +6,69 @@
         <div class="controls">
             <select name="config_type">
                 {foreach $config_type_list as $key=>$config_type}
-                <option value="{$key}">{$config_type}</option>
+                {if condition="$info.config_type eq $key"}
+                    <option value="{$key}" selected="selected">{$config_type}</option>
+                {else/}
+                    <option value="{$key}">{$config_type}</option>
+                {/if}
                 {/foreach}              
             </select>
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">配置名称<span class="check-tips">（用于Config调用标志）</span></label>
+        <label class="item-label">配置标识<span class="check-tips">（用于Config函数调用，只能使用英文且不能重复）</span></label>
         <div class="controls">
             <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">配置标题<span class="check-tips">（用于表示配置信息）</span></label>
+        <label class="item-label">配置标题<span class="check-tips">（用于后台显示的配置标题）</span></label>
         <div class="controls">
             <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">排序<span class="check-tips">（用于分组显示的顺序）</span></label>
+        <div class="controls">
+            <input type="text" class="text input-small" name="sort" value="{$info.sort|default=0}">
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">配置类型<span class="check-tips">（系统会根据不同类型解析配置值）</span></label>
+        <div class="controls">
+            <select name="type">
+                {volist name="Think.config.CONFIG_TYPE_LIST" id="type"}
+                    {if condition="$info.type eq $key"}
+                       <option value="{$key}" selected="selected">{$type}</option>
+                    {else/}
+                       <option value="{$key}">{$type}</option>
+                    {/if}
+                {/volist}
+            </select>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">配置值<span class="check-tips">（配置值）</span></label>
+        <div class="controls">
+            <label class="textarea input-large">
+                <textarea name="value">{$info.value|default=''}</textarea>
+            </label>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">配置项<span class="check-tips">（如果是枚举型 需要配置该项）</span></label>
+        <div class="controls">
+            <label class="textarea input-large">
+                <textarea name="extra">{$info.extra|default=''}</textarea>
+            </label>
+        </div>
+    </div>
+    <div class="form-item">
+        <label class="item-label">说明<span class="check-tips">（配置详细说明）</span></label>
+        <div class="controls">
+            <label class="textarea input-large">
+                <textarea name="remark">{$info.remark|default=''}</textarea>
+            </label>
         </div>
     </div>
     <div class="form-item umar-t50">

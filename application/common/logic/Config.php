@@ -29,7 +29,7 @@ class Config extends ConfigModel{
      * 获得config的配置
      */
     public static function getConfig() {
-        ConfigModel::where(true)->column("title", "name");
+        return ConfigModel::where(true)->field('type,name,value')->select();
     }
 
     /**
@@ -48,11 +48,19 @@ class Config extends ConfigModel{
     }
 
     /**
-     * 根据ConfigType状态查询Config
-     * @param type $config_type
+     * 查询Config 根据ConfigType状态
+     * @param type $configType
      */
-    public static function selectByConfigType($config_type = 0) {
-        return ConfigModel::all(["config_type" => $config_type]);
+    public static function selectByConfigType($configType = 0) {
+        return ConfigModel::all(["config_type" => $configType]);
+    }
+    
+    
+    /**
+     * 查询支持的支付方式
+     */
+    public static function selectToPayType() {
+        return ConfigModel::all(["config_type" => ConfigModel::CONFIG_PAYMENT,"name"=>["like","%_ON"],"value"=>1]);
     }
 
     /**

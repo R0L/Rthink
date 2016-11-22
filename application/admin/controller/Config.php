@@ -12,15 +12,25 @@ use think\Request;
 class Config extends Admin {
     
     /**
+     * 配置列表
+     * @param Request $request
+     * @return type
+     */
+    public function index(Request $request) {
+        $param = $request->except("page");
+        $lists = ConfigLogic::paginate($param);
+        $this->assign('lists', $lists);
+        return $this->fetch();
+    }
+    
+    
+    /**
      * 网站配置
      * @param Request $request
      * @return type
      */
     public function website(Request $request) {
-        $param = $request->except("page");
-        $lists = ConfigLogic::paginate($param);
-        $this->assign('lists', $lists);
-        return $this->fetch();
+        return $this->setConfig($request, ConfigLogic::CONFIG_WEBSITE);
     }
     
     /**
@@ -45,7 +55,7 @@ class Config extends Admin {
         if($request->isPost()){
             $deal = ConfigLogic::deal($request->param());
             if($deal){
-                $this->success("操作成功","website");
+                $this->success("操作成功","index");
             }
             $this->error("操作失败");
         }

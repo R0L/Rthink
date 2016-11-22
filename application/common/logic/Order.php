@@ -10,4 +10,15 @@ use application\common\model\Order as OrderModel;
 class Order extends OrderModel{
     
     
+    /**
+     * 获取订单 通过$orderStatus
+     * @param type $userId
+     * @param type $orderStatus
+     * @return type
+     */
+    public static function selectByOrderStatus($userId,$orderStatus=OrderModel::ORDER_HAVEINHAND) {
+        return OrderModel::all(["user_id"=>$userId,"order_status"=>$orderStatus]);
+    }
+    
+    
 }

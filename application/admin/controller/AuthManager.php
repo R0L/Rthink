@@ -2,8 +2,9 @@
 
 namespace application\admin\controller;
 
+use application\common\service\Meun;
 use application\common\logic\AuthGroup;
-use application\common\model\AuthGroupAccess;
+use application\common\logic\AuthGroupAccess;
 use think\Request;
 
 /**
@@ -18,9 +19,8 @@ class AuthManager extends Admin {
      * 权限分组展示
      * @return type
      */
-    public function index() {
-        $AuthGroup = new AuthGroup();
-        $lists = $AuthGroup->paginate();
+    public function index(Request $request) {
+        $lists = AuthGroup::paginate($request->except("page"));
         $this->assign('lists', $lists);
         return $this->fetch();
     }
@@ -31,9 +31,8 @@ class AuthManager extends Admin {
      *  @return type
      */
     public function access(Request $request) {
-        $AuthGroup = new AuthGroup();
         if($request->isPost()){
-            $status_update = $AuthGroup->updateAuthGroup(input("param.id"),  implode(",", input("param.ids/a")));
+            $status_update = AuthGroup::updateAuthGroup(input("param.id"),  implode(",", input("param.ids/a")));
             if($status_update){
                 $this->error("更新成功");
             }else{
@@ -41,7 +40,8 @@ class AuthManager extends Admin {
             }
         }
         $group_id = input("param.group_id");
-        $result = $AuthGroup->selectByModuleGroupId($request->module(), $group_id);
+        $meun = new Meun();
+        $result = $meun->selectByModuleGroupId($request->module(), $group_id);
         $this->assign("list", $result);
         $this->assign("info", ["id"=>  input("param.group_id")]);
         return $this->fetch();

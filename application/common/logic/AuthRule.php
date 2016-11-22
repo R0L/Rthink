@@ -1,8 +1,8 @@
 <?php
 
 namespace application\common\logic;
+
 use application\common\model\AuthRule as AuthRuleModel;
-use application\common\model\Tree;
 
 /**
  * @author ROL
@@ -10,25 +10,32 @@ use application\common\model\Tree;
  * @version V1.0
  * @desc   
  */
-class AuthRule extends AuthRuleModel{
-    
-    
-    
+class AuthRule extends AuthRuleModel {
+
     /**
      * 返回所有的AuthRule
      * @return type
      */
-    public static function selectToAuthRule() {
-        return AuthRuleModel::all();
+    public static function selectToAuthRule($map = []) {
+        return AuthRuleModel::all($map);
     }
-    
+
     /**
-     * 返回所有的AuthRule的树形菜单
+     * 根据id/name获得AuthRule
+     * @param type $id
+     * @param type $isName
      * @return type
      */
-    public static function selectToMenus(){
-        $Tree = new Tree();
-        return $Tree->toTree(self::selectToAuthRule());
+    public static function getAuthRule($id = NULL, $isName = false) {
+        $map = [];
+        if ($isName) {
+            $map["name"] = $isName;
+        } else if (is_numeric($id)) {
+            $map["id"] = $id;
+        } else if (is_string($id)) {
+            $map["name"] = $id;
+        }
+        return AuthRuleModel::get($map);
     }
-    
+
 }

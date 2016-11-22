@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50624
-Source Host           : localhost:3306
+Source Server         : 127.0.0.1
+Source Server Version : 50715
+Source Host           : 127.0.0.1:3306
 Source Database       : tp
 
 Target Server Type    : MYSQL
-Target Server Version : 50624
+Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-11-21 21:18:14
+Date: 2016-11-22 17:23:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -7645,7 +7645,7 @@ CREATE TABLE `tp_auth_group` (
 -- ----------------------------
 -- Records of tp_auth_group
 -- ----------------------------
-INSERT INTO `tp_auth_group` VALUES ('1', '管理员', '1,2,3,4,5,6,7,8,9,10,11,12,47,56,58,60,61,13,14,57,15,16,46,48,17,18,59,19,20,21,54,55,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45', '1', '1');
+INSERT INTO `tp_auth_group` VALUES ('1', '管理员', '1,2,3,4,5,6,7,8,68,9,10,11,63,12,47,56,69,58,60,61,13,14,57,15,16,46,48,17,18,59,19,62,20,21,54,55,22,24,25,64,26,65,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_auth_group_access
@@ -7682,14 +7682,14 @@ CREATE TABLE `tp_auth_rule` (
   `sort` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_rule
 -- ----------------------------
-INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', '1', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', '1', 'icon-shouyeshouye', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('2', '统计界面', '1', 'admin', 'admin/index/index', '1', '', '1', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', '1', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', '1', 'icon-xitongshezhi', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('4', '参数配置', '1', 'admin', '', '1', '', '3', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('5', '网站配置', '1', 'admin', 'admin/config/website', '1', '', '4', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('6', '支付配置', '1', 'admin', 'admin/config/payment', '1', '', '4', '1', '1');
@@ -7699,18 +7699,18 @@ INSERT INTO `tp_auth_rule` VALUES ('9', '通知管理', '1', 'admin', '', '1', '
 INSERT INTO `tp_auth_rule` VALUES ('10', '通知列表', '1', 'admin', 'admin/notice/noti', '1', '', '9', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('11', '通知浏览', '1', 'admin', 'admin/noticeRecord/index', '1', '', '9', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('12', '日志记录', '1', 'admin', 'admin/action/actionlog', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('13', '用户管理', '1', 'admin', '', '1', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('13', '用户管理', '1', 'admin', '', '1', 'icon-yonghuguanli', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('14', '会员管理', '1', 'admin', 'admin/user/index', '1', '', '13', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('15', '管理员管理', '1', 'admin', 'admin/member/index', '1', '', '13', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('16', '地址管理', '1', 'admin', 'admin/address/index', '1', '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('17', '内容管理', '1', 'admin', '', '1', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('17', '内容管理', '1', 'admin', '', '1', 'icon-neirongguanli', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('18', '导航管理', '1', 'admin', 'admin/channel/index', '1', '', '17', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('19', '幻灯片管理', '1', 'admin', 'admin/slider/index', '1', '', '17', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('20', '文章管理', '1', 'admin', 'admin/article/index', '1', '', '17', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('21', '公告管理', '1', 'admin', 'admin/notice/anno', '1', '', '17', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('22', '友情链接', '1', 'admin', 'admin/link/index', '1', '', '17', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('23', '积分管理', '1', 'admin', 'admin/integral/index', '0', '', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('24', '商城管理', '1', 'admin', '', '1', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('24', '商城管理', '1', 'admin', '', '1', 'icon-unie605', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('25', '分类管理', '1', 'admin', 'admin/category/index', '1', '', '24', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('26', '品牌管理', '1', 'admin', 'admin/brand/index', '1', '', '24', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('27', '商品管理', '1', 'admin', 'admin/goods/index', '1', '', '24', '1', '1');
@@ -7728,7 +7728,7 @@ INSERT INTO `tp_auth_rule` VALUES ('38', '已揭晓', '1', 'admin', 'admin/order
 INSERT INTO `tp_auth_rule` VALUES ('39', '已中奖', '1', 'admin', 'admin/order/haswontheprize', '1', '', '35', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('40', '未中奖', '1', 'admin', 'admin/order/notwinning', '1', '', '35', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('41', '已晒单', '1', 'admin', 'admin/order/sunsheet', '1', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('42', '财务管理', '1', 'admin', '', '1', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('42', '财务管理', '1', 'admin', '', '1', 'icon-caiwuguanli', '0', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('43', '财务统计', '1', 'admin', 'admin/charge/index', '1', '', '42', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('44', '消费记录', '1', 'admin', 'admin/charge/consumption', '1', '', '42', '1', '1');
 INSERT INTO `tp_auth_rule` VALUES ('45', '充值记录', '1', 'admin', 'admin/charge/recharge', '1', '', '42', '1', '1');
@@ -7754,6 +7754,8 @@ INSERT INTO `tp_auth_rule` VALUES ('64', '新增分类', '1', 'admin', 'admin/ca
 INSERT INTO `tp_auth_rule` VALUES ('65', '新增品牌', '1', 'admin', 'admin/brand/add', '1', '', '26', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('66', '新增商品', '1', 'admin', 'admin/goods/add', '1', '', '28', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('67', '测试', '1', 'admin', 't', '-1', '', '0', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('68', '配置列表', '1', 'admin', 'admin/config/index', '1', '', '4', '1', '10');
+INSERT INTO `tp_auth_rule` VALUES ('69', '菜单编辑', '1', 'admin', 'admin/authRule/edit', '1', '', '47', '0', '0');
 
 -- ----------------------------
 -- Table structure for tp_brand
@@ -7936,7 +7938,7 @@ CREATE TABLE `tp_config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`config_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_config
@@ -7945,31 +7947,69 @@ INSERT INTO `tp_config` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1',
 INSERT INTO `tp_config` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'OneThink内容管理框架', '1', '1', '1');
 INSERT INTO `tp_config` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'ThinkPHP,OneThink', '8', '1', '1');
 INSERT INTO `tp_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1', '1', '1');
-INSERT INTO `tp_config` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
-INSERT INTO `tp_config` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如“沪ICP备12007941号-2', '1378900335', '1379235859', '1', '', '9', '1', '1');
-INSERT INTO `tp_config` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1479276893', '1', '1:列表推荐', '3', '1', '1');
-INSERT INTO `tp_config` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1479276893', '1', '0:所有人可见1:仅注册会员可见2:仅管理员可见', '4', '1', '1');
-INSERT INTO `tp_config` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10', '1', '1');
-INSERT INTO `tp_config` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1479098128', '-1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统', '4', '1', '1');
-INSERT INTO `tp_config` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1479098133', '-1', '1:视图\r\n2:控制器', '6', '1', '1');
-INSERT INTO `tp_config` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1479098138', '-1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8', '1', '1');
-INSERT INTO `tp_config` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能\r\n1:开启草稿功能\r\n', '新增文章时的草稿功能配置', '1379484332', '1479455731', '-1', '1', '1', '1', '1');
-INSERT INTO `tp_config` VALUES ('24', 'DRAFT_AOTOSAVE_INTERVAL', '0', '自动保存草稿时间', '2', '', '自动保存草稿的时间间隔，单位：秒', '1379484574', '1479455774', '-1', '60', '2', '1', '1');
-INSERT INTO `tp_config` VALUES ('25', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1479455787', '-1', '10', '10', '1', '1');
-INSERT INTO `tp_config` VALUES ('26', 'USER_ALLOW_REGISTER', '4', '是否允许用户注册', '3', '0:关闭注册\r\n1:允许注册', '是否开放用户注册', '1379504487', '1379504580', '1', '1', '3', '1', '1');
-INSERT INTO `tp_config` VALUES ('27', 'CODEMIRROR_THEME', '4', '预览插件的CodeMirror主题', '4', '3024-day:3024 day\r\n3024-night:3024 night\r\nambiance:ambiance\r\nbase16-dark:base16 dark\r\nbase16-light:base16 light\r\nblackboard:blackboard\r\ncobalt:cobalt\r\neclipse:eclipse\r\nelegant:elegant\r\nerlang-dark:erlang-dark\r\nlesser-dark:lesser-dark\r\nmidnight:midnight', '详情见CodeMirror官网', '1379814385', '1384740813', '1', 'ambiance', '3', '1', '1');
-INSERT INTO `tp_config` VALUES ('28', 'DATA_BACKUP_PATH', '1', '数据库备份根路径', '4', '', '路径必须以 / 结尾', '1381482411', '1381482411', '1', './Data/', '5', '1', '1');
-INSERT INTO `tp_config` VALUES ('29', 'DATA_BACKUP_PART_SIZE', '0', '数据库备份卷大小', '4', '', '该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M', '1381482488', '1381729564', '1', '20971520', '7', '1', '1');
-INSERT INTO `tp_config` VALUES ('30', 'DATA_BACKUP_COMPRESS', '4', '数据库备份文件是否启用压缩', '4', '0:不压缩\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1381713345', '1381729544', '1', '1', '9', '1', '1');
-INSERT INTO `tp_config` VALUES ('31', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '数据库备份文件压缩级别', '4', '1:普通\r\n4:一般\r\n9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1381713408', '1381713408', '1', '9', '10', '1', '1');
-INSERT INTO `tp_config` VALUES ('32', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0:关闭\r\n1:开启', '是否开启开发者模式', '1383105995', '1383291877', '1', '1', '11', '1', '1');
-INSERT INTO `tp_config` VALUES ('33', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', '', '1386644047', '1386644741', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:user/submitPassword\r\n9:user/submitNickname\r\n10:file/uploadpicture', '0', '1', '1');
-INSERT INTO `tp_config` VALUES ('34', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644659', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '0', '1', '1');
-INSERT INTO `tp_config` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表每页条数', '2', '', '', '1386645376', '1479276893', '1', '10', '0', '1', '1');
-INSERT INTO `tp_config` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12', '1', '1');
-INSERT INTO `tp_config` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1', '1', '1');
-INSERT INTO `tp_config` VALUES ('40', 'TT', '0', '串串', '0', '', '', '1479102437', '1479102821', '-1', null, '0', '1', '1');
-INSERT INTO `tp_config` VALUES ('39', 'GG', '0', '测试', '0', '', '', '1479102390', '1479102817', '-1', null, '0', '1', '1');
+INSERT INTO `tp_config` VALUES ('5', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
+INSERT INTO `tp_config` VALUES ('6', 'AliPay_ON', '4', '支付宝开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持支付宝支付', '1479791624', '1479799408', '1', '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('7', 'WeiPay_ON', '4', '微信支付开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持微信支付', '1479791740', '1479791740', '1', '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('8', 'WEB_ADMIN_TITLE', '2', '后台标题', '1', '', '网站后台的标题', '1479798958', '1479798958', '1', '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('9', 'WEB_ADMIN_DESCRIPTION', '2', '网站后台描述', '1', '', '网站后台描述', '1479799004', '1479803619', '1', '', '10', '0', '1');
+
+-- ----------------------------
+-- Table structure for tp_config_copy
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_config_copy`;
+CREATE TABLE `tp_config_copy` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
+  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置名称',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置类型',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '配置说明',
+  `config_type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '配置分组',
+  `extra` varchar(255) NOT NULL DEFAULT '' COMMENT '配置值',
+  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '配置说明',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `value` text COMMENT '配置值',
+  `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `pub_id` int(11) NOT NULL,
+  `member_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_name` (`name`),
+  KEY `type` (`type`),
+  KEY `group` (`config_type`)
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_config_copy
+-- ----------------------------
+INSERT INTO `tp_config_copy` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '1378898976', '1379235274', '1', 'OneThink内容管理框架', '0', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'OneThink内容管理框架', '1', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'ThinkPHP,OneThink', '8', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如“沪ICP备12007941号-2', '1378900335', '1379235859', '1', '', '9', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1479783615', '-1', '1:列表推荐', '3', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1479276893', '1', '0:所有人可见1:仅注册会员可见2:仅管理员可见', '4', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1479098128', '-1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统', '4', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1479098133', '-1', '1:视图\r\n2:控制器', '6', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1479098138', '-1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能\r\n1:开启草稿功能\r\n', '新增文章时的草稿功能配置', '1379484332', '1479455731', '-1', '1', '1', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('24', 'DRAFT_AOTOSAVE_INTERVAL', '0', '自动保存草稿时间', '2', '', '自动保存草稿的时间间隔，单位：秒', '1379484574', '1479455774', '-1', '60', '2', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('25', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1479455787', '-1', '10', '10', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('26', 'USER_ALLOW_REGISTER', '4', '是否允许用户注册', '3', '0:关闭注册\r\n1:允许注册', '是否开放用户注册', '1379504487', '1379504580', '1', '1', '3', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('27', 'CODEMIRROR_THEME', '4', '预览插件的CodeMirror主题', '4', '3024-day:3024 day\r\n3024-night:3024 night\r\nambiance:ambiance\r\nbase16-dark:base16 dark\r\nbase16-light:base16 light\r\nblackboard:blackboard\r\ncobalt:cobalt\r\neclipse:eclipse\r\nelegant:elegant\r\nerlang-dark:erlang-dark\r\nlesser-dark:lesser-dark\r\nmidnight:midnight', '详情见CodeMirror官网', '1379814385', '1384740813', '1', 'ambiance', '3', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('28', 'DATA_BACKUP_PATH', '1', '数据库备份根路径', '4', '', '路径必须以 / 结尾', '1381482411', '1381482411', '1', './Data/', '5', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('29', 'DATA_BACKUP_PART_SIZE', '0', '数据库备份卷大小', '4', '', '该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M', '1381482488', '1381729564', '1', '20971520', '7', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('30', 'DATA_BACKUP_COMPRESS', '4', '数据库备份文件是否启用压缩', '4', '0:不压缩\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1381713345', '1381729544', '1', '1', '9', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('31', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '数据库备份文件压缩级别', '4', '1:普通\r\n4:一般\r\n9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1381713408', '1381713408', '1', '9', '10', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('32', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0:关闭\r\n1:开启', '是否开启开发者模式', '1383105995', '1383291877', '1', '1', '11', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('33', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', '', '1386644047', '1386644741', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:user/submitPassword\r\n9:user/submitNickname\r\n10:file/uploadpicture', '0', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('34', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644659', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '0', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表每页条数', '2', '', '', '1386645376', '1479276893', '1', '10', '0', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('40', 'TT', '0', '串串', '0', '', '', '1479102437', '1479102821', '-1', null, '0', '1', '1');
+INSERT INTO `tp_config_copy` VALUES ('39', 'GG', '0', '测试', '0', '', '', '1479102390', '1479102817', '-1', null, '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods

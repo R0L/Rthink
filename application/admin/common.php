@@ -82,11 +82,11 @@ function send_mail($to, $title, $content) {
     $mail = new PHPMailer();
     $mail->IsSMTP(); // 启用SMTP
 //    $mail->SMTPDebug = 2; //显示具体的问题
-    $mail->Host = think\Config::get("mail.host"); 
+    $mail->Host = think\Config::get("mail.host");
     $mail->Mailer = think\Config::get("mail.mailer");
     $mail->SMTPAuth = think\Config::get("mail.smtpauth");
-    $mail->SMTPSecure = think\Config::get("mail.smtpsecure");  
-    $mail->Port = think\Config::get("mail.port");  
+    $mail->SMTPSecure = think\Config::get("mail.smtpsecure");
+    $mail->Port = think\Config::get("mail.port");
     $mail->Username = think\Config::get("mail.username");
     $mail->Password = think\Config::get("mail.password");
     $mail->From = think\Config::get("mail.from");
@@ -99,4 +99,19 @@ function send_mail($to, $title, $content) {
     $mail->Body = $content; //邮件内容
     $mail->AltBody = "这是一个纯文本的身体在非营利的HTML电子邮件客户端"; //邮件正文不支持HTML的备用显示
     return($mail->Send());
+}
+
+// 分析枚举类型配置值 格式 a:名称1,b:名称2
+function parse_config_attr($string) {
+    $array = preg_split('/[,;\r\n]+/', trim($string, ",;\r\n"));
+    if (strpos($string, ':')) {
+        $value = array();
+        foreach ($array as $val) {
+            list($k, $v) = explode(':', $val);
+            $value[$k] = $v;
+        }
+    } else {
+        $value = $array;
+    }
+    return $value;
 }

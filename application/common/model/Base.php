@@ -194,6 +194,14 @@ class Base extends Model {
     }
 
     /**
+     * 根据id删除
+     * @param type $id
+     * @return type
+     */
+    public static function delById($id) {
+        return parent::update(["status" => self::STATUS_DEL], ["id"=>$id]);
+    }
+    /**
      * 根据ids删除
      * @param type $ids
      * @return type
