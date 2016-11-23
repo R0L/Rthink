@@ -10,14 +10,12 @@ use application\common\model\NoticeRecord as NoticeRecordModel;
  */
 class NoticeRecord extends Admin {
     public function index() {
-        $map = array();
-        $map["status"] = 1;
+        $map = [];
 //        $title = trim(input('title'));
 //        if (!empty($title)) {
 //            $map["title|content"] = ["like", "%" . $title . "%"];
 //        }
-        $NoticeRecord = new NoticeRecordModel();
-        $lists = $NoticeRecord->where($map)->paginate();
+        $lists = NoticeRecordModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }

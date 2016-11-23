@@ -28,4 +28,14 @@ class ActionLog extends ActionLogModel{
     }
     
     
+    /**
+     * 统计ActionLog
+     * @param type $map
+     * @param type $field
+     * @return type
+     */
+    public static function countActionLog($map,$field=null) {
+        return ActionModel::where($map)->count($field);
+    }
+    
 }

@@ -23,7 +23,6 @@ class Admin extends Controller {
     //初始化
     public function _initialize() {
         $user_id = Session::get('user_id');
-        
         empty($user_id) && $this->error("你还没有登录,请先登录！","common/login");
         $meun = new Meun();
         $member = new Member();
@@ -38,17 +37,23 @@ class Admin extends Controller {
         $request->bind('pubuser',$user);
         $request->bind('group_id',$meun->getGroupIdByuid($user_id));
         
-        if ($request->group_id != 1) {
+        if ($request->group_id) {
             $auth = new Auth();
             if (!$auth->check($request->module() . '/' . $request->controller() . '/' . $request->action(), $user_id)) {
                 $this->error("你没有权限");
             }
         }
-        $menus = Cache::get($request->group_id);
-        if(empty($menus)){
-            Cache::set($request->group_id,$meun->selectByModuleUserId($request->module(),$user_id));
-            $menus = Cache::get($request->group_id);
-        };
+        
+        $menus = Cache::remember($request->group_id, function (){
+            $meun = new Meun();
+            $request = Request::instance();
+            return $meun->selectByModule($request->module(),$request->user->id);
+        });
+//        $menus = Cache::get($request->group_id);
+//        if(empty($menus)){
+//            Cache::set($request->group_id,$meun->selectByModuleUserId($request->module(),$user_id));
+//            $menus = Cache::get($request->group_id);
+//        };
         $menuParent = $meun->getMenuParent($request->module() . '/' . $request->controller() . '/' . $request->action());
         
         $this->assign("_MP_", array_reverse($menuParent));
@@ -63,5 +68,16 @@ class Admin extends Controller {
 
     public function _empty() {
         return "操作不存在";
+    }
+    
+    /**
+     * 全局操作
+     * @param type $opResult
+     */
+    protected function opReturn($opResult = false,$refreshUrl="index"){
+        if($opResult){
+            $this->success("操作成功",$refreshUrl);
+        }
+        $this->error("操作失败");
     }
 }

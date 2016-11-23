@@ -3,6 +3,7 @@
 namespace application\common\logic;
 
 use application\common\model\AuthRule as AuthRuleModel;
+use application\common\api\Cache;
 
 /**
  * @author ROL
@@ -38,4 +39,35 @@ class AuthRule extends AuthRuleModel {
         return AuthRuleModel::get($map);
     }
 
+    
+    /**
+     * 删除缓存并添加访问规则
+     * @param type $data
+     * @return type
+     */
+    public function addAuthRule($data) {
+        Cache::delCache();
+        return $this->add($data);
+    }
+    
+    /**
+     * 删除缓存并编辑访问规则
+     * @param type $data
+     * @return type
+     */
+    public function editAuthRule($data) {
+        Cache::delCache();
+        return $this->edit($data,["id"=>$data["id"]]);
+    }
+    
+    /**
+     * 删除缓存并删除访问规则
+     * @param type $ids
+     * @param type $force
+     */
+    public static function delByIdsCache($ids, $force = false) {
+        Cache::delCache();
+        return parent::delByIds($ids, $force);
+    }
+    
 }

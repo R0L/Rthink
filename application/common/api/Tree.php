@@ -1,6 +1,6 @@
 <?php
 
-namespace application\common\model;
+namespace application\common\api;
 
 /**
  * 生成多层树状下拉选框的工具模型

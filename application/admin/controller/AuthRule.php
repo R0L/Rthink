@@ -4,6 +4,7 @@ namespace application\admin\controller;
 use think\Request;
 use application\common\logic\AuthRule as AuthRuleLogic;
 use application\common\service\Meun;
+use application\common\api\Log;
 
 
 /**
@@ -39,7 +40,19 @@ class AuthRule extends Admin {
      * @return type
      */
     public function add(Request $request){
-        return  $this->deal($request);
+        if($request->isPost()){
+             $authRuleLogic = new AuthRuleLogic();
+             $statusDeal = $authRuleLogic->addAuthRule($request->param());
+            if($statusDeal){
+                Log::action("add_authRules", $statusDeal, $request->user->id);
+                $this->success("操作成功","index");
+            }
+            $this->success("操作失败:".$authRuleLogic->getError());
+        }
+        $this->assign("info", ["pid"=>0]);
+        $meun = new Meun();
+        $this->assign('menus',$meun->selectToMenus());
+        return $this->fetch('edit');
     }
     
     /**
@@ -48,7 +61,20 @@ class AuthRule extends Admin {
      * @return type
      */
     public function edit(Request $request) {
-        return  $this->deal($request);
+        $id = $request->param("id");
+        if($request->isPost()){
+            $authRuleLogic = new AuthRuleLogic();
+            $statusDeal =$authRuleLogic->editAuthRule($request->param());
+            if($statusDeal){
+                $this->success("操作成功","index");
+            }
+            $this->success("操作失败".$authRuleLogic->getError());
+        }
+        $authRuleGet = AuthRuleLogic::getLineData(["id"=>$id]);
+        $this->assign("info", $authRuleGet);
+        $meun = new Meun();
+        $this->assign('menus',$meun->selectToMenus());
+        return $this->fetch('edit');
     }
     
     /**
@@ -56,7 +82,7 @@ class AuthRule extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $delByIds = AuthRuleLogic::delByIds($request->param("id/a"));
+        $delByIds = AuthRuleLogic::delByIdsCache($request->param("id/a"));
         if ($delByIds) {
             $this->success("操作成功");
         }

@@ -17,7 +17,7 @@ class AuthGroup extends AuthGroupModel {
      * @param type $rules
      * @return type
      */
-    public function updateAuthGroup($id, $rules) {
+    public static function updateAuthGroup($id, $rules) {
         return AuthGroupModel::update(["rules" => $rules], ["id" => $id]);
     }
 
@@ -33,12 +33,22 @@ class AuthGroup extends AuthGroupModel {
     }
 
     /**
-     * 添加user到GROUP
+     * 添加GROUP
      * @param type $data
      * @return type
      */
-    public static function addToGroup($data) {
-        return AuthGroup::create($data);
+    public function addAuthGroup($data) {
+        return $this->add($data);
+    }
+    
+    /**
+     * 编辑GROUP
+     * @param type $data
+     * @param type $id
+     * @return type
+     */
+    public function editAuthGroup($data,$id) {
+        return $this->edit($data,["id"=>$id]);
     }
 
     /**
@@ -47,7 +57,7 @@ class AuthGroup extends AuthGroupModel {
      * @return type
      */
     public static function getRulesToGroup($id) {
-        return AuthGroup::get($id)->value("rules");
+        return AuthGroup::where(["id"=>$id])->value("rules");
     }
 
 }

@@ -32,18 +32,18 @@ class AuthManager extends Admin {
      */
     public function access(Request $request) {
         if($request->isPost()){
-            $status_update = AuthGroup::updateAuthGroup(input("param.id"),  implode(",", input("param.ids/a")));
+            $status_update = AuthGroup::updateAuthGroup($request->param("id"),  implode(",", $request->param("ids/a")));
             if($status_update){
                 $this->error("更新成功");
             }else{
                 $this->error("更新失败");
             }
         }
-        $group_id = input("param.group_id");
+        $group_id = $request->param("group_id");
         $meun = new Meun();
         $result = $meun->selectByModuleGroupId($request->module(), $group_id);
         $this->assign("list", $result);
-        $this->assign("info", ["id"=>  input("param.group_id")]);
+        $this->assign("info", ["id"=>  $group_id]);
         return $this->fetch();
     }
     
@@ -54,9 +54,10 @@ class AuthManager extends Admin {
      * @return type
      */
     public function user(Request $request) {
-        $AuthGroupAccess = new AuthGroupAccess();
-        $result = $AuthGroupAccess->where(["group_id"=>input("param.group_id")])->paginate();
-        $this->assign("lists", $result);
+        $group_id = $request->param("group_id");
+        $lists = AuthGroupAccess::paginate(["group_id"=>$group_id]);
+        $this->assign("lists", $lists);
+        $this->assign("group_id", $group_id);
         return $this->fetch();
     }
     
@@ -98,4 +99,74 @@ class AuthManager extends Admin {
             $this->error("删除失败");
         }
     }
+    
+    
+    /**
+     * 权限管理-添加
+     * @param Request $reqesut
+     */
+    public function add(Request $reqesut) {
+        if($reqesut->isPost()){
+            $authGroup = new AuthGroup();
+            $addAuthGroup = $authGroup->addAuthGroup($reqesut->param());
+            $this->opReturn($addAuthGroup);
+        }
+        return $this->fetch("edit");
+    }
+    
+    /**
+     * 权限管理-编辑
+     * @param Request $reqesut
+     * @return type
+     */
+    public function edit(Request $reqesut) {
+        $id = $reqesut->param("id");
+        if($reqesut->isPost()){
+            $authGroup = new AuthGroup();
+            $addAuthGroup = $authGroup->editAuthGroup($reqesut->param(),$id);
+            $this->opReturn($addAuthGroup);
+        }
+        $authGroupGet = AuthGroup::getLineData($id);
+        $this->assign("info", $authGroupGet);
+        return $this->fetch("edit");
+    }
+    
+    /**
+     * 权限管理-删除
+     * @param Request $reqesut
+     */
+    public function del(Request $reqesut) {
+        $delByIds = AuthGroup::delByIds($reqesut->param("id/a"),true);
+        $this->opReturn($delByIds);
+    }
+    
+    /**
+     * 权限管理-成员授权-删除
+     * @param Request $reqesut
+     */
+    public function userDel(Request $reqesut) {
+        $delByIds = AuthGroupAccess::delByIds($reqesut->param("id/a"));
+        $this->opReturn($delByIds);
+    }
+    
+    /**
+     * 权限管理-成员授权-添加
+     * @param Request $reqesut
+     */
+    public function userAdd(Request $reqesut) {
+//       if($reqesut->isPost()){
+//            $authGroupAccess = new AuthGroupAccess();
+//            $add = $authGroupAccess->add($reqesut->param());
+//            $this->opReturn($add);
+//       }
+//       $group_id = $request->param("group_id");
+//       
+//       $authGroupAccess = AuthGroupAccess::getAuthGroupAccessByGroupId($group_id);
+//       
+//       $this->assign("info", $authGroupAccess);
+//       
+//       return 
+    }
+    
+    
 }

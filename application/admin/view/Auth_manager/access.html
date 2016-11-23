@@ -26,13 +26,13 @@
     <form action="{:url()}" method="post" class="form-horizontal">
         {volist  name="list" id="menu"}
         <div class="level menu">
-            <label><input type="checkbox" name="ids[]" {if condition="$menu.checked"} checked="checked"{/if} value="{$menu.id}"/>{$menu.title}</label>
+            <label><input type="checkbox" name="ids[]" {notempty name="$menu.checked"} checked="checked"{/notempty} value="{$menu.id}"/>{$menu.title}</label>
             {volist  name="menu->_child" id="menu"}
             <div class="menu">
-                <label><input type="checkbox" name="ids[]" {if condition="$menu.checked"} checked="checked"{/if} value="{$menu.id}"/>{$menu.title}</label>
+                <label><input type="checkbox" name="ids[]" {notempty name="$menu.checked"} checked="checked"{/notempty} value="{$menu.id}"/>{$menu.title}</label>
                 {volist  name="menu->_child" id="menu"}
                 <div  class="menu">
-                    <label><input type="checkbox" name="ids[]" {if condition="$menu.checked"} checked="checked"{/if} value="{$menu.id}"/>{$menu.title}</label>
+                    <label><input type="checkbox" name="ids[]" {notempty name="$menu.checked"} checked="checked"{/notempty} value="{$menu.id}"/>{$menu.title}</label>
                 </div>
                 {/volist}
             </div>

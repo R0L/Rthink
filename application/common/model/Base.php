@@ -3,7 +3,7 @@
 namespace application\common\model;
 
 use think\Model;
-use think\Session;
+use traits\model\SoftDelete;
 
 /**
  * @author ROL
@@ -12,21 +12,20 @@ use think\Session;
  * @desc   
  */
 class Base extends Model {
-
+    
+    
+    use SoftDelete;
     protected $autoWriteTimestamp = true;
     protected $format = 'Y-m-d H:i';
+    protected $deleteTime = 'delete_time';
 
     /**
      * 数据状态
      * @var type 
      */
-    public static $STATUS = [-1 => '删除', 0 => '禁用', 1 => '正常'];
     public static $DISPLAY = [0 => '否', 1 => '是'];
     public static $TERMINAL = [1 => '系统', 2 => 'PC', 3 => 'WAP', 4 => "Android", 5 => "IOS", 6 => "WeChat"];
 
-    const STATUS_DEL = -1; //删除
-    const STATUS_DISABLE = 0; //禁用
-    const STATUS_NORMAL = 1; //正常
     const DISPLAY_NO = 0; //否
     const DISPLAY_YES = 1; //是
     const TERMINAL_SYSTEM = 1; //系统
@@ -40,12 +39,11 @@ class Base extends Model {
 
     protected function initialize() {
         parent::initialize();
-        $this->validate = true;
     }
 
     //自动完成
     protected $auto = ['update_time'];
-    protected $insert = ['status' => self::STATUS_NORMAL, 'create_time'];
+    protected $insert = ['create_time'];
     protected $update = [];
 
     /**
@@ -62,19 +60,6 @@ class Base extends Model {
      */
     protected function setUpdateTimeAttr() {
         return time();
-    }
-
-    /**
-     * 信息的状态
-     * @param type $status
-     * @param type $data
-     * @return string
-     */
-    public function getStatusTextAttr($status, $data) {
-        if (empty($status)) {
-            $status = $data["status"];
-        }
-        return self::$STATUS[intval($status)];
     }
 
     /**
@@ -135,8 +120,8 @@ class Base extends Model {
 
     // 定义全局的查询范围
     protected function base($query) {
-        $map['status'] = self::STATUS_NORMAL;
-        $query->where($map);
+        $field = $this->getDeleteTimeField(true); 
+        $query->where($field, 'null');
     }
 
     /**
@@ -170,7 +155,11 @@ class Base extends Model {
      * @return type
      */
     public function add($data) {
-        return $this->validate(true)->all($data);
+        $statusSave = $this->validate(true)->isUpdate(false)->allowField(true)->save($data);
+        if($statusSave){
+            return $this->id;
+        }
+        return $statusSave;
     }
     
     /**
@@ -180,7 +169,7 @@ class Base extends Model {
      * @return type
      */
     public function edit($data,$where) {
-        return $this->validate(true)->update($data, $where);
+        return $this->validate(true)->isUpdate(true)->allowField(true)->save($data, $where);
     }
     
 
@@ -189,8 +178,8 @@ class Base extends Model {
      * @param type $map
      * @return type
      */
-    public static function del($map = NULL) {
-        return parent::update(["status" => self::STATUS_DEL], $map);
+    public static function del($map = NULL,$force = false) {
+        return self::destroy($map, $force);
     }
 
     /**
@@ -198,16 +187,16 @@ class Base extends Model {
      * @param type $id
      * @return type
      */
-    public static function delById($id) {
-        return parent::update(["status" => self::STATUS_DEL], ["id"=>$id]);
+    public static function delById($id,$force = false) {
+        return self::del(["id"=>$id], $force);
     }
     /**
      * 根据ids删除
      * @param type $ids
      * @return type
      */
-    public static function delByIds($ids = []) {
-        return parent::update(["status" => self::STATUS_DEL], ["id" => ["in", $ids]]);
+    public static function delByIds($ids = [],$force = false) {
+        return self::del(["id"=>["in", $ids]],$force);
     }
 
     /**
@@ -218,14 +207,4 @@ class Base extends Model {
     public static function getLineData($map = NULL) {
         return parent::get($map);
     }
-
-    /**
-     * 根据条件清空
-     * @param type $map
-     * @return type
-     */
-    public static function clear($map = NULL) {
-        return parent::destroy($map);
-    }
-
 }

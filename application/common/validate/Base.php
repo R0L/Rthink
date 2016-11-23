@@ -10,10 +10,8 @@ use think\Validate;
  */
 class Base extends Validate {
     protected $rule = [
-        
     ];
     protected $message = [
-        
     ];
     
     protected $scene = [

@@ -6,6 +6,7 @@
             <label class="item-label">上级菜单<span class="check-tips">（所属的上级菜单）</span></label>
             <div class="controls">
                 <select name="pid">
+                        <option value="0" selected="selected">顶级菜单</option>
                         {volist  name="menus" id="menu"}
                             {if condition="$menu->id eq $info.pid"}
                                 <option value="{$menu->id}" selected="selected">&nbsp;&nbsp;{$menu->title}</option>
@@ -37,7 +38,7 @@
             </div>
         </div>
         <div class="form-item">
-            <label class="item-label">菜单链接<span class="check-tips">（U函数解析的URL或者外链）</span></label>
+            <label class="item-label">菜单链接<span class="check-tips">（Url函数解析的URL或者外链）</span></label>
             <div class="controls">
                 <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
             </div>
@@ -51,12 +52,17 @@
         <div class="form-item">
             <label class="item-label">显示/隐藏<span class="check-tips">（用于后台显示的菜单展示）</span></label>
             <div class="controls">
-                <label class="radio"><input {if condition="!empty($info.is_menu) and $info.is_menu eq 1 "}checked="checked"{/if} type="radio" name="is_menu" value="1">是</label>
-                <label class="radio"><input {if condition="!empty($info.is_menu) and $info.is_menu eq 0"}checked="checked"{/if} type="radio" name="is_menu" value="0">否</label>
+                {if condition="empty($info.display)"}
+                    <label class="radio"><input  type="radio" name="display" value="1">是</label>
+                    <label class="radio"><input checked="checked" type="radio" name="display" value="0">否</label>
+                {else/}
+                    <label class="radio"><input {if condition="$info.display eq 1 "}checked="checked"{/if} type="radio" name="display" value="1">是</label>
+                    <label class="radio"><input {if condition="$info.display eq 0"}checked="checked"{/if} type="radio" name="display" value="0">否</label>
+                {/if}
             </div>
         </div>
         <div class="form-item umar-t50">
-            {if condition="$info['id']"}
+            {if condition="isset($info['id'])"}
             <input type="hidden" name="id" value="{$info.id|default=''}">
             {/if}
             <button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>

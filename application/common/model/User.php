@@ -12,7 +12,7 @@ class User extends BasePub {
 
     //自动完成
     protected $auto = ['last_login_time', 'last_login_ip'];
-    protected $insert = ['status' => parent::STATUS_NORMAL,'login_num'=> 0,'register_time', 'register_ip'];
+    protected $insert = ['status' => 1,'login_num'=> 0,'register_time', 'register_ip'];
     protected $update = [];
 
     /**

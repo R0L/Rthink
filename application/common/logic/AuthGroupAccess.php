@@ -30,6 +30,15 @@ class AuthGroupAccess extends AuthGroupAccessModel {
     public static function getAuthGroupAccessByuid($uid) {
         return AuthGroupAccess::get(["uid" => $uid]);
     }
+    
+    /**
+     * 获得AuthGroupAccess 通过 $userId
+     * @param type $groupId
+     * @return type
+     */
+    public static function getAuthGroupAccessByGroupId($groupId) {
+        return AuthGroupAccess::get(["group_id" => $groupId]);
+    }
 
     /**
      * 获得AuthGroupAccess的group_id 通过 $userId
@@ -47,5 +56,5 @@ class AuthGroupAccess extends AuthGroupAccessModel {
     public static function getRulesToUID() {
         return AuthGroupAccess::where(true)->column('uid');
     }
-
+    
 }

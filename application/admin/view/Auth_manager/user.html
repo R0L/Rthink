@@ -4,13 +4,13 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入用户名称">
             <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('accessAdd')}">新 增</a>
-        <button class="btn del-btn ajax-post confirm" url="{:url('accessDel')}" target-form="ids">删 除</button>
+        <a class="btn add-btn" href="{:url('userAdd',array('group_id'=>$group_id))}">绑 定</a>
+        <button class="btn del-btn ajax-post confirm" url="{:url('userDel')}" target-form="ids">删 除</button>
     </div>
 </div>
 
@@ -30,10 +30,10 @@
                 {volist name="lists" id="vo"}
                 <tr>
                     <td><input type="checkbox" name="uid[]" value="{$vo.uid}" /></td>
-                        <td><span>{$vo->member->id}</span></td>
-                        <td><span>{$vo->member->user_name}</span></td>
+                        <td><span>{$vo.member.id}</span></td>
+                        <td><span>{$vo.member.user_name}</span></td>
                     <td>
-                        <a class="confirm ajax-get del-a"  title="删除" href="{:url('accessDel?uid='.$vo['uid'])}">删除</a>
+                        <a class="confirm ajax-get del-a"  title="删除" href="{:url('userDel?uid='.$vo['uid'])}">删除</a>
                     </td>
                 </tr>
                 {/volist}

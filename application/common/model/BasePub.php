@@ -25,7 +25,7 @@ class BasePub extends Base {
     }
 
     //自动完成
-    protected $insert = ['status' => Base::STATUS_NORMAL, 'create_time', 'pub_id'];
+    protected $insert = [ 'create_time', 'pub_id'];
 
     /**
      * 所属平台自动完成
@@ -42,7 +42,7 @@ class BasePub extends Base {
 
     // 定义全局的查询范围
     protected function base($query) {
-        $map['status'] = self::STATUS_NORMAL;
+        $map = [];
         empty($this->pub_id) || $map['pub_id'] = $this->pub_id;
         $query->where($map);
     }

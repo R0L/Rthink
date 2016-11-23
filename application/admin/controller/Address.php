@@ -16,14 +16,12 @@ use think\Request;
 class Address extends Admin {
     
     public function index() {
-        $map = array();
-        $map["status"] = 1;
+        $map = [];
         $title = trim(input('title'));
         if (!empty($title)) {
             $map["recipients|phone"] = ["like", "%" . $title . "%"];
         }
-        $UserAddress = new UserAddress();
-        $lists = $UserAddress->where($map)->paginate();
+        $lists = UserAddress::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }

@@ -31,7 +31,7 @@ class Charge extends Base {
     
     
     
-    protected $insert = ['status' => self::STATUS_NORMAL,'charge_status'=>0, 'create_time'];
+    protected $insert = ['charge_status'=>0, 'create_time'];
     
     /**
      * 获取账单的状态的格式化

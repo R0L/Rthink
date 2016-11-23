@@ -4,15 +4,13 @@
     <!-- 高级搜索 -->
     <div class="search-form cf">
         <div class="sleft">
-            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入菜单名称">
+            <input type="text" name="title" class="search-input" value="{:input('title')}" placeholder="请输入用户组名称">
             <a class="sch-btn" href="javascript:;" id="search" url="{:url('index')}"><i class="btn-search"></i></a>
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('deal',array('pid'=>input('get.pid',0)))}">新 增</a>
+        <a class="btn add-btn" href="{:url('add')}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
-        <a class="btn export-btn" href="{:url('import',array('pid'=>input('get.pid',0)))}">导 入</a>
-        <button class="btn sort-btn list_sort" url="{:url('sort',array('pid'=>input('get.pid',0)),'')}">排序</button>
     </div>
 </div>
 
@@ -26,7 +24,6 @@
                     <th class="">用户组</th>
                     <th class="">描述</th>
                     <th class="">授权</th>
-                    <th class="">状态</th>
                     <th class="">操作</th>
                 </tr>
             </thead>
@@ -38,12 +35,15 @@
                         <td><span>{$vo.id}</span></td>
                         <td><span>{$vo.title}</span></td>
                         <td><span>{:mb_substr($vo.description,0,10)}</span></td>
-                        <td><a href="{:url('AuthManager/access?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >访问授权</a>
-			<a href="{:url('AuthManager/user?group_name='.$vo['title'].'&group_id='.$vo['id'])}" >成员授权</a></td>
-			<td><span>{$vo.status_text}</span></td>
+                        <td>
+                        {neq name="$vo.id" value="0"}
+                            <a href="{:url('AuthManager/access?group_id='.$vo['id'])}" >访问授权</a>
+                            <a href="{:url('AuthManager/user?group_id='.$vo['id'])}" >成员授权</a>
+                        {/neq}
+                        </td>
                     <td>
-                        <a title="编辑" class="edit-a" href="{:url('deal?id='.$vo['id'])}">编辑</a>
-                        <a class="confirm ajax-get" class="del-a" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
+                        <a title="编辑" class="edit-a" href="{:url('edit?id='.$vo['id'])}">编辑</a>
+                        <a class="confirm ajax-get del-a" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
                     </td>
                 </tr>
                 {/volist}

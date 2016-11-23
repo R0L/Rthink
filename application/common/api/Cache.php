@@ -13,46 +13,46 @@ class Cache {
     /**
      * 删除缓存
      */
-    public function delCache() {
-        $this->delDir(CACHE_PATH);
+    public static function delCache() {
+        self::delDir(CACHE_PATH);
     }
     /**
      * 删除LOG
      */
-    public function delLog() {
-        $this->delDir(LOG_PATH);
+    public static function delLog() {
+        self::delDir(LOG_PATH);
     }
     /**
      * 删除html静态模板
      */
-    public function delHtml() {
-//        $this->delDir(HTNL_PATH);
+    public static function delHtml() {
+//        self::delDir(HTNL_PATH);
     }
     /**
      * 删除页面模板
      */
-    public function delTemp() {
-        $this->delDir(TEMP_PATH);
+    public static function delTemp() {
+        self::delDir(TEMP_PATH);
     }
     /**
      * 删除所有
      */
-    public function delAll() {
-        $this->delDir(RUNTIME_PATH);
+    public static function delAll() {
+        self::delDir(RUNTIME_PATH);
     }
 
     /**
      * 删除文件夹
      * @param type $dir
      */
-    function delDir($dir) {
+    private static function delDir($dir) {
         if ($handle = opendir($dir)) {
             while (false !== ($item = readdir($handle))) {
                 if ($item != "." && $item != "..") {
                     if (is_dir("$dir/$item")) {
-                        delDir($dir / $item);
+                        self::delDir("$dir/$item");
                     } else {
-                        unlink($dir / $item);
+                        unlink("$dir/$item");
                     }
                 }
             }

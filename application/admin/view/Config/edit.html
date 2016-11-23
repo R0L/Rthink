@@ -6,7 +6,7 @@
         <div class="controls">
             <select name="config_type">
                 {foreach $config_type_list as $key=>$config_type}
-                {if condition="$info.config_type eq $key"}
+                {if condition="!empty($info.config_type) and $info.config_type eq $key"}
                     <option value="{$key}" selected="selected">{$config_type}</option>
                 {else/}
                     <option value="{$key}">{$config_type}</option>
@@ -38,7 +38,7 @@
         <div class="controls">
             <select name="type">
                 {volist name="Think.config.CONFIG_TYPE_LIST" id="type"}
-                    {if condition="$info.type eq $key"}
+                    {if condition="!empty($info.type) and $info.type eq $key"}
                        <option value="{$key}" selected="selected">{$type}</option>
                     {else/}
                        <option value="{$key}">{$type}</option>

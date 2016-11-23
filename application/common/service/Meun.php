@@ -24,26 +24,29 @@ class Meun {
         $Tree = new Tree();
         return $Tree->toTree(AuthRule::selectToAuthRule());
     }
+    
+    
 
     /**
      * 通过$module，$userId返回AuthRule
      * @param type $module
      * @return type
      */
-    public function selectByModule($module = null, $userId = null, $rules = null, $isMenu = true) {
+    public function selectByModule($module = null, $authRules = null, $display = true) {
         $map = [];
         $module && $map["module"] = $module;
-        $rules && $map["id"] = ["in", $rules];
-        $isMenu && $map["is_menu"] = 1;
+        $display && $map["display"] = 1;
         $Tree = new Tree();
 
         $authRuleAll = AuthRule::selectToAuthRule($map);
-        if ($userId) {
-            $authGroupAccess = AuthGroupAccess::getAuthGroupAccessByuid($userId);
-            $authGroupRules = AuthGroupModel::getRulesToGroup($authGroupAccess->group_id);
+        if($authRules){
+            if(is_int($authRules)){
+                $authGroupRules = AuthGroupAccess::getAuthGroupAccessByuid($authRules);
+                $authRules = AuthGroup::getRulesToGroup($authGroupRules->group_id);
+            }
             foreach ($authRuleAll as $authrule) {
                 $bflag = false;
-                if (in_array($authrule->id, explode(",", $authGroupRules))) {
+                if (in_array($authrule->id, explode(",", $authRules))) {
                     $bflag = true;
                 }
                 $authrule->data("checked", $bflag)->append("checked");
@@ -52,18 +55,16 @@ class Meun {
         return $Tree->toTree($authRuleAll);
     }
 
+    
     /**
      * 返回用户的菜单列表
      * @param type $module
-     * @param type $userId
+     * @param type $groupId
      * @return boolean
      */
-    public function selectByModuleUserId($module = null, $userId = null) {
-        $rulesByuidToGroup = $this->getRulesByuidToGroup($userId);
-        if (empty($rulesByuidToGroup)) {
-            return false;
-        }
-        return $this->selectByModule($module, $userId, $rulesByuidToGroup);
+    public function selectByModuleGroupId($module = null, $groupId = null) {
+        $rulesByGroupId = AuthGroup::getRulesToGroup($groupId);
+        return $this->selectByModule($module,$rulesByGroupId);
     }
 
     /**

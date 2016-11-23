@@ -288,7 +288,7 @@ class AuthManagerController extends AdminController{
         if( $gid && !$AuthGroup->checkGroupId($gid)){
             $this->error($AuthGroup->error);
         }
-        if ( $AuthGroup->addToGroup($uid,$gid) ){
+        if ( $AuthGroup->addAuthGroup($uid,$gid) ){
             $this->success('操作成功');
         }else{
             $this->error($AuthGroup->getError());

@@ -8,10 +8,24 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class AuthGroupAccess extends \think\Model {
+class AuthGroupAccess extends Base {
     
+    protected $autoWriteTimestamp = false;
+     //自动完成
+    protected $auto = [];
+    protected $insert = [];  
+    protected $update = [];
+    
+    // 定义全局的查询范围
+    protected function base($query) {
+    }
+    
+    /**
+     * AuthGroupAccess 中的用户信息
+     * @return type
+     */
     public function member(){
-        return $this->belongsTo('Member',"uid","id");
+        return $this->belongsTo('application\common\model\Member',"uid","id");
     }
     
 }
