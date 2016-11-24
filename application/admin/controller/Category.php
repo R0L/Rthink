@@ -20,8 +20,7 @@ class Category extends Admin {
      */
     public function index(Request $request) {
         $map = [];
-        $title = $request->param("title");
-        if (empty($title)) {
+        if ($title = $request->param("title")) {
             $map["title"] = ["like", "%" . $title . "%"];
         }
         $lists = CategoryLogic::paginate($map);
@@ -36,7 +35,14 @@ class Category extends Admin {
      * @return type
      */
     public function add(Request $request) {
-        return $this->deal($request);
+        if ($request->isPost()) {
+            $categoryLogic = new CategoryLogic();
+            $add = $categoryLogic->add($request->param());
+            $this->opReturn($add);
+        }
+        $categoryTree = CategoryLogic::selectToCategoryTree();
+        $this->assign("category_list",$categoryTree);
+        return $this->fetch("edit");
     }
     
     /**
@@ -45,44 +51,26 @@ class Category extends Admin {
      * @return type
      */
     public function edit(Request $request) {
-        return $this->deal($request);
+        $id = $request->param("id");
+        if ($request->isPost()) {
+            $categoryLogic = new CategoryLogic();
+            $edit = $categoryLogic->edit($request->param(), $id);
+            $this->opReturn($edit);
+        } 
+        $categoryGet = CategoryLogic::getLineData($id);
+        $this->assign("info",$categoryGet);
+        $categoryTree = CategoryLogic::selectToCategoryTree();
+        $this->assign("category_list",$categoryTree);
+        return $this->fetch("edit");
     }
     
-
-    /**
-     * 商品分类编辑或者添加
-     * @param Request $request
-     * @return type
-     */
-    private function deal(Request $request) {
-        if ($request->isPost()) {
-            $deal = CategoryLogic::deal($request->param());
-            if ($deal) {
-                $this->success("操作成功", "index");
-            }
-            $this->error("操作失败");
-        } else {
-            $id = $request->param("id");
-            if($id){
-                $categoryGet = CategoryLogic::getLineData($id);
-                $this->assign("info",$categoryGet);
-            }else{
-                $this->assign("info", ["member_id"=>$request->user->id,"pub_id"=>$request->pubuser->id]);
-            }
-            
-            $categoryTree = CategoryLogic::selectToCategoryTree();
-            $this->assign("category_list",$categoryTree);
-            
-            return $this->fetch("edit");
-        }
-    }
 
     /**
      * 商品分类删除
      * @param Request $request
      */
     public function del(Request $request) {
-        $stausDeal = CategoryLogic::delByIds($request->param('param.id/a'));
+        $stausDeal = CategoryLogic::delByIds($request->param('id/a'));
         if ($stausDeal) {
             $this->success("操作成功", "index");
         }

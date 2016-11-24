@@ -51,7 +51,7 @@ $(function () {
                     updateAlert(data.msg);
                     setTimeout(function () {
                         if (data.url) {
-                            // location.href=data.url; 
+                             location.href=data.url; 
                         } else {
                             $('#top-alert').find('button').click();
                         }

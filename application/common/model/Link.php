@@ -6,7 +6,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Link extends Base {
+class Link extends BaseCommon {
     
     /**
      * 文章中的发布人

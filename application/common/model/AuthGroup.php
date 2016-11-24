@@ -17,7 +17,7 @@ class AuthGroup extends Base {
     
     // 定义全局的查询范围
     protected function base($query) {
-        parent::base($query);
+        $query->where(['status'=>1]);
     }
     
 }

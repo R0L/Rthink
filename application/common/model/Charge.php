@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Charge extends Base {
+class Charge extends BaseCommon {
     
     
     const CHARGE_FAILURE = -1; //失败

@@ -106,7 +106,7 @@ class Meun {
      * 查询还没有绑定用户权限组的用户list
      * @return type
      */
-    public static function selectToUserExcept() {
+    public function selectToUserExcept() {
         $map = [];
         $column = AuthGroupAccess::getRulesToUID();
         if (!empty($column)) {

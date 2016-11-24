@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Period extends Base {
+class Period extends BaseCommon {
 
     
     const PERIODS_INLOTTERY = 0 ;// 开奖中

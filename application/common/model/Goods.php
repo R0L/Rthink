@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Goods extends Base {
+class Goods extends BaseCommon {
     
     
     const GOODS_FAILURE = -2; //审核失败

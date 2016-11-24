@@ -8,6 +8,7 @@ use application\common\logic\UserInfo;
 use application\common\logic\Amap;
 use application\common\logic\UserAddress;
 use application\common\logic\Notice;
+use application\common\logic\Slider;
 use ROL\Chuanglan\ChuanglanSMS;
 
 /**
@@ -216,10 +217,20 @@ class User {
     }
     
     
-    
+    /**
+     * 通知列表
+     * @param type $userId
+     * @param type $noticeType
+     */
     public function listMessage($userId,$noticeType=Notice::NOTICE_NOTIFICATION) {
-        Notice::selectByNoticeType($userId,$noticeType);
+        return Notice::selectByNoticeType($userId,$noticeType);
     }
     
+    /**
+     * 图片轮播列表
+     */
+    public function listSlider() {
+        return Slider::selectToSlider();
+    }
     
 }

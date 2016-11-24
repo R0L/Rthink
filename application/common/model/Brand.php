@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Brand extends Base {
+class Brand extends BaseCommon {
 
     public function category(){
         return $this->belongsTo('Category',"category_id","id");

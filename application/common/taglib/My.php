@@ -24,10 +24,10 @@ class My extends TagLib {
         $height = isset($tag["height"]) ? $tag["height"] : "320";
         $width = isset($tag["width"]) ? $tag["width"] : "1000";
         $parse ='<?php 
-          echo "<link rel=\"stylesheet\" href=\"/static/umeditor1_2_2/themes/default/css/umeditor.min.css\">
-                <script src=\"/static/umeditor1_2_2/umeditor.config.js\"></script>
-                <script src=\"/static/umeditor1_2_2/umeditor.js\"></script>
-                <script src=\"/static/umeditor1_2_2/lang/zh-cn/zh-cn.js\"></script>
+          echo "<link rel=\"stylesheet\" href=\"/static/umeditor-1.2.2/themes/default/css/umeditor.min.css\">
+                <script src=\"/static/umeditor-1.2.2/umeditor.config.js\"></script>
+                <script src=\"/static/umeditor-1.2.2/umeditor.js\"></script>
+                <script src=\"/static/umeditor-1.2.2/lang/zh-cn/zh-cn.js\"></script>
                 <script id=\"container\" name=\"'.$name.'\" type=\"text/plain\" >".'.$content.'."</script>
                 <script>
                         $(function(){
@@ -53,8 +53,8 @@ class My extends TagLib {
         $parse = <<<EOF
                 <?php
                 echo '<script id="container" name="$name" type="text/plain">$content</script>';
-                echo '<script src="/static/ueditor1_4_3_3/ueditor.config.js"></script>';
-                echo '<script src="/static/ueditor1_4_3_3/ueditor.all.js"></script>';
+                echo '<script src="/static/ueditor-1.4.3.3/ueditor.config.js"></script>';
+                echo '<script src="/static/ueditor-1.4.3.3/ueditor.all.js"></script>';
                 echo "<script>
                             var um = UE.getEditor('container',{
                                 initialFrameHeight:$height,
@@ -92,26 +92,36 @@ EOF;
     public function tagWebuploader($tag) {
         $url = isset($tag['url']) ? $tag['url'] : url('admin/Attach/upload');
         $name = isset($tag['name']) ? $tag['name'] : 'file_name';
-        $list = empty($tag['list']) ? $tag['list'] : null;
-        $limit = isset($tag['limit']) ? $tag['limit'] : '5'; // 张数
+        $limit = isset($tag['limit']) ? $tag['limit'] : 5; // 张数
         $addid = md5(mt_rand(1,1000000));
-        $init_data = "";
-        if($list){
-            $list = explode(',',$list);
-            foreach($list as $value){
-               $init_data .="<div class=\"file-item thumbnail\">".get_cover_html($value)."<input type=\"hidden\" value=\"{$value}\" name=\"{$name}[]\"></div>";
-            }
-            
-        }
+        $list = $this->autoBuildVar($tag['list']);
         $limit-=count($list);
-        $parse=<<<EOF
-                <?php
-                echo '<link rel="stylesheet" type="text/css" href="/static/webuploader-0.1.5/webuploader.css">';
-                echo '<script type="text/javascript" src="/static/webuploader-0.1.5/webuploader.js"></script>';
-                echo '<div id="uploader$addid"><div id="fileList$addid" class="uploader-list">';
-                echo '$init_data';
-                echo '</div><div id="filePicker$addid">选择图片</div></div>';
-                echo "<script>
+        $parse = '<link rel="stylesheet" type="text/css" href="/static/webuploader-0.1.5/webuploader.css">
+                <script type="text/javascript" src="/static/webuploader-0.1.5/webuploader.js"></script>
+                <div id="uploader'.$addid.'"><div id="fileList'.$addid.'" class="uploader-list">'
+                .'<?php if('.$list.'):'
+                . '$list = explode(",",'.$list.');'
+                . 'foreach($list as $value):'
+                . 'if('.$limit.' == 1): ?>'
+                . '<div class="file-item thumbnail"><?php echo get_cover_html($value);?><input type="hidden" value=<?php echo $value;?> name=\"'.$name.'\"><div class="file-panel" style="height: 0px;"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></div>'
+                . '<?php else: ?>'
+                . '<div class="file-item thumbnail"><?php echo get_cover_html($value);?><input type="hidden" value=<?php echo $value;?> name=\"'.$name.'[]\"><div class="file-panel" style="height: 0px;"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></div>'
+                . '<?php endif;'
+                . 'endforeach;'
+                . 'endif;?>'
+                . "</div><div id=\"filePicker$addid\">选择图片</div></div>
+                <script>
+                        var supportTransition = (function(){
+                            var s = document.createElement('p').style,
+                                r = 'transition' in s ||
+                                      'WebkitTransition' in s ||
+                                      'MozTransition' in s ||
+                                      'msTransition' in s ||
+                                      'OTransition' in s;
+                            s = null;
+                            return r;
+                        })();
+                        var rotation = 0;
                         // 初始化Web Uploader
                         var uploader$addid = WebUploader.create({
 
@@ -134,18 +144,31 @@ EOF;
                                 extensions: 'gif,jpg,jpeg,bmp,png',
                                 mimeTypes: 'image/jpg,image/jpeg,image/png'
                             },
-                            
+
                             fileNumLimit:$limit, //限制图片数量
                             duplicate :true,    //是否支持图片重复上传
                         });
                         // 当有文件添加进来的时候
                         uploader$addid.on( 'fileQueued', function( file ) {
-                            var _li = $(
-                                    '<div id=\"' + file['id'] + '$addid\" class=\"file-item thumbnail\">' +
-                                        '<img>' +
-                                        '<input type=\"hidden\" name=\"{$name}[]\">'+
-                                    '</div>'
-                                    );
+                            if($limit == 1){
+                                var _li = $(
+                                        '<div id=\"' + file['id'] + '$addid\" class=\"file-item thumbnail\">' +
+                                            '<img class=\"cover\">' +
+                                            '<input type=\"hidden\" name=\"{$name}\">'+
+                                            '<div class=\"file-panel\" style=\"height: 0px;\"><span class=\"cancel\">删除</span><span class=\"rotateRight\">向右旋转</span><span class=\"rotateLeft\">向左旋转</span></div>'+
+                                            '<p class=\"progress\"><span></span></p>'+
+                                        '</div>'
+                                        );
+                            }else{
+                                var _li = $(
+                                        '<div id=\"' + file['id'] + '$addid\" class=\"file-item thumbnail\">' +
+                                            '<img class=\"cover\">' +
+                                            '<input type=\"hidden\" name=\"{$name}[]\">'+
+                                            '<div class=\"file-panel\" style=\"height: 0px;\"><span class=\"cancel\">删除</span><span class=\"rotateRight\">向右旋转</span><span class=\"rotateLeft\">向左旋转</span></div>'+
+                                            '<p class=\"progress\"><span></span></p>'+
+                                        '</div>'
+                                        );
+                            }
                                 _img = _li.find('img');
 
 
@@ -202,9 +225,47 @@ EOF;
                         uploader$addid.on( 'uploadComplete', function( file ) {
                             $( '#'+file.id+'$addid' ).find('.progress').remove();
                         });
+                        $(function(){
+                            $('.uploader-list').on( 'mouseenter','.file-item', function() {
+                                $(this).find('.file-panel').stop().animate({height: 30});
+                            });
+
+                            $('.uploader-list').on( 'mouseleave','.file-item', function() {
+                                $(this).find('.file-panel').stop().animate({height: 0});
+                            });
+
+                            $('.uploader-list').on( 'click', '.file-panel span', function() {
+                                var index = $(this).index(),
+                                    deg;
+
+                                switch ( index ) {
+                                    case 0:
+                                        $(this).parent('.file-panel').parent('.file-item').remove();
+                                        return;
+                                    case 1:
+                                        rotation += 90;
+                                        break;
+                                    case 2:
+                                        rotation -= 90;
+                                        break;
+                                }
+
+                                if ( supportTransition ) {
+                                    deg = 'rotate(' + rotation + 'deg)';
+                                    $(this).parent('.file-panel').parent('.file-item').find('img').css({
+                                        '-webkit-transform': deg,
+                                        '-mos-transform': deg,
+                                        '-o-transform': deg,
+                                        'transform': deg
+                                    });
+                                } else {
+                                    $(this).parent('.file-panel').parent('.file-item').find('img').css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((rotation/90)%4 + 4)%4) +')');
+                                }
+
+
+                            });
+                        });
                     </script>";
-                ?>
-EOF;
         return $parse;
     }
 

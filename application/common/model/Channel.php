@@ -6,7 +6,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Channel extends Base {
+class Channel extends BaseCommon {
     
     /**
      * 获取是否新窗口

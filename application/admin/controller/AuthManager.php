@@ -76,7 +76,7 @@ class AuthManager extends Admin {
             }
         }
         
-        $resultToGroup = AuthGroup::selectToGroup();
+        $resultToGroup = AuthGroup::selectToAuthGroup();
         $this->assign("group_list", $resultToGroup);
         
         $resultToUserExcept = AuthGroup::selectToUserExcept();
@@ -151,22 +151,23 @@ class AuthManager extends Admin {
     
     /**
      * 权限管理-成员授权-添加
-     * @param Request $reqesut
+     * @param Request $request
      */
-    public function userAdd(Request $reqesut) {
-//       if($reqesut->isPost()){
-//            $authGroupAccess = new AuthGroupAccess();
-//            $add = $authGroupAccess->add($reqesut->param());
-//            $this->opReturn($add);
-//       }
-//       $group_id = $request->param("group_id");
-//       
-//       $authGroupAccess = AuthGroupAccess::getAuthGroupAccessByGroupId($group_id);
-//       
-//       $this->assign("info", $authGroupAccess);
-//       
-//       return 
+    public function userAdd(Request $request) {
+       if($request->isPost()){
+            $authGroupAccess = new AuthGroupAccess();
+            $add = $authGroupAccess->add($request->param());
+            $this->opReturn($add);
+       }
+       
+       $selectToAuthGroup = AuthGroup::selectToAuthGroup(null,$request->param('group_id'));
+       $this->assign("group_list", $selectToAuthGroup);
+       
+       $meun = new Meun();
+       $selectToUserExcept = $meun->selectToUserExcept();
+       $this->assign("user_list", $selectToUserExcept);
+       
+       return $this->fetch();
     }
-    
     
 }

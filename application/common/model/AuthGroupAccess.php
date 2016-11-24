@@ -17,8 +17,7 @@ class AuthGroupAccess extends Base {
     protected $update = [];
     
     // 定义全局的查询范围
-    protected function base($query) {
-    }
+    protected function base($query) {}
     
     /**
      * AuthGroupAccess 中的用户信息
@@ -27,5 +26,6 @@ class AuthGroupAccess extends Base {
     public function member(){
         return $this->belongsTo('application\common\model\Member',"uid","id");
     }
+    
     
 }

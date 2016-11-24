@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Order extends Base {
+class Order extends BaseCommon {
     
     
     const ORDER_SHOPPINGCART = 0 ;// 加入购物车

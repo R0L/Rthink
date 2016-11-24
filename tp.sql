@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-11-22 17:23:07
+Date: 2016-11-23 17:21:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,27 +26,27 @@ CREATE TABLE `tp_action` (
   `remark` char(140) NOT NULL DEFAULT '' COMMENT '行为描述',
   `rule` text COMMENT '行为规则',
   `log` text COMMENT '日志规则',
-  `terminal` tinyint(4) unsigned NOT NULL DEFAULT '1' COMMENT 'PC',
   `create_time` int(10) NOT NULL,
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `update_time` int(10) NOT NULL,
+  `delete_time` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统行为表';
 
 -- ----------------------------
 -- Records of tp_action
 -- ----------------------------
-INSERT INTO `tp_action` VALUES ('1', 'user_login', '用户登录', '积分+10，每天一次', 'table:member|field:score|condition:uid={$self} AND status>-1|rule:score+10|cycle:24|max:1;', '[user|get_nickname]在[time|time_format]登录了后台', '1', '1387181220', '1387181220', '1');
-INSERT INTO `tp_action` VALUES ('2', 'add_article', '发布文章', '积分+5，每天上限5次', 'table:member|field:score|condition:uid={$self}|rule:score+5|cycle:24|max:5', '', '2', '1387181220', '1380173180', '0');
-INSERT INTO `tp_action` VALUES ('3', 'review', '评论', '评论积分+1，无限制', 'table:member|field:score|condition:uid={$self}|rule:score+1', '', '2', '1387181220', '1383285646', '1');
-INSERT INTO `tp_action` VALUES ('4', 'add_document', '发表文档', '积分+10，每天上限5次', 'table:member|field:score|condition:uid={$self}|rule:score+10|cycle:24|max:5', '[user|get_nickname]在[time|time_format]发表了一篇文章。\r\n表[model]，记录编号[record]。', '2', '1387181220', '1386139726', '0');
-INSERT INTO `tp_action` VALUES ('5', 'add_document_topic', '发表讨论', '积分+5，每天上限10次', 'table:member|field:score|condition:uid={$self}|rule:score+5|cycle:24|max:10', '', '2', '1387181220', '1383285551', '0');
-INSERT INTO `tp_action` VALUES ('6', 'update_config', '更新配置', '新增或修改或删除配置', '', '', '1', '1387181220', '1383294988', '1');
-INSERT INTO `tp_action` VALUES ('7', 'update_model', '更新模型', '新增或修改模型', '', '', '1', '1387181220', '1383295057', '1');
-INSERT INTO `tp_action` VALUES ('8', 'update_attribute', '更新属性', '新增或更新或删除属性', '', '', '1', '1387181220', '1383295963', '1');
-INSERT INTO `tp_action` VALUES ('9', 'update_channel', '更新导航', '新增或修改或删除导航', '', '', '1', '1387181220', '1383296301', '1');
-INSERT INTO `tp_action` VALUES ('10', 'update_menu', '更新菜单', '新增或修改或删除菜单', '', '', '1', '1387181220', '1383296392', '1');
-INSERT INTO `tp_action` VALUES ('11', 'update_category', '更新分类', '新增或修改或删除分类', '', '', '1', '1387181220', '1383296765', '1');
+INSERT INTO `tp_action` VALUES ('1', 'user_login', '用户登录', '积分+10，每天一次', 'table:member|field:score|condition:uid={$self} AND status>-1|rule:score+10|cycle:24|max:1;', '[user|get_nickname]在[time|time_format]登录了后台', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('2', 'add_article', '发布文章', '积分+5，每天上限5次', 'table:member|field:score|condition:uid={$self}|rule:score+5|cycle:24|max:5', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('3', 'review', '评论', '评论积分+1，无限制', 'table:member|field:score|condition:uid={$self}|rule:score+1', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('4', 'add_document', '发表文档', '积分+10，每天上限5次', 'table:member|field:score|condition:uid={$self}|rule:score+10|cycle:24|max:5', '[user|get_nickname]在[time|time_format]发表了一篇文章。\r\n表[model]，记录编号[record]。', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('5', 'add_document_topic', '发表讨论', '积分+5，每天上限10次', 'table:member|field:score|condition:uid={$self}|rule:score+5|cycle:24|max:10', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('6', 'update_config', '更新配置', '新增或修改或删除配置', '', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('7', 'update_model', '更新模型', '新增或修改模型', '', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('8', 'update_attribute', '更新属性', '新增或更新或删除属性', '', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('9', 'update_channel', '更新导航', '新增或修改或删除导航', '', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('10', 'update_menu', '更新菜单', '新增或修改或删除菜单', '', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('11', 'update_category', '更新分类', '新增或修改或删除分类', '', '', '0', '0', '0');
+INSERT INTO `tp_action` VALUES ('12', 'add_authRules', '添加菜单', '添加菜单', null, null, '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for tp_action_log
@@ -60,85 +60,87 @@ CREATE TABLE `tp_action_log` (
   `model` varchar(50) NOT NULL DEFAULT '' COMMENT '触发行为的表',
   `record_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '触发行为的数据id',
   `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '日志备注',
-  `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
-  `pub_id` int(11) NOT NULL,
   `update_time` int(10) NOT NULL,
+  `delete_time` int(10) DEFAULT NULL,
+  `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of tp_action_log
 -- ----------------------------
-INSERT INTO `tp_action_log` VALUES ('1', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-24 14:36登录了后台', '1', '1477291011', '1', '1479177503');
-INSERT INTO `tp_action_log` VALUES ('2', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-24 16:57登录了后台', '1', '1477299478', '1', '1479177588');
-INSERT INTO `tp_action_log` VALUES ('3', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-24 23:46登录了后台', '1', '1477323969', '1', '1479177682');
-INSERT INTO `tp_action_log` VALUES ('4', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 15:03登录了后台', '1', '1477379022', '1', '1479177787');
-INSERT INTO `tp_action_log` VALUES ('5', '11', '1', '192.168.0.7', 'category', '2', '操作url：/public/index.php/admin/category/edit.html', '1', '1477384562', '1', '1479178001');
-INSERT INTO `tp_action_log` VALUES ('6', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 17:13登录了后台', '1', '1477386798', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('7', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 22:37登录了后台', '1', '1477406234', '1', '1479178046');
-INSERT INTO `tp_action_log` VALUES ('8', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 22:38登录了后台', '1', '1477406330', '1', '1479178058');
-INSERT INTO `tp_action_log` VALUES ('9', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 23:12登录了后台', '1', '1477408335', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('10', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 23:13登录了后台', '1', '1477408390', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('11', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 23:13登录了后台', '1', '1477408422', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('12', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-26 13:44登录了后台', '1', '1477460692', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('13', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-27 12:34登录了后台', '1', '1477542872', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('14', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('15', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('16', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('17', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('18', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('19', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('20', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('21', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('22', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('23', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('24', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('25', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('26', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('27', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('28', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('29', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('30', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('31', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('32', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('33', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('34', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('35', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('36', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('37', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('38', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('39', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('40', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('41', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('42', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('43', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('44', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('45', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('46', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('47', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('48', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('49', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('50', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('51', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('52', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('53', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('54', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('55', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('56', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('57', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('58', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('59', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('60', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('61', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('62', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('63', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('64', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('65', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
-INSERT INTO `tp_action_log` VALUES ('66', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1', '1478310910', '1', '1479178674');
+INSERT INTO `tp_action_log` VALUES ('1', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-24 14:36登录了后台', '1477291011', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('2', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-24 16:57登录了后台', '1477299478', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('3', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-24 23:46登录了后台', '1477323969', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('4', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 15:03登录了后台', '1477379022', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('5', '11', '1', '192.168.0.7', 'category', '2', '操作url：/public/index.php/admin/category/edit.html', '1477384562', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('6', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 17:13登录了后台', '1477386798', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('7', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 22:37登录了后台', '1477406234', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('8', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 22:38登录了后台', '1477406330', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('9', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 23:12登录了后台', '1477408335', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('10', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 23:13登录了后台', '1477408390', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('11', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-25 23:13登录了后台', '1477408422', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('12', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-26 13:44登录了后台', '1477460692', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('13', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-10-27 12:34登录了后台', '1477542872', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('14', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('15', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('16', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('17', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('18', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('19', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('20', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('21', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('22', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('23', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('24', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('25', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('26', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('27', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('28', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('29', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('30', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('31', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('32', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('33', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('34', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('35', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('36', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('37', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('38', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('39', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('40', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('41', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('42', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('43', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('44', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('45', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('46', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('47', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('48', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('49', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('50', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('51', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('52', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('53', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('54', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('55', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('56', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('57', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('58', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('59', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('60', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('61', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('62', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('63', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('64', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('65', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('66', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
+INSERT INTO `tp_action_log` VALUES ('67', '12', '1', '127.0.0.1', 'admin', '85', '操作url：/admin/auth_rule/add.html', '1479885506', '1479885506', null, '0');
+INSERT INTO `tp_action_log` VALUES ('68', '12', '1', '127.0.0.1', 'admin', '86', '操作url：/admin/auth_rule/add.html', '1479889198', '1479889198', null, '0');
 
 -- ----------------------------
 -- Table structure for tp_amap
@@ -7573,7 +7575,7 @@ CREATE TABLE `tp_article` (
   `description` varchar(255) NOT NULL DEFAULT '',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `delete_time` int(10) NOT NULL DEFAULT '0',
   `member_id` int(11) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -7610,7 +7612,7 @@ CREATE TABLE `tp_article_category` (
   `description` varchar(255) NOT NULL DEFAULT '',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `delete_time` int(10) NOT NULL DEFAULT '0',
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
@@ -7638,14 +7640,17 @@ CREATE TABLE `tp_auth_group` (
   `title` char(100) NOT NULL DEFAULT '',
   `rules` char(200) NOT NULL DEFAULT '',
   `description` varchar(255) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `delete_time` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_group
 -- ----------------------------
-INSERT INTO `tp_auth_group` VALUES ('1', '管理员', '1,2,3,4,5,6,7,8,68,9,10,11,63,12,47,56,69,58,60,61,13,14,57,15,16,46,48,17,18,59,19,62,20,21,54,55,22,24,25,64,26,65,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45', '1', '1');
+INSERT INTO `tp_auth_group` VALUES ('0', '超级管理员', '', '管理一切', null);
+INSERT INTO `tp_auth_group` VALUES ('1', '管理员', '1,2,3,4,5,6,7,8,68,9,10,11,63,12,47,56,69,58,60,61,13,14,57,15,16,46,48,17,18,59,19,62,20,21,54,55,22,24,25,64,26,65,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45', '用户平台管理者管理平台', null);
+INSERT INTO `tp_auth_group` VALUES ('4', '商家', '', '用户商品，内容，订单 进行管理', null);
+INSERT INTO `tp_auth_group` VALUES ('6', '测试用户', '1,2', '用于平台测试', null);
 
 -- ----------------------------
 -- Table structure for tp_auth_group_access
@@ -7662,7 +7667,7 @@ CREATE TABLE `tp_auth_group_access` (
 -- ----------------------------
 -- Records of tp_auth_group_access
 -- ----------------------------
-INSERT INTO `tp_auth_group_access` VALUES ('1', '1');
+INSERT INTO `tp_auth_group_access` VALUES ('1', '0');
 INSERT INTO `tp_auth_group_access` VALUES ('2', '1');
 
 -- ----------------------------
@@ -7675,87 +7680,95 @@ CREATE TABLE `tp_auth_rule` (
   `type` tinyint(1) NOT NULL DEFAULT '1',
   `module` varchar(30) NOT NULL DEFAULT 'admin',
   `name` char(80) NOT NULL DEFAULT '',
-  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `delete_time` int(10) DEFAULT '1',
   `condition` char(100) NOT NULL DEFAULT '',
   `pid` int(11) DEFAULT NULL,
-  `is_menu` tinyint(4) NOT NULL DEFAULT '0',
+  `display` tinyint(4) NOT NULL DEFAULT '0',
   `sort` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_rule
 -- ----------------------------
-INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', '1', 'icon-shouyeshouye', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('2', '统计界面', '1', 'admin', 'admin/index/index', '1', '', '1', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', '1', 'icon-xitongshezhi', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('4', '参数配置', '1', 'admin', '', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('5', '网站配置', '1', 'admin', 'admin/config/website', '1', '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('6', '支付配置', '1', 'admin', 'admin/config/payment', '1', '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('7', '短信配置', '1', 'admin', 'admin/config/message', '1', '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('8', '邮件配置', '1', 'admin', 'admin/config/mail', '1', '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('9', '通知管理', '1', 'admin', '', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('10', '通知列表', '1', 'admin', 'admin/notice/noti', '1', '', '9', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('11', '通知浏览', '1', 'admin', 'admin/noticeRecord/index', '1', '', '9', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('12', '日志记录', '1', 'admin', 'admin/action/actionlog', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('13', '用户管理', '1', 'admin', '', '1', 'icon-yonghuguanli', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('14', '会员管理', '1', 'admin', 'admin/user/index', '1', '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('15', '管理员管理', '1', 'admin', 'admin/member/index', '1', '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('16', '地址管理', '1', 'admin', 'admin/address/index', '1', '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('17', '内容管理', '1', 'admin', '', '1', 'icon-neirongguanli', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('18', '导航管理', '1', 'admin', 'admin/channel/index', '1', '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('19', '幻灯片管理', '1', 'admin', 'admin/slider/index', '1', '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('20', '文章管理', '1', 'admin', 'admin/article/index', '1', '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('21', '公告管理', '1', 'admin', 'admin/notice/anno', '1', '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('22', '友情链接', '1', 'admin', 'admin/link/index', '1', '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('23', '积分管理', '1', 'admin', 'admin/integral/index', '0', '', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('24', '商城管理', '1', 'admin', '', '1', 'icon-unie605', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('25', '分类管理', '1', 'admin', 'admin/category/index', '1', '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('26', '品牌管理', '1', 'admin', 'admin/brand/index', '1', '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('27', '商品管理', '1', 'admin', 'admin/goods/index', '1', '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('28', '待审核', '1', 'admin', 'admin/goods/nochecked', '1', '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('29', '待上线', '1', 'admin', 'admin/goods/checked', '1', '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('30', '已上线', '1', 'admin', 'admin/goods/online', '1', '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('31', '已结束', '1', 'admin', 'admin/goods/complete', '1', '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('32', '期数管理', '1', 'admin', 'admin/period/index', '1', '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('33', '开奖中', '1', 'admin', 'admin/period/inlottery', '1', '', '32', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('34', '已开奖', '1', 'admin', 'admin/period/haslottery', '1', '', '32', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('35', '订单管理', '1', 'admin', 'admin/order/index', '1', '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('36', '购物车', '1', 'admin', 'admin/order/shoppingcart', '1', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('37', '进行中', '1', 'admin', 'admin/order/haveinhand', '1', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('38', '已揭晓', '1', 'admin', 'admin/order/index', '0', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('39', '已中奖', '1', 'admin', 'admin/order/haswontheprize', '1', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('40', '未中奖', '1', 'admin', 'admin/order/notwinning', '1', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('41', '已晒单', '1', 'admin', 'admin/order/sunsheet', '1', '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('42', '财务管理', '1', 'admin', '', '1', 'icon-caiwuguanli', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('43', '财务统计', '1', 'admin', 'admin/charge/index', '1', '', '42', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('44', '消费记录', '1', 'admin', 'admin/charge/consumption', '1', '', '42', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('45', '充值记录', '1', 'admin', 'admin/charge/recharge', '1', '', '42', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('46', '权限管理', '1', 'admin', 'admin/authManager/index', '1', '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('47', '菜单管理', '1', 'admin', 'admin/AuthRule/index', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('48', '访问授权', '1', 'admin', 'admin/authManager/access', '1', '', '46', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('49', '新增配置', '1', 'admin', 'admin/config/deal', '1', '', '5', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('50', '配置导出', '1', 'admin', 'admin/config/export', '1', '', '5', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('51', '配置导入', '1', 'admin', 'admin/config/import', '1', '', '5', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('52', '新增通知', '1', 'admin', 'admin/notice/addNoti', '1', '', '10', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('53', '通知编辑', '1', 'admin', 'admin/notice/editNoti', '1', '', '10', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('54', '新增公告', '1', 'admin', 'admin/notice/addAnno', '1', '', '21', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('55', '公告编辑', '1', 'admin', 'admin/notice/editAnno', '1', '', '21', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('56', '新增规则', '1', 'admin', 'admin/authRule/add', '1', '', '47', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('57', '新增会员', '1', 'admin', 'admin/user/add', '1', '', '14', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('58', '地区管理', '1', 'admin', 'admin/address/manage', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('59', '新增导航', '1', 'admin', 'admin/channel/add', '1', '', '18', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('60', '附件管理', '1', 'admin', '', '1', '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('61', '图片管理', '1', 'admin', 'admin/attach/picture', '1', '', '60', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('62', '新增幻灯片', '1', 'admin', 'admin/slider/add', '1', '', '19', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('63', '其他', '1', 'admin', '', '1', '', '9', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('64', '新增分类', '1', 'admin', 'admin/category/add', '1', '', '25', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('65', '新增品牌', '1', 'admin', 'admin/brand/add', '1', '', '26', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('66', '新增商品', '1', 'admin', 'admin/goods/add', '1', '', '28', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('67', '测试', '1', 'admin', 't', '-1', '', '0', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('68', '配置列表', '1', 'admin', 'admin/config/index', '1', '', '4', '1', '10');
-INSERT INTO `tp_auth_rule` VALUES ('69', '菜单编辑', '1', 'admin', 'admin/authRule/edit', '1', '', '47', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', null, 'icon-shouyeshouye', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('2', '统计界面', '1', 'admin', 'admin/index/index', null, '', '1', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', null, 'icon-xitongshezhi', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('4', '参数配置', '1', 'admin', '', null, '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('5', '网站配置', '1', 'admin', 'admin/config/website', null, '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('6', '支付配置', '1', 'admin', 'admin/config/payment', null, '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('7', '短信配置', '1', 'admin', 'admin/config/message', null, '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('8', '邮件配置', '1', 'admin', 'admin/config/mail', null, '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('9', '通知管理', '1', 'admin', '', null, '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('10', '通知列表', '1', 'admin', 'admin/notice/noti', null, '', '9', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('11', '通知浏览', '1', 'admin', 'admin/noticeRecord/index', null, '', '9', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('12', '日志记录', '1', 'admin', 'admin/action/actionlog', null, '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('13', '用户管理', '1', 'admin', '', null, 'icon-yonghuguanli', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('14', '会员管理', '1', 'admin', 'admin/user/index', null, '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('15', '管理员管理', '1', 'admin', 'admin/member/index', null, '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('16', '地址管理', '1', 'admin', 'admin/address/index', null, '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('17', '内容管理', '1', 'admin', '', null, 'icon-neirongguanli', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('18', '导航管理', '1', 'admin', 'admin/channel/index', null, '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('19', '幻灯片管理', '1', 'admin', 'admin/slider/index', null, '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('20', '文章管理', '1', 'admin', 'admin/article/index', null, '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('21', '公告管理', '1', 'admin', 'admin/notice/anno', null, '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('22', '友情链接', '1', 'admin', 'admin/link/index', null, '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('23', '积分管理', '1', 'admin', 'admin/integral/index', '1479889768', '', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('24', '商城管理', '1', 'admin', '', null, 'icon-unie605', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('25', '分类管理', '1', 'admin', 'admin/category/index', null, '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('26', '品牌管理', '1', 'admin', 'admin/brand/index', null, '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('27', '商品管理', '1', 'admin', 'admin/goods/index', null, '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('28', '待审核', '1', 'admin', 'admin/goods/nochecked', null, '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('29', '待上线', '1', 'admin', 'admin/goods/checked', null, '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('30', '已上线', '1', 'admin', 'admin/goods/online', null, '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('31', '已结束', '1', 'admin', 'admin/goods/complete', null, '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('32', '期数管理', '1', 'admin', 'admin/period/index', null, '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('33', '开奖中', '1', 'admin', 'admin/period/inlottery', null, '', '32', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('34', '已开奖', '1', 'admin', 'admin/period/haslottery', null, '', '32', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('35', '订单管理', '1', 'admin', 'admin/order/index', null, '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('36', '购物车', '1', 'admin', 'admin/order/shoppingcart', null, '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('37', '进行中', '1', 'admin', 'admin/order/haveinhand', null, '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('38', '已揭晓', '1', 'admin', 'admin/order/index', null, '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('39', '已中奖', '1', 'admin', 'admin/order/haswontheprize', null, '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('40', '未中奖', '1', 'admin', 'admin/order/notwinning', null, '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('41', '已晒单', '1', 'admin', 'admin/order/sunsheet', null, '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('42', '财务管理', '1', 'admin', '', null, 'icon-caiwuguanli', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('43', '财务统计', '1', 'admin', 'admin/charge/index', null, '', '42', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('44', '消费记录', '1', 'admin', 'admin/charge/consumption', null, '', '42', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('45', '充值记录', '1', 'admin', 'admin/charge/recharge', null, '', '42', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('46', '权限管理', '1', 'admin', 'admin/authManager/index', null, '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('47', '菜单管理', '1', 'admin', 'admin/AuthRule/index', null, '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('48', '访问授权', '1', 'admin', 'admin/authManager/access', null, '', '46', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('49', '新增配置', '1', 'admin', 'admin/config/deal', null, '', '5', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('50', '配置导出', '1', 'admin', 'admin/config/export', null, '', '5', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('51', '配置导入', '1', 'admin', 'admin/config/import', null, '', '5', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('52', '新增通知', '1', 'admin', 'admin/notice/addNoti', null, '', '10', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('53', '通知编辑', '1', 'admin', 'admin/notice/editNoti', null, '', '10', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('54', '新增公告', '1', 'admin', 'admin/notice/addAnno', null, '', '21', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('55', '公告编辑', '1', 'admin', 'admin/notice/editAnno', null, '', '21', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('56', '新增菜单', '1', 'admin', 'admin/authRule/add', null, '', '47', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('57', '新增会员', '1', 'admin', 'admin/user/add', null, '', '14', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('58', '地区管理', '1', 'admin', 'admin/address/manage', null, '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('59', '新增导航', '1', 'admin', 'admin/channel/add', null, '', '18', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('60', '附件管理', '1', 'admin', '', null, '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('61', '图片管理', '1', 'admin', 'admin/attach/picture', null, '', '60', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('62', '新增幻灯片', '1', 'admin', 'admin/slider/add', null, '', '19', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('63', '其他', '1', 'admin', '', null, '', '9', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('64', '新增分类', '1', 'admin', 'admin/category/add', null, '', '25', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('65', '新增品牌', '1', 'admin', 'admin/brand/add', null, '', '26', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('66', '新增商品', '1', 'admin', 'admin/goods/add', null, '', '28', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('68', '配置列表', '1', 'admin', 'admin/config/index', null, '', '4', '1', '10');
+INSERT INTO `tp_auth_rule` VALUES ('69', '菜单编辑', '1', 'admin', 'admin/authRule/edit', null, '', '47', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('78', '新增用户组', '1', 'admin', 'admin/authManager/add', null, '', '46', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('79', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('80', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('81', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('82', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('83', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('84', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('85', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('86', '成员授权', '1', 'admin', 'admin/authManager/user', '1', '', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for tp_brand
@@ -7769,11 +7782,11 @@ CREATE TABLE `tp_brand` (
   `sort` int(10) NOT NULL DEFAULT '0',
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '显示隐藏',
+  `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '显示隐藏',
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `status` (`status`),
+  KEY `status` (`delete_time`),
   KEY `order` (`sort`)
 ) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='品牌表';
 
@@ -7822,9 +7835,9 @@ CREATE TABLE `tp_category` (
   `description` varchar(255) NOT NULL DEFAULT '',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `delete_time` int(10) NOT NULL DEFAULT '0',
   `pub_id` int(11) NOT NULL,
-  `member_id` int(11) DEFAULT NULL,
+  `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
@@ -7855,7 +7868,7 @@ CREATE TABLE `tp_channel` (
   `sort` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '导航排序',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '状态',
   `target` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '新窗口打开',
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
@@ -7883,9 +7896,9 @@ CREATE TABLE `tp_charge` (
   `describle` varchar(255) DEFAULT NULL,
   `update_time` int(10) DEFAULT NULL,
   `create_time` int(10) DEFAULT NULL,
+  `delete_time` int(10) NOT NULL,
   `charge_type` tinyint(4) NOT NULL,
   `charge_status` tinyint(4) NOT NULL,
-  `status` tinyint(4) NOT NULL,
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -7895,7 +7908,7 @@ CREATE TABLE `tp_charge` (
 -- Records of tp_charge
 -- ----------------------------
 INSERT INTO `tp_charge` VALUES ('1', '201611100007', '1', '100.00', '充值了', '1451750400', '1451750400', '1', '1', '1', '1', '1');
-INSERT INTO `tp_charge` VALUES ('2', '201611100009', '1', '-10.00', '消费了', '1451750400', '1451750400', '4', '1', '1', '1', '1');
+INSERT INTO `tp_charge` VALUES ('2', '201611100009', '1', '-10.00', '消费了', '1451750400', '1451750400', '1', '4', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_code
@@ -7907,7 +7920,9 @@ CREATE TABLE `tp_code` (
   `code` varchar(20) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `delete_time` int(10) NOT NULL,
+  `code_status` tinyint(4) NOT NULL,
+  `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -7929,7 +7944,7 @@ CREATE TABLE `tp_config` (
   `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '配置说明',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+  `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '状态',
   `value` text COMMENT '配置值',
   `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `pub_id` int(11) NOT NULL,
@@ -7947,69 +7962,11 @@ INSERT INTO `tp_config` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1',
 INSERT INTO `tp_config` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'OneThink内容管理框架', '1', '1', '1');
 INSERT INTO `tp_config` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'ThinkPHP,OneThink', '8', '1', '1');
 INSERT INTO `tp_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1', '1', '1');
-INSERT INTO `tp_config` VALUES ('5', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
+INSERT INTO `tp_config` VALUES ('5', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '0', '', '主要用于数据解析和页面表单的生成', '1378898976', '1479876630', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
 INSERT INTO `tp_config` VALUES ('6', 'AliPay_ON', '4', '支付宝开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持支付宝支付', '1479791624', '1479799408', '1', '', '0', '0', '1');
 INSERT INTO `tp_config` VALUES ('7', 'WeiPay_ON', '4', '微信支付开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持微信支付', '1479791740', '1479791740', '1', '', '0', '0', '1');
 INSERT INTO `tp_config` VALUES ('8', 'WEB_ADMIN_TITLE', '2', '后台标题', '1', '', '网站后台的标题', '1479798958', '1479798958', '1', '', '0', '0', '1');
 INSERT INTO `tp_config` VALUES ('9', 'WEB_ADMIN_DESCRIPTION', '2', '网站后台描述', '1', '', '网站后台描述', '1479799004', '1479803619', '1', '', '10', '0', '1');
-
--- ----------------------------
--- Table structure for tp_config_copy
--- ----------------------------
-DROP TABLE IF EXISTS `tp_config_copy`;
-CREATE TABLE `tp_config_copy` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '配置ID',
-  `name` varchar(30) NOT NULL DEFAULT '' COMMENT '配置名称',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置类型',
-  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '配置说明',
-  `config_type` tinyint(4) unsigned NOT NULL DEFAULT '0' COMMENT '配置分组',
-  `extra` varchar(255) NOT NULL DEFAULT '' COMMENT '配置值',
-  `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '配置说明',
-  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
-  `value` text COMMENT '配置值',
-  `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
-  `pub_id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_name` (`name`),
-  KEY `type` (`type`),
-  KEY `group` (`config_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of tp_config_copy
--- ----------------------------
-INSERT INTO `tp_config_copy` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '1378898976', '1379235274', '1', 'OneThink内容管理框架', '0', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'OneThink内容管理框架', '1', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'ThinkPHP,OneThink', '8', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如“沪ICP备12007941号-2', '1378900335', '1379235859', '1', '', '9', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1479783615', '-1', '1:列表推荐', '3', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1479276893', '1', '0:所有人可见1:仅注册会员可见2:仅管理员可见', '4', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'default_color', '10', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1479098128', '-1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统', '4', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1479098133', '-1', '1:视图\r\n2:控制器', '6', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1479098138', '-1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('23', 'OPEN_DRAFTBOX', '4', '是否开启草稿功能', '2', '0:关闭草稿功能\r\n1:开启草稿功能\r\n', '新增文章时的草稿功能配置', '1379484332', '1479455731', '-1', '1', '1', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('24', 'DRAFT_AOTOSAVE_INTERVAL', '0', '自动保存草稿时间', '2', '', '自动保存草稿的时间间隔，单位：秒', '1379484574', '1479455774', '-1', '60', '2', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('25', 'LIST_ROWS', '0', '后台每页记录数', '2', '', '后台数据每页显示记录数', '1379503896', '1479455787', '-1', '10', '10', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('26', 'USER_ALLOW_REGISTER', '4', '是否允许用户注册', '3', '0:关闭注册\r\n1:允许注册', '是否开放用户注册', '1379504487', '1379504580', '1', '1', '3', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('27', 'CODEMIRROR_THEME', '4', '预览插件的CodeMirror主题', '4', '3024-day:3024 day\r\n3024-night:3024 night\r\nambiance:ambiance\r\nbase16-dark:base16 dark\r\nbase16-light:base16 light\r\nblackboard:blackboard\r\ncobalt:cobalt\r\neclipse:eclipse\r\nelegant:elegant\r\nerlang-dark:erlang-dark\r\nlesser-dark:lesser-dark\r\nmidnight:midnight', '详情见CodeMirror官网', '1379814385', '1384740813', '1', 'ambiance', '3', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('28', 'DATA_BACKUP_PATH', '1', '数据库备份根路径', '4', '', '路径必须以 / 结尾', '1381482411', '1381482411', '1', './Data/', '5', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('29', 'DATA_BACKUP_PART_SIZE', '0', '数据库备份卷大小', '4', '', '该值用于限制压缩后的分卷最大长度。单位：B；建议设置20M', '1381482488', '1381729564', '1', '20971520', '7', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('30', 'DATA_BACKUP_COMPRESS', '4', '数据库备份文件是否启用压缩', '4', '0:不压缩\r\n1:启用压缩', '压缩备份文件需要PHP环境支持gzopen,gzwrite函数', '1381713345', '1381729544', '1', '1', '9', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('31', 'DATA_BACKUP_COMPRESS_LEVEL', '4', '数据库备份文件压缩级别', '4', '1:普通\r\n4:一般\r\n9:最高', '数据库备份文件的压缩级别，该配置在开启压缩时生效', '1381713408', '1381713408', '1', '9', '10', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('32', 'DEVELOP_MODE', '4', '开启开发者模式', '4', '0:关闭\r\n1:开启', '是否开启开发者模式', '1383105995', '1383291877', '1', '1', '11', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('33', 'ALLOW_VISIT', '3', '不受限控制器方法', '0', '', '', '1386644047', '1386644741', '1', '0:article/draftbox\r\n1:article/mydocument\r\n2:Category/tree\r\n3:Index/verify\r\n4:file/upload\r\n5:file/download\r\n6:user/updatePassword\r\n7:user/updateNickname\r\n8:user/submitPassword\r\n9:user/submitNickname\r\n10:file/uploadpicture', '0', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('34', 'DENY_VISIT', '3', '超管专限控制器方法', '0', '', '仅超级管理员可访问的控制器方法', '1386644141', '1386644659', '1', '0:Addons/addhook\r\n1:Addons/edithook\r\n2:Addons/delhook\r\n3:Addons/updateHook\r\n4:Admin/getMenus\r\n5:Admin/recordList\r\n6:AuthManager/updateRules\r\n7:AuthManager/tree', '0', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('35', 'REPLY_LIST_ROWS', '0', '回复列表每页条数', '2', '', '', '1386645376', '1479276893', '1', '10', '0', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许访问IP', '4', '', '多个用逗号分隔，如果不配置表示不限制IP访问', '1387165454', '1387165553', '1', '', '12', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('40', 'TT', '0', '串串', '0', '', '', '1479102437', '1479102821', '-1', null, '0', '1', '1');
-INSERT INTO `tp_config_copy` VALUES ('39', 'GG', '0', '测试', '0', '', '', '1479102390', '1479102817', '-1', null, '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods
@@ -8037,14 +7994,14 @@ CREATE TABLE `tp_goods` (
   `current_periods` smallint(5) unsigned NOT NULL DEFAULT '1',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `delete_time` int(10) NOT NULL DEFAULT '1',
   `goods_status` tinyint(4) NOT NULL DEFAULT '1',
   `sort` int(10) NOT NULL DEFAULT '0',
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `category` (`category_id`),
-  KEY `status` (`status`)
+  KEY `status` (`delete_time`)
 ) ENGINE=MyISAM AUTO_INCREMENT=397 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -8279,7 +8236,7 @@ CREATE TABLE `tp_link` (
   `url` varchar(60) NOT NULL,
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `delete_time` int(10) NOT NULL DEFAULT '0',
   `member_id` int(11) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -8323,7 +8280,7 @@ CREATE TABLE `tp_member` (
 -- Records of tp_member
 -- ----------------------------
 INSERT INTO `tp_member` VALUES ('1', 'admin', '123456', '1', '192.168.0.7', '192.168.0.7', '1452682745', '1452682745', '1', '0');
-INSERT INTO `tp_member` VALUES ('3', '银鑫', null, '12', '192.168.0.7', '192.168.0.7', '1452682745', '1452682745', '1', '0');
+INSERT INTO `tp_member` VALUES ('2', '银鑫', null, '12', '192.168.0.7', '192.168.0.7', '1452682745', '1452682745', '1', '0');
 
 -- ----------------------------
 -- Table structure for tp_notice
@@ -8336,7 +8293,7 @@ CREATE TABLE `tp_notice` (
   `sort` int(11) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `delete_time` int(10) NOT NULL,
   `member_id` int(11) NOT NULL,
   `notice_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 公告  1 通知',
   `pub_id` int(11) NOT NULL,
@@ -8363,7 +8320,7 @@ CREATE TABLE `tp_notice_record` (
   `user_id` varchar(255) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `delete_time` int(10) NOT NULL,
   `notice_record_status` tinyint(4) NOT NULL,
   `notice_record_id` int(11) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
@@ -8387,8 +8344,8 @@ CREATE TABLE `tp_order` (
   `buy_time` int(11) unsigned NOT NULL DEFAULT '0',
   `create_time` int(10) unsigned NOT NULL,
   `update_time` int(10) NOT NULL DEFAULT '0',
+  `delete_time` int(10) NOT NULL DEFAULT '0',
   `order_status` tinyint(4) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -8400,7 +8357,7 @@ CREATE TABLE `tp_order` (
 -- ----------------------------
 -- Records of tp_order
 -- ----------------------------
-INSERT INTO `tp_order` VALUES ('1', '201611100005', '1', '1', '50', '1451750400', '1451750400', '2', '1', '1', '1');
+INSERT INTO `tp_order` VALUES ('1', '201611100005', '1', '1', '50', '1451750400', '1451750400', '1', '2', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_period
@@ -8416,8 +8373,8 @@ CREATE TABLE `tp_period` (
   `periods_no` varchar(50) NOT NULL,
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` double(13,0) unsigned NOT NULL DEFAULT '0',
+  `delete_time` int(10) unsigned NOT NULL DEFAULT '0',
   `periods_status` tinyint(4) NOT NULL DEFAULT '0',
-  `status` tinyint(4) unsigned NOT NULL DEFAULT '0',
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -8427,220 +8384,220 @@ CREATE TABLE `tp_period` (
 -- Records of tp_period
 -- ----------------------------
 INSERT INTO `tp_period` VALUES ('1', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('2', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('3', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('4', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('5', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('6', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('7', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('8', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('9', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('10', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('11', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('12', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('13', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('14', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('15', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('16', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('17', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('18', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('19', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('20', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('21', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('22', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('23', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('24', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('25', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('26', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('27', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('28', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('29', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('30', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('31', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('32', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('33', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('34', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('35', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('36', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('37', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('38', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('39', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('40', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('41', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('42', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('43', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('44', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('45', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('46', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('47', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('48', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('49', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('50', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('51', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('52', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('53', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('54', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('55', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('56', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('57', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('58', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('59', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('60', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('61', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('62', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('63', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('64', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('65', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('66', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('67', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('68', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('69', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('70', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('71', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('72', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('73', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('74', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('75', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('76', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('77', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('78', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('79', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('80', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('81', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('82', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('83', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('84', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('85', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('86', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('87', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('88', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('89', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('90', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('91', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('92', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('93', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('94', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('95', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('96', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('97', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('98', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('99', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('100', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('101', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('102', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('103', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('104', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('105', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('106', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('107', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('108', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('109', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('110', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('111', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('112', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('113', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('114', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('115', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('116', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('117', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('118', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('119', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('120', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('121', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('122', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('123', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('124', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('125', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('126', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('127', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('128', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('129', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('130', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('131', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('132', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('133', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('134', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('135', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('136', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('137', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('138', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('139', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('140', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('141', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('142', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('143', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('144', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('145', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('146', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('147', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('148', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('149', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('150', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('151', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('152', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('153', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('154', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('155', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('156', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('157', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('158', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('159', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('160', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('161', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('162', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('163', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('164', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('165', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('166', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('167', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('168', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('169', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('170', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('171', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('172', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('173', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('174', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('175', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('176', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('177', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('178', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('179', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('180', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('181', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('182', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('183', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('184', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('185', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('186', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('187', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('188', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('189', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('190', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('191', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('192', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('193', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('194', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('195', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('196', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('197', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('198', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('199', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('200', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('201', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('202', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('203', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('204', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('205', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('206', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('207', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('208', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('209', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('210', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('211', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('212', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('213', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('214', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
-INSERT INTO `tp_period` VALUES ('215', '5', '1', '0', '111', '1', '1', '1459408948', '1', '0', '1', '0', '1');
+INSERT INTO `tp_period` VALUES ('2', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('3', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('4', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('5', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('6', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('7', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('8', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('9', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('10', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('11', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('12', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('13', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('14', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('15', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('16', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('17', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('18', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('19', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('20', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('21', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('22', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('23', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('24', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('25', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('26', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('27', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('28', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('29', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('30', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('31', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('32', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('33', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('34', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('35', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('36', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('37', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('38', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('39', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('40', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('41', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('42', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('43', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('44', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('45', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('46', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('47', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('48', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('49', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('50', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('51', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('52', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('53', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('54', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('55', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('56', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('57', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('58', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('59', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('60', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('61', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('62', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('63', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('64', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('65', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('66', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('67', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('68', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('69', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('70', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('71', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('72', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('73', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('74', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('75', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('76', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('77', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('78', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('79', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('80', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('81', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('82', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('83', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('84', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('85', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('86', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('87', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('88', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('89', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('90', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('91', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('92', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('93', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('94', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('95', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('96', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('97', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('98', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('99', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('100', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('101', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('102', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('103', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('104', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('105', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('106', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('107', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('108', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('109', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('110', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('111', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('112', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('113', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('114', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('115', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('116', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('117', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('118', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('119', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('120', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('121', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('122', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('123', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('124', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('125', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('126', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('127', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('128', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('129', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('130', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('131', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('132', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('133', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('134', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('135', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('136', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('137', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('138', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('139', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('140', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('141', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('142', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('143', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('144', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('145', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('146', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('147', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('148', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('149', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('150', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('151', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('152', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('153', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('154', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('155', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('156', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('157', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('158', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('159', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('160', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('161', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('162', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('163', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('164', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('165', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('166', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('167', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('168', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('169', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('170', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('171', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('172', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('173', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('174', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('175', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('176', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('177', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('178', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('179', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('180', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('181', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('182', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('183', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('184', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('185', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('186', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('187', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('188', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('189', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('190', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('191', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('192', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('193', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('194', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('195', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('196', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('197', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('198', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('199', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('200', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('201', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('202', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('203', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('204', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('205', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('206', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('207', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('208', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('209', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('210', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('211', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('212', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('213', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('214', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
+INSERT INTO `tp_period` VALUES ('215', '5', '1', '0', '111', '1', '1', '1459408948', '1', '1', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_picture
@@ -8683,8 +8640,8 @@ CREATE TABLE `tp_share` (
   `pic_list` varchar(200) NOT NULL,
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) NOT NULL,
+  `delete_time` int(10) NOT NULL,
   `share_status` tinyint(4) NOT NULL,
-  `status` tinyint(4) NOT NULL,
   `reson` varchar(200) DEFAULT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -8710,7 +8667,7 @@ CREATE TABLE `tp_slider` (
   `click_id` int(10) unsigned NOT NULL DEFAULT '0',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) DEFAULT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1',
+  `delete_time` int(10) NOT NULL DEFAULT '1',
   `member_id` int(10) DEFAULT NULL,
   `pub_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
@@ -8766,7 +8723,7 @@ CREATE TABLE `tp_user_address` (
   `default` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `status` tinyint(4) NOT NULL,
+  `delete_time` int(10) NOT NULL,
   `pub_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

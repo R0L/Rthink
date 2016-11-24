@@ -6,13 +6,17 @@
         <div class="controls">
             <select name="group_id">
                 {foreach $group_list as $group }
-                <option value="{$group.id}">{$group.title}</option>
+                {if condition='$group.checked' }
+                    <option value="{$group.id}" selected="selected">{$group.title}</option>
+                {else/}
+                    <option value="{$group.id}">{$group.title}</option>
+                {/if}
                 {/foreach}
             </select>
         </div>
     </div>
     <div class="form-item">
-        <label class="item-label">后台用户<span class="check-tips">（后台用户）</span></label>
+        <label class="item-label">后台用户</label>
         <div class="controls">
             <select name="uid">
                 {foreach $user_list as $user }

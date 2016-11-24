@@ -3,7 +3,7 @@
 namespace application\common\model;
 
 use think\Session;
-
+use traits\model\SoftDelete;
 /**
  * @author ROL
  * @date 2016-10-29 10:21:11
@@ -12,8 +12,10 @@ use think\Session;
  */
 class BasePub extends Base {
 
+    use SoftDelete;
     protected $user_id = 0;
     protected $pub_id = 0;
+    protected $deleteTime = 'delete_time';
 
     //初始化
     protected function initialize() {

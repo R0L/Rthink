@@ -976,7 +976,7 @@ label.textarea ~ .check-tips {
   padding: 6px 12px;
   margin-left: -1px;
   line-height: 1.42857143;
-  color: #428bca;
+  color: #3a4658;
   text-decoration: none;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -1009,8 +1009,8 @@ label.textarea ~ .check-tips {
   z-index: 2;
   color: #fff;
   cursor: default;
-  background-color: #428bca;
-  border-color: #428bca;
+  background-color: #3a4658;
+  border-color: #3a4658;
 }
 .pagination > .disabled > span,
 .pagination > .disabled > span:hover,

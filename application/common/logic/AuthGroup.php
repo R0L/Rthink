@@ -23,13 +23,22 @@ class AuthGroup extends AuthGroupModel {
 
     /**
      * 查询AuthGroup数据
-     * @param type $id
+     * @param type $map
+     * @param type $group_id
      * @return type
      */
-    public static function selectToGroup($id = null) {
-        $map = [];
-        $id && $map["id"] = $id;
-        return AuthGroupModel::all($map);
+    public static function selectToAuthGroup($map = [],$group_id=null) {
+        $authGroupAll = AuthGroupModel::all($map);
+        if($group_id){
+            foreach ($authGroupAll as $authGroup) {
+                $bflag = false;
+                if($authGroup->id == $group_id){
+                    $bflag = true;
+                }
+                $authGroup->data("checked", $bflag)->append("checked");
+            }
+        }
+        return $authGroupAll;
     }
 
     /**
@@ -58,6 +67,15 @@ class AuthGroup extends AuthGroupModel {
      */
     public static function getRulesToGroup($id) {
         return AuthGroup::where(["id"=>$id])->value("rules");
+    }
+    
+    /**
+     * 根据id返回auth_group
+     * @param type $id
+     * @return type
+     */
+    public static function getAuthGroupToId($id) {
+        return AuthGroup::get($id);
     }
 
 }

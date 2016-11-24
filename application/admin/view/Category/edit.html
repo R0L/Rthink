@@ -26,7 +26,7 @@
     <div class="form-item">
         <label class="item-label">栏目图标<span class="check-tips">（用于前端的栏目图标展示）</span></label>
         <div class="controls">
-            <input type="text" class="text input-large" name="icon" value="{$info.icon|default=''}">
+            <div>{my:webuploader limit="1" name="picture_id" list="$info['picture_id']|default=''"/}</div>
         </div>
     </div>
     <div class="form-item">
@@ -43,8 +43,6 @@
         </div>
     </div>
     <div class="form-item umar-t50">
-        <input type="hidden" name="member_id" value="{$info.member_id}">
-        <input type="hidden" name="pub_id" value="{$info.pub_id}">
         {if condition=:isset($info['id'])}
         <input type="hidden" name="id" value="{$info.id|default=''}">
         {/if}

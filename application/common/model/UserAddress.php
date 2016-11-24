@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class UserAddress extends Base {
+class UserAddress extends BasePub {
     
     /**
      * 地址是否默认

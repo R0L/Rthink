@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Notice  extends Base{
+class Notice  extends BaseCommon{
     
     const NOTICE_NOTIFICATION = 0; //通知
     const NOTICE_ANNOUNCEMENT = 1; //公告

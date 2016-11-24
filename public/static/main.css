@@ -53,17 +53,6 @@ and open the template in the editor.
 
 
 
-/*
-上传文件css
-*/
-
-.uploader-list .file-item{
-    display: inline-block;
-    margin: 0 5px;
-}
-.webuploader-pick{
-    background-color: #3a4658 !important;
-}
 
 /*
 图片处理css

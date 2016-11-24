@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Category extends Base {
+class Category extends BaseCommon {
     
     /**
      * 查询所有终极的栏目

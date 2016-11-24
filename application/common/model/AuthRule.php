@@ -16,8 +16,7 @@ class AuthRule extends Base{
     
     // 定义全局的查询范围
     protected function base($query) {
-        parent::base($query);
-        $query->order(['sort'=>'desc','id'=>'asc']);
+        $query->where(['status'=>1])->order(['sort'=>'desc','id'=>'asc']);
     }
     
     /**

@@ -3,6 +3,7 @@
 namespace application\common\model;
 
 use think\Session;
+use traits\model\SoftDelete;
 
 /**
  * @author ROL
@@ -12,6 +13,9 @@ use think\Session;
  */
 class BaseCommon extends Base {
 
+    use SoftDelete;
+    protected $deleteTime = 'delete_time';
+    
     protected $user_id = 0;
     protected $pub_id = 0;
 
@@ -53,9 +57,37 @@ class BaseCommon extends Base {
 
     // 定义全局的查询范围
     protected function base($query) {
+        parent::base($query);
         $map['member_id'] = $this->user_id;
         empty($this->pub_id) || $map['pub_id'] = $this->pub_id;
         $query->where($map);
+    }
+    
+    
+    /**
+     * 根据id删除
+     * @param type $map
+     * @return type
+     */
+    public static function del($map = NULL,$force = false) {
+        return self::destroy($map, $force);
+    }
+
+    /**
+     * 根据id删除
+     * @param type $id
+     * @return type
+     */
+    public static function delById($id,$force = false) {
+        return self::del(["id"=>$id], $force);
+    }
+    /**
+     * 根据ids删除
+     * @param type $ids
+     * @return type
+     */
+    public static function delByIds($ids = [],$force = false) {
+        return self::del(["id"=>["in", $ids]],$force);
     }
 
 }

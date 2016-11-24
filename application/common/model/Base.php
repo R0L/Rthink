@@ -3,7 +3,6 @@
 namespace application\common\model;
 
 use think\Model;
-use traits\model\SoftDelete;
 
 /**
  * @author ROL
@@ -14,10 +13,8 @@ use traits\model\SoftDelete;
 class Base extends Model {
     
     
-    use SoftDelete;
     protected $autoWriteTimestamp = true;
     protected $format = 'Y-m-d H:i';
-    protected $deleteTime = 'delete_time';
 
     /**
      * 数据状态

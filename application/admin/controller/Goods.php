@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\common\model\Goods as GoodsModel;
+use application\common\logic\Goods as GoodsLogic;
 use application\common\logic\Category;
 use application\common\model\Brand;
 use think\Request;
@@ -28,7 +28,7 @@ class Goods extends Admin{
             $map["title"] = ["like", "%" . $title . "%"];
         }
         $map["goods_status"] = $goods_status;
-        $lists = GoodsModel::paginate($map);
+        $lists = GoodsLogic::paginate($map);
         $this->assign('lists', $lists);
         $this->assign('goods_status', $goods_status);
         return $this->fetch("index");
@@ -41,7 +41,7 @@ class Goods extends Admin{
      * @return type
      */
     public function nochecked(Request $request) {
-        return $this->index($request, GoodsModel::GOODS_NOCHECKED);
+        return $this->index($request, GoodsLogic::GOODS_NOCHECKED);
     }
     /**
      * 已审核/待上线
@@ -49,7 +49,7 @@ class Goods extends Admin{
      * @return type
      */
     public function checked(Request $request) {
-        return $this->index($request, GoodsModel::GOODS_CHECKED);
+        return $this->index($request, GoodsLogic::GOODS_CHECKED);
     }
     /**
      * 已上线/夺宝中
@@ -57,7 +57,7 @@ class Goods extends Admin{
      * @return type
      */
     public function online(Request $request) {
-        return $this->index($request, GoodsModel::GOODS_ONLINE);
+        return $this->index($request, GoodsLogic::GOODS_ONLINE);
     }
     /**
      * 已结束
@@ -65,23 +65,7 @@ class Goods extends Admin{
      * @return type
      */
     public function complete(Request $request) {
-        return $this->index($request, GoodsModel::GOODS_COMPLETE);
-    }
-    
-    
-    public function dd() {
-        $map = array();
-        $map["status"] = 1;
-        $map["goods_status"] = 1;
-        $map["buy_time"] = ["egt","total_time"];
-        $title = trim(input('title'));
-        if(!empty($title)){
-            $map["title"] = ["like", "%" . $title . "%"];
-        }
-        $Goods = new GoodsModel();
-        $lists = $Goods->where($map)->paginate();
-        $this->assign('lists', $lists);
-        return $this->fetch("index");
+        return $this->index($request, GoodsLogic::GOODS_COMPLETE);
     }
     
     
@@ -91,7 +75,20 @@ class Goods extends Admin{
      * @param Request $request
      */
     public function add(Request $request) {
-        return $this->deal($request);
+      if ($request->isPost()) {
+          $goodsLogic = new GoodsLogic();
+          $add = $goodsLogic->add($request->param());
+          $this->opReturn($add, "nochecked");
+        }
+            
+        //返回栏目
+        $selectToCategory = Category::selectToCategoryTree();
+        $this->assign("category_list",$selectToCategory);
+        //返回品牌
+        $all = Brand::all();
+        $this->assign("brand_list",$all);
+
+        return $this->fetch("edit");
     }
     
     /**

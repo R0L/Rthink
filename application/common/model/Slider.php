@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Slider extends Base {
+class Slider extends BaseCommon {
     
     //自动完成
     protected $auto = ['update_time'];
