@@ -96,16 +96,17 @@ EOF;
         $addid = md5(mt_rand(1,1000000));
         $list = $this->autoBuildVar($tag['list']);
         $limit-=count($list);
+        $limit == 0 ? $limit =-1:'';
         $parse = '<link rel="stylesheet" type="text/css" href="/static/webuploader-0.1.5/webuploader.css">
-                <script type="text/javascript" src="/static/webuploader-0.1.5/webuploader.js"></script>
+                <script type="text/javascript" src="/static/webuploader-0.1.5/webuploader.min.js"></script>
                 <div id="uploader'.$addid.'"><div id="fileList'.$addid.'" class="uploader-list">'
                 .'<?php if('.$list.'):'
                 . '$list = explode(",",'.$list.');'
                 . 'foreach($list as $value):'
-                . 'if('.$limit.' == 1): ?>'
-                . '<div class="file-item thumbnail"><?php echo get_cover_html($value);?><input type="hidden" value=<?php echo $value;?> name=\"'.$name.'\"><div class="file-panel" style="height: 0px;"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></div>'
+                . 'if('.$limit.' <= 1): ?>'
+                . '<div class="file-item thumbnail"><?php echo get_cover_html($value);?><input type="hidden" value=<?php echo $value;?> name="'.$name.'"><div class="file-panel" style="height: 0px;"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></div>'
                 . '<?php else: ?>'
-                . '<div class="file-item thumbnail"><?php echo get_cover_html($value);?><input type="hidden" value=<?php echo $value;?> name=\"'.$name.'[]\"><div class="file-panel" style="height: 0px;"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></div>'
+                . '<div class="file-item thumbnail"><?php echo get_cover_html($value);?><input type="hidden" value=<?php echo $value;?> name="'.$name.'[]"><div class="file-panel" style="height: 0px;"><span class="cancel">删除</span><span class="rotateRight">向右旋转</span><span class="rotateLeft">向左旋转</span></div></div>'
                 . '<?php endif;'
                 . 'endforeach;'
                 . 'endif;?>'
@@ -150,7 +151,7 @@ EOF;
                         });
                         // 当有文件添加进来的时候
                         uploader$addid.on( 'fileQueued', function( file ) {
-                            if($limit == 1){
+                            if($limit <= 1){
                                 var _li = $(
                                         '<div id=\"' + file['id'] + '$addid\" class=\"file-item thumbnail\">' +
                                             '<img class=\"cover\">' +
