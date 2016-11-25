@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use \think\Controller;
+use application\common\controller\Common;
 use ROL\Auth\Auth;
 use application\common\service\Meun;
 use application\common\service\Member;
@@ -18,7 +18,7 @@ use think\Request;
  * @version V1.0
  * @desc   
  */
-class Admin extends Controller {
+class Admin extends Common {
 
     //初始化
     public function _initialize() {

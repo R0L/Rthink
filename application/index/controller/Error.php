@@ -1,10 +1,15 @@
 <?php
 namespace application\index\controller;
-
-class Error extends Base {
+/**
+ * @author ROL
+ * @date 2016-11-25 11:38:55
+ * @version V1.0
+ * @desc   
+ */
+class Error{
     
     public function index() {
-        echo "控制器为空";
+        return "控制器不存在";
     }
     
 }

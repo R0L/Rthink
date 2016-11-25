@@ -1,1 +1,9 @@
-deny from all
+RewriteEngine on 
+
+RewriteCond %{HTTP_HOST} ^api.tp.jh$
+RewriteRule ^(.*)$ /api/$1
+
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteRule ^(.*)$ index.php/$1 [L]
+

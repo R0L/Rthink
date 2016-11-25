@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-11-23 17:21:20
+Date: 2016-11-25 17:00:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -68,7 +68,7 @@ CREATE TABLE `tp_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of tp_action_log
@@ -141,6 +141,7 @@ INSERT INTO `tp_action_log` VALUES ('65', '1', '1', '192.168.0.7', 'member', '1'
 INSERT INTO `tp_action_log` VALUES ('66', '1', '1', '192.168.0.7', 'member', '1', 'admin在2016-11-05 09:55登录了后台', '1478310910', '0', null, '1');
 INSERT INTO `tp_action_log` VALUES ('67', '12', '1', '127.0.0.1', 'admin', '85', '操作url：/admin/auth_rule/add.html', '1479885506', '1479885506', null, '0');
 INSERT INTO `tp_action_log` VALUES ('68', '12', '1', '127.0.0.1', 'admin', '86', '操作url：/admin/auth_rule/add.html', '1479889198', '1479889198', null, '0');
+INSERT INTO `tp_action_log` VALUES ('69', '12', '1', '127.0.0.1', 'admin', '87', '操作url：/admin/auth_rule/add.html', '1479978303', '1479978303', null, '0');
 
 -- ----------------------------
 -- Table structure for tp_amap
@@ -7640,17 +7641,17 @@ CREATE TABLE `tp_auth_group` (
   `title` char(100) NOT NULL DEFAULT '',
   `rules` char(200) NOT NULL DEFAULT '',
   `description` varchar(255) DEFAULT NULL,
-  `delete_time` int(10) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_group
 -- ----------------------------
-INSERT INTO `tp_auth_group` VALUES ('0', '超级管理员', '', '管理一切', null);
-INSERT INTO `tp_auth_group` VALUES ('1', '管理员', '1,2,3,4,5,6,7,8,68,9,10,11,63,12,47,56,69,58,60,61,13,14,57,15,16,46,48,17,18,59,19,62,20,21,54,55,22,24,25,64,26,65,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45', '用户平台管理者管理平台', null);
-INSERT INTO `tp_auth_group` VALUES ('4', '商家', '', '用户商品，内容，订单 进行管理', null);
-INSERT INTO `tp_auth_group` VALUES ('6', '测试用户', '1,2', '用于平台测试', null);
+INSERT INTO `tp_auth_group` VALUES ('0', '超级管理员', '', '管理一切', '1');
+INSERT INTO `tp_auth_group` VALUES ('1', '管理员', '1,2,3,4,5,6,7,8,68,9,10,11,63,12,47,56,69,58,60,61,13,14,57,15,16,46,48,17,18,59,19,62,20,21,54,55,22,24,25,64,26,65,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,44,45', '用户平台管理者管理平台', '1');
+INSERT INTO `tp_auth_group` VALUES ('4', '商家', '', '用户商品，内容，订单 进行管理', '1');
+INSERT INTO `tp_auth_group` VALUES ('6', '测试用户', '1,2', '用于平台测试', '1');
 
 -- ----------------------------
 -- Table structure for tp_auth_group_access
@@ -7659,16 +7660,18 @@ DROP TABLE IF EXISTS `tp_auth_group_access`;
 CREATE TABLE `tp_auth_group_access` (
   `uid` mediumint(8) unsigned NOT NULL,
   `group_id` mediumint(8) unsigned NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`),
   UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
   KEY `uid` (`uid`),
   KEY `group_id` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_group_access
 -- ----------------------------
-INSERT INTO `tp_auth_group_access` VALUES ('1', '0');
-INSERT INTO `tp_auth_group_access` VALUES ('2', '1');
+INSERT INTO `tp_auth_group_access` VALUES ('1', '0', '1');
+INSERT INTO `tp_auth_group_access` VALUES ('2', '1', '2');
 
 -- ----------------------------
 -- Table structure for tp_auth_rule
@@ -7680,87 +7683,86 @@ CREATE TABLE `tp_auth_rule` (
   `type` tinyint(1) NOT NULL DEFAULT '1',
   `module` varchar(30) NOT NULL DEFAULT 'admin',
   `name` char(80) NOT NULL DEFAULT '',
-  `delete_time` int(10) DEFAULT '1',
+  `status` tinyint(4) NOT NULL DEFAULT '1',
   `condition` char(100) NOT NULL DEFAULT '',
   `pid` int(11) DEFAULT NULL,
   `display` tinyint(4) NOT NULL DEFAULT '0',
   `sort` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `name` (`name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_auth_rule
 -- ----------------------------
-INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', null, 'icon-shouyeshouye', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('2', '统计界面', '1', 'admin', 'admin/index/index', null, '', '1', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', null, 'icon-xitongshezhi', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('4', '参数配置', '1', 'admin', '', null, '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('5', '网站配置', '1', 'admin', 'admin/config/website', null, '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('6', '支付配置', '1', 'admin', 'admin/config/payment', null, '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('7', '短信配置', '1', 'admin', 'admin/config/message', null, '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('8', '邮件配置', '1', 'admin', 'admin/config/mail', null, '', '4', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('9', '通知管理', '1', 'admin', '', null, '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('10', '通知列表', '1', 'admin', 'admin/notice/noti', null, '', '9', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('11', '通知浏览', '1', 'admin', 'admin/noticeRecord/index', null, '', '9', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('12', '日志记录', '1', 'admin', 'admin/action/actionlog', null, '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('13', '用户管理', '1', 'admin', '', null, 'icon-yonghuguanli', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('14', '会员管理', '1', 'admin', 'admin/user/index', null, '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('15', '管理员管理', '1', 'admin', 'admin/member/index', null, '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('16', '地址管理', '1', 'admin', 'admin/address/index', null, '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('17', '内容管理', '1', 'admin', '', null, 'icon-neirongguanli', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('18', '导航管理', '1', 'admin', 'admin/channel/index', null, '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('19', '幻灯片管理', '1', 'admin', 'admin/slider/index', null, '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('20', '文章管理', '1', 'admin', 'admin/article/index', null, '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('21', '公告管理', '1', 'admin', 'admin/notice/anno', null, '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('22', '友情链接', '1', 'admin', 'admin/link/index', null, '', '17', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('23', '积分管理', '1', 'admin', 'admin/integral/index', '1479889768', '', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('24', '商城管理', '1', 'admin', '', null, 'icon-unie605', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('25', '分类管理', '1', 'admin', 'admin/category/index', null, '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('26', '品牌管理', '1', 'admin', 'admin/brand/index', null, '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('27', '商品管理', '1', 'admin', 'admin/goods/index', null, '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('28', '待审核', '1', 'admin', 'admin/goods/nochecked', null, '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('29', '待上线', '1', 'admin', 'admin/goods/checked', null, '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('30', '已上线', '1', 'admin', 'admin/goods/online', null, '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('31', '已结束', '1', 'admin', 'admin/goods/complete', null, '', '27', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('32', '期数管理', '1', 'admin', 'admin/period/index', null, '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('33', '开奖中', '1', 'admin', 'admin/period/inlottery', null, '', '32', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('34', '已开奖', '1', 'admin', 'admin/period/haslottery', null, '', '32', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('35', '订单管理', '1', 'admin', 'admin/order/index', null, '', '24', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('36', '购物车', '1', 'admin', 'admin/order/shoppingcart', null, '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('37', '进行中', '1', 'admin', 'admin/order/haveinhand', null, '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('38', '已揭晓', '1', 'admin', 'admin/order/index', null, '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('39', '已中奖', '1', 'admin', 'admin/order/haswontheprize', null, '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('40', '未中奖', '1', 'admin', 'admin/order/notwinning', null, '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('41', '已晒单', '1', 'admin', 'admin/order/sunsheet', null, '', '35', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('42', '财务管理', '1', 'admin', '', null, 'icon-caiwuguanli', '0', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('43', '财务统计', '1', 'admin', 'admin/charge/index', null, '', '42', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('44', '消费记录', '1', 'admin', 'admin/charge/consumption', null, '', '42', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('45', '充值记录', '1', 'admin', 'admin/charge/recharge', null, '', '42', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('46', '权限管理', '1', 'admin', 'admin/authManager/index', null, '', '13', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('47', '菜单管理', '1', 'admin', 'admin/AuthRule/index', null, '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('48', '访问授权', '1', 'admin', 'admin/authManager/access', null, '', '46', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('49', '新增配置', '1', 'admin', 'admin/config/deal', null, '', '5', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('50', '配置导出', '1', 'admin', 'admin/config/export', null, '', '5', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('51', '配置导入', '1', 'admin', 'admin/config/import', null, '', '5', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('52', '新增通知', '1', 'admin', 'admin/notice/addNoti', null, '', '10', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('53', '通知编辑', '1', 'admin', 'admin/notice/editNoti', null, '', '10', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('54', '新增公告', '1', 'admin', 'admin/notice/addAnno', null, '', '21', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('55', '公告编辑', '1', 'admin', 'admin/notice/editAnno', null, '', '21', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('56', '新增菜单', '1', 'admin', 'admin/authRule/add', null, '', '47', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('57', '新增会员', '1', 'admin', 'admin/user/add', null, '', '14', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('58', '地区管理', '1', 'admin', 'admin/address/manage', null, '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('59', '新增导航', '1', 'admin', 'admin/channel/add', null, '', '18', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('60', '附件管理', '1', 'admin', '', null, '', '3', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('61', '图片管理', '1', 'admin', 'admin/attach/picture', null, '', '60', '1', '1');
-INSERT INTO `tp_auth_rule` VALUES ('62', '新增幻灯片', '1', 'admin', 'admin/slider/add', null, '', '19', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('63', '其他', '1', 'admin', '', null, '', '9', '0', '1');
-INSERT INTO `tp_auth_rule` VALUES ('64', '新增分类', '1', 'admin', 'admin/category/add', null, '', '25', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('65', '新增品牌', '1', 'admin', 'admin/brand/add', null, '', '26', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('66', '新增商品', '1', 'admin', 'admin/goods/add', null, '', '28', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('68', '配置列表', '1', 'admin', 'admin/config/index', null, '', '4', '1', '10');
-INSERT INTO `tp_auth_rule` VALUES ('69', '菜单编辑', '1', 'admin', 'admin/authRule/edit', null, '', '47', '0', '0');
-INSERT INTO `tp_auth_rule` VALUES ('78', '新增用户组', '1', 'admin', 'admin/authManager/add', null, '', '46', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('1', '首页', '1', 'admin', '', '1', 'icon-shouyeshouye', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('2', '统计界面', '1', 'admin', 'admin/index/index', '1', '', '1', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('3', '系统设置', '1', 'admin', '', '1', 'icon-xitongshezhi', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('4', '参数配置', '1', 'admin', '', '1', '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('5', '网站配置', '1', 'admin', 'admin/config/website', '1', '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('6', '支付配置', '1', 'admin', 'admin/config/payment', '1', '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('7', '短信配置', '1', 'admin', 'admin/config/message', '1', '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('8', '邮件配置', '1', 'admin', 'admin/config/mail', '1', '', '4', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('9', '通知管理', '1', 'admin', '', '1', '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('10', '通知列表', '1', 'admin', 'admin/notice/noti', '1', '', '9', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('11', '通知浏览', '1', 'admin', 'admin/noticeRecord/index', '1', '', '9', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('12', '日志记录', '1', 'admin', 'admin/action/actionlog', '1', '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('13', '用户管理', '1', 'admin', '', '1', 'icon-yonghuguanli', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('14', '会员管理', '1', 'admin', 'admin/user/index', '1', '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('15', '管理员管理', '1', 'admin', 'admin/member/index', '1', '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('16', '地址管理', '1', 'admin', 'admin/address/index', '1', '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('17', '内容管理', '1', 'admin', '', '1', 'icon-neirongguanli', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('18', '导航管理', '1', 'admin', 'admin/channel/index', '1', '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('19', '幻灯片管理', '1', 'admin', 'admin/slider/index', '1', '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('20', '文章管理', '1', 'admin', 'admin/article/index', '1', '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('21', '公告管理', '1', 'admin', 'admin/notice/anno', '1', '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('22', '友情链接', '1', 'admin', 'admin/link/index', '1', '', '17', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('24', '商城管理', '1', 'admin', '', '1', 'icon-unie605', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('25', '分类管理', '1', 'admin', 'admin/category/index', '1', '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('26', '品牌管理', '1', 'admin', 'admin/brand/index', '1', '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('27', '商品管理', '1', 'admin', 'admin/goods/index', '1', '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('28', '待审核', '1', 'admin', 'admin/goods/nochecked', '1', '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('29', '待上线', '1', 'admin', 'admin/goods/checked', '1', '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('30', '已上线', '1', 'admin', 'admin/goods/online', '1', '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('31', '已结束', '1', 'admin', 'admin/goods/complete', '1', '', '27', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('32', '期数管理', '1', 'admin', 'admin/period/index', '1', '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('33', '开奖中', '1', 'admin', 'admin/period/inlottery', '1', '', '32', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('34', '已开奖', '1', 'admin', 'admin/period/haslottery', '1', '', '32', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('35', '订单管理', '1', 'admin', 'admin/order/index', '1', '', '24', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('36', '购物车', '1', 'admin', 'admin/order/shoppingcart', '1', '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('37', '进行中', '1', 'admin', 'admin/order/haveinhand', '1', '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('38', '已揭晓', '1', 'admin', 'admin/order/index', '1', '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('39', '已中奖', '1', 'admin', 'admin/order/haswontheprize', '1', '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('40', '未中奖', '1', 'admin', 'admin/order/notwinning', '1', '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('41', '已晒单', '1', 'admin', 'admin/order/sunsheet', '1', '', '35', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('42', '财务管理', '1', 'admin', '', '1', 'icon-caiwuguanli', '0', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('43', '财务统计', '1', 'admin', 'admin/charge/index', '1', '', '42', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('44', '消费记录', '1', 'admin', 'admin/charge/consumption', '1', '', '42', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('45', '充值记录', '1', 'admin', 'admin/charge/recharge', '1', '', '42', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('46', '权限管理', '1', 'admin', 'admin/authManager/index', '1', '', '13', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('47', '菜单管理', '1', 'admin', 'admin/AuthRule/index', '1', '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('48', '访问授权', '1', 'admin', 'admin/authManager/access', '1', '', '46', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('49', '新增配置', '1', 'admin', 'admin/config/deal', '1', '', '5', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('50', '配置导出', '1', 'admin', 'admin/config/export', '1', '', '5', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('51', '配置导入', '1', 'admin', 'admin/config/import', '1', '', '5', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('52', '新增通知', '1', 'admin', 'admin/notice/addNoti', '1', '', '10', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('53', '通知编辑', '1', 'admin', 'admin/notice/editNoti', '1', '', '10', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('54', '新增公告', '1', 'admin', 'admin/notice/addAnno', '1', '', '21', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('55', '公告编辑', '1', 'admin', 'admin/notice/editAnno', '1', '', '21', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('56', '新增菜单', '1', 'admin', 'admin/authRule/add', '1', '', '47', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('57', '新增会员', '1', 'admin', 'admin/user/add', '1', '', '14', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('58', '地区管理', '1', 'admin', 'admin/address/manage', '1', '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('59', '新增导航', '1', 'admin', 'admin/channel/add', '1', '', '18', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('60', '附件管理', '1', 'admin', '', '1', '', '3', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('61', '图片管理', '1', 'admin', 'admin/attach/picture', '1', '', '60', '1', '1');
+INSERT INTO `tp_auth_rule` VALUES ('62', '新增幻灯片', '1', 'admin', 'admin/slider/add', '1', '', '19', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('63', '其他', '1', 'admin', '', '1', '', '9', '0', '1');
+INSERT INTO `tp_auth_rule` VALUES ('64', '新增分类', '1', 'admin', 'admin/category/add', '1', '', '25', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('65', '新增品牌', '1', 'admin', 'admin/brand/add', '1', '', '26', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('66', '新增商品', '1', 'admin', 'admin/goods/add', '1', '', '28', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('68', '配置列表', '1', 'admin', 'admin/config/index', '1', '', '4', '1', '10');
+INSERT INTO `tp_auth_rule` VALUES ('69', '菜单编辑', '1', 'admin', 'admin/authRule/edit', '1', '', '47', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('78', '新增用户组', '1', 'admin', 'admin/authManager/add', '1', '', '46', '0', '1');
 INSERT INTO `tp_auth_rule` VALUES ('79', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('80', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('81', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
@@ -7769,6 +7771,7 @@ INSERT INTO `tp_auth_rule` VALUES ('83', '删除用户组', '1', 'admin', 'admin
 INSERT INTO `tp_auth_rule` VALUES ('84', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('85', '删除用户组', '1', 'admin', 'admin/auth_manager/del', '1', '', '46', '0', '0');
 INSERT INTO `tp_auth_rule` VALUES ('86', '成员授权', '1', 'admin', 'admin/authManager/user', '1', '', '0', '0', '0');
+INSERT INTO `tp_auth_rule` VALUES ('87', '分类编辑', '1', 'admin', 'admin/category/edit', '1', '', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for tp_brand
@@ -7827,7 +7830,7 @@ CREATE TABLE `tp_category` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `pid` int(10) unsigned NOT NULL DEFAULT '0',
-  `icon` char(50) DEFAULT NULL,
+  `picture_id` char(50) DEFAULT NULL,
   `sort` int(10) unsigned NOT NULL DEFAULT '0',
   `display` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `meta_title` varchar(50) NOT NULL DEFAULT '',
@@ -7835,27 +7838,29 @@ CREATE TABLE `tp_category` (
   `description` varchar(255) NOT NULL DEFAULT '',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `delete_time` int(10) NOT NULL DEFAULT '0',
+  `delete_time` int(10) DEFAULT NULL,
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=62 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of tp_category
 -- ----------------------------
-INSERT INTO `tp_category` VALUES ('4', '手机平板', '0', 'icon icon-tablet', '1', '1', '', '', '', '1440469030', '1450770171', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('8', '电脑办公', '0', 'icon icon-desktop', '2', '1', '', '', '', '1450770206', '1450770206', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('9', '数码影音', '0', 'icon icon-camera-1', '3', '1', '', '', '', '1450770234', '1450770234', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('10', '女性时尚', '0', 'icon icon-women', '4', '1', '', '', '', '1450770259', '1450770259', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('11', '美食天地', '0', 'icon icon-food', '5', '1', '', '', '', '1450770274', '1450770274', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('12', '潮流新品', '0', 'icon icon-fashion', '6', '1', '', '', '', '1450770293', '1450770293', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('13', '其他商品', '0', 'icon icon-th', '7', '1', '', '', '', '1450770304', '1450770304', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('50', '平板', '4', null, '0', '0', '', '', '', '0', '0', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('14', '手机', '4', null, '0', '0', '', '', '', '0', '0', '1', '1', '1');
-INSERT INTO `tp_category` VALUES ('53', '顶级分类', '0', null, '0', '0', '', '', '', '0', '0', '0', '1', '1');
-INSERT INTO `tp_category` VALUES ('52', '2', '4', '2', '0', '1', '', '', '', '1479522744', '1479522744', '1', '1', '1');
+INSERT INTO `tp_category` VALUES ('4', '手机平板', '4', '51', '1', '1', '', '', '', '1440469030', '1479978399', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('8', '电脑办公', '0', '51', '2', '1', '', '', '', '1450770206', '1450770206', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('9', '数码影音', '0', '51', '3', '1', '', '', '', '1450770234', '1450770234', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('10', '女性时尚', '0', '51', '4', '1', '', '', '', '1450770259', '1450770259', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('11', '美食天地', '0', '51', '5', '1', '', '', '', '1450770274', '1450770274', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('12', '潮流新品', '0', '51', '6', '1', '', '', '', '1450770293', '1450770293', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('13', '其他商品', '0', '51', '7', '1', '', '', '', '1450770304', '1450770304', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('50', '平板', '4', '51', '0', '0', '', '', '', '0', '0', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('14', '手机', '4', '51', '0', '0', '', '', '', '0', '0', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('53', '顶级分类', '0', '51', '0', '0', '', '', '', '0', '0', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('52', '2', '4', '51', '0', '1', '', '', '', '1479522744', '1479953913', null, '1', '1');
+INSERT INTO `tp_category` VALUES ('60', '4444', '8', '47', '0', '1', '', '', '', '1479954445', '1479978796', null, '0', '1');
+INSERT INTO `tp_category` VALUES ('61', '4444', '4', '46', '0', '1', '', '', '', '1479954463', '1479954463', null, '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_channel
@@ -8281,6 +8286,7 @@ CREATE TABLE `tp_member` (
 -- ----------------------------
 INSERT INTO `tp_member` VALUES ('1', 'admin', '123456', '1', '192.168.0.7', '192.168.0.7', '1452682745', '1452682745', '1', '0');
 INSERT INTO `tp_member` VALUES ('2', '银鑫', null, '12', '192.168.0.7', '192.168.0.7', '1452682745', '1452682745', '1', '0');
+INSERT INTO `tp_member` VALUES ('3', '雷普', null, '12', '192.168.0.7', '192.168.0.7', '1452682745', '1452682745', '1', '0');
 
 -- ----------------------------
 -- Table structure for tp_notice
@@ -8294,8 +8300,8 @@ CREATE TABLE `tp_notice` (
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
   `delete_time` int(10) NOT NULL,
-  `member_id` int(11) NOT NULL,
   `notice_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 公告  1 通知',
+  `member_id` int(11) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
@@ -8304,11 +8310,11 @@ CREATE TABLE `tp_notice` (
 -- Records of tp_notice
 -- ----------------------------
 INSERT INTO `tp_notice` VALUES ('1', '发不了', '这是一个好东西哦', '1', '1452682745', '1452682745', '1', '1', '1', '1');
-INSERT INTO `tp_notice` VALUES ('2', '公告2', '公告公告公告', '2', '1452682745', '1479283070', '-1', '1', '0', '1');
-INSERT INTO `tp_notice` VALUES ('3', '测试测试', '测试测试 这是内容', '0', '1479281895', '1479283077', '-1', '1', '0', '1');
-INSERT INTO `tp_notice` VALUES ('4', '再次测试', '再次测试内容', '0', '1479282050', '1479283077', '-1', '1', '0', '1');
-INSERT INTO `tp_notice` VALUES ('5', '第三次测试', '第三次测试内容', '0', '1479282082', '1479283965', '-1', '1', '0', '1');
-INSERT INTO `tp_notice` VALUES ('6', '通知标题', '通知内容', '0', '1479359804', '1479359804', '1', '1', '0', '1');
+INSERT INTO `tp_notice` VALUES ('2', '公告2', '公告公告公告', '2', '1452682745', '1479283070', '-1', '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('3', '测试测试', '测试测试 这是内容', '0', '1479281895', '1479283077', '-1', '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('4', '再次测试', '再次测试内容', '0', '1479282050', '1479283077', '-1', '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('5', '第三次测试', '第三次测试内容', '0', '1479282082', '1479283965', '-1', '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('6', '通知标题', '通知内容', '0', '1479359804', '1479359804', '1', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_notice_record
@@ -8681,6 +8687,23 @@ INSERT INTO `tp_slider` VALUES ('2', '充值购买', 'http://www.suibianlu.com/a
 INSERT INTO `tp_slider` VALUES ('3', '分享送', 'http://www.suibianlu.com/activity/activity/id/57', '35', '4', '370', '1452743322', '1479455626', '1', '1', '1');
 INSERT INTO `tp_slider` VALUES ('4', '新手指南', 'http://www.suibianlu.com/user/guide', '35', '5', '371', '1452682819', '1479455631', '1', '1', '1');
 INSERT INTO `tp_slider` VALUES ('5', '幻灯片名称', '0', '48', '0', '0', '1479455338', '1479455338', '1', '1', '1');
+
+-- ----------------------------
+-- Table structure for tp_token
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_token`;
+CREATE TABLE `tp_token` (
+  `id` int(11) NOT NULL,
+  `version` int(1) NOT NULL,
+  `appsecret` varchar(30) NOT NULL,
+  `terminal` tinyint(4) NOT NULL DEFAULT '3' COMMENT '3:WAP, 4 :Android, 5:IOS, 6:WeChat',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of tp_token
+-- ----------------------------
+INSERT INTO `tp_token` VALUES ('1', '1', '123456789', '3');
 
 -- ----------------------------
 -- Table structure for tp_user

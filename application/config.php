@@ -7,28 +7,17 @@ return [
     'trace' => [
         'type' => 'Html',
     ],
-    'default_module' => 'admin',
+    'route_config_file'      => ['route','api'. DS .'route'],
+    'default_module' => 'index',
     'default_validate' => '',
     'log' => [
         'type' => 'File',
         'path' => LOG_PATH,
         'level' => [],
     ],
-    'addons' => [
-        'testhook' => 'test',
-        'uploadhook' => 'upload',
-        'editorforadminhook' => 'editorforadmin',
-    ],
-    
     'template'             => [
         'taglib_pre_load' => 'application\\common\\taglib\\My'
-//        'taglib_pre_load' => 'application\common\taglib\My'
     ],
-    
-    
-    
-    
-    
     
     'picture_upload' => [],
 ];
