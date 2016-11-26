@@ -8,7 +8,17 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Code extends Base {
+class Code extends BasePub {
+    
+    //自动完成
+    protected $insert = [ 'create_time', 'pub_id','code_status'=>Code::CODE_INIT];
+    
+    const CODE_INIT = 0;//初始化验证码
+    const CODE_SEND = 0;//验证码已验证
+    
+    public static $code_status=[0=>"初始化验证码",1=>"验证码已验证"];
+    
+    
     
     
     

@@ -13,6 +13,7 @@ use think\Model;
 class Base extends Model {
     
     
+    
     protected $autoWriteTimestamp = true;
     protected $format = 'Y-m-d H:i';
 
@@ -32,12 +33,7 @@ class Base extends Model {
     const TERMINAL_IOS = 5; //IOS
     const TERMINAL_WECHAT = 6; //WeChat
 
-    //初始化
-
-    protected function initialize() {
-        parent::initialize();
-    }
-
+    
     //自动完成
     protected $auto = ['update_time'];
     protected $insert = ['create_time'];
@@ -112,14 +108,10 @@ class Base extends Model {
     }
 
     //类型转换
-    protected $type = [
-    ];
+    protected $type = [];
 
     // 定义全局的查询范围
-    protected function base($query) {
-        $field = $this->getDeleteTimeField(true); 
-        $query->where($field, 'null');
-    }
+    protected function base($query) {}
 
     /**
      * 分页
@@ -131,18 +123,17 @@ class Base extends Model {
     /**
      * 操作数据的更新或添加
      * @param type $data
-     * @param type $map
+     * @param type $where
      * @return type
      */
-    public static function deal($data, $map = NULL) {
-        if (array_key_exists("id", $data)) {
-            return self::update($data, $map);
+    public static function deal($data, $where = [],$op = false) {
+        $model = new static();
+        if ($op || array_key_exists($model->getPk(), $data)){
+            $result = $model->validate(true)->isUpdate(true)->allowField(true)->save($data, $where);
+            return $model;
         }
-        $create = self::create($data); //20161118
-        if (empty($create)) {
-            return false;
-        }
-        return $create->id;
+        $result = $model->validate(true)->isUpdate(false)->allowField(true)->save($data, []);
+        return $model;
     }
     
     

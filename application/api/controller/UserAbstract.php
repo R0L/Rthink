@@ -12,6 +12,6 @@ abstract class UserAbstract extends Api{
     /**
      * 发送短信接口
      */
-    abstract function sendSms($mobile,$opType=0,$sendType=0);
+    abstract function sendSms($mobile,$opType,$sendType);
     
 }

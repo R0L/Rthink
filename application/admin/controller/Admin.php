@@ -19,7 +19,7 @@ use think\Request;
  * @desc   
  */
 class Admin extends Common {
-
+    
     //初始化
     public function _initialize() {
         $user_id = Session::get('user_id');
@@ -80,4 +80,37 @@ class Admin extends Common {
         }
         $this->error("操作失败");
     }
+    
+    
+    /**
+     * 添加
+     * @param Request $request
+     * @return type
+     */
+    public function add(Request $request) {
+        return $this->deal($request);
+    }
+
+    /**
+     * 编辑
+     * @param Request $request
+     * @return \application\admin\controller\type
+     */
+    public function edit(Request $request) {
+        return $this->deal($request);
+    }
+    
+    
+    /**
+     * 删除
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $delByIds = ChannelModel::delByIds($request->param("id/a"));
+        if ($delByIds) {
+            $this->success("操作成功", "index");
+        }
+        $this->error("操作失败");
+    }
+    
 }

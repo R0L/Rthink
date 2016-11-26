@@ -1,5 +1,6 @@
 <?php
 namespace application\api\controller;
+use application\api\controller\Api;
 /**
  * @author ROL
  * @date 2016-11-25 11:38:55
@@ -9,10 +10,13 @@ namespace application\api\controller;
 class Error{
     
     public function index() {
-        return "控制器不存在";
+        return Api::jException("请求链接异常，服务器控制器不存在");
     }
     public function _empty() {
-        return "操作不存在";
+        return Api::jException("请求链接异常，服务器操作不存在");
+    }
+    public function miss() {
+        return Api::jException("请求链接异常，服务器不存在该接口");
     }
     
 }

@@ -2,7 +2,7 @@
 
 namespace application\common\model;
 
-use think\Session;
+use think\Request;
 use traits\model\SoftDelete;
 /**
  * @author ROL
@@ -13,17 +13,20 @@ use traits\model\SoftDelete;
 class BasePub extends Base {
 
     use SoftDelete;
+    protected $deleteTime = 'delete_time';
+    
     protected $user_id = 0;
     protected $pub_id = 0;
-    protected $deleteTime = 'delete_time';
 
     //初始化
     protected function initialize() {
         parent::initialize();
-        $this->user_id = Session::get("user_id");
-        if (!in_array($this->user_id, [1])) {
-            $this->pub_id = $this->user_id;
-        }
+//        $this->user_id = Session::get("user_id");
+//        if (!in_array($this->user_id, [1])) {
+//            $this->pub_id = $this->user_id;
+//        }
+        $request = Request::instance();
+        $this->pub_id = $request->param("pub_id");
     }
 
     //自动完成

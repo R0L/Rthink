@@ -1,7 +1,7 @@
 RewriteEngine on 
 
-RewriteCond %{HTTP_HOST} ^api.tp.jh$
-RewriteRule ^(.*)$ /api/$1
+RewriteCond %{HTTP_HOST} (.*).tp.jh
+RewriteRule (.*) /%1/$1
 
 RewriteCond %{REQUEST_FILENAME} !-d 
 RewriteCond %{REQUEST_FILENAME} !-f 

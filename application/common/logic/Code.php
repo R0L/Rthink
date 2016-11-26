@@ -2,13 +2,14 @@
 
 namespace application\common\logic;
 use application\common\model\Code as CodeModel;
+use think\Config;
 /**
  * @author ROL
  * @date 2016-11-21 16:10:54
  * @version V1.0
  * @desc   
  */
-class Code extends CodeModel{
+class Code{
     
     
     /**
@@ -32,7 +33,24 @@ class Code extends CodeModel{
      * @return type
      */
     public static function addCode($mobile,$code){
-        return CodeModel::create(["mobile"=>$mobile,"code"=>$code]);
+        $codeModel = new CodeModel();
+        
+        $now_start = strtotime(date("Y-m-d"));
+        $now_end = strtotime(date("Y-m-d",time()+3600*24*1));
+        
+        $count = $codeModel->where(["mobile"=>$mobile,"create_time"=>["between",[$now_start,$now_end]]])->count();
+        
+        
+        if(Config::get("CODE_DAY_LIMIT")<=$count){
+            
+        }
+        
+        
+            CodeModel::all();
+        
+        
+        
+        return $codeModel->add(["mobile"=>$mobile,"code"=>$code]);
     }
     
 }

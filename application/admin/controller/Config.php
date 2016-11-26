@@ -55,7 +55,7 @@ class Config extends Admin {
         if($request->isPost()){
             $deal = ConfigLogic::deal($request->param());
             if($deal){
-                $this->success("操作成功","index");
+                $this->success("操作成功","Config/index");
             }
             $this->error("操作失败");
         }

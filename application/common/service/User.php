@@ -96,8 +96,17 @@ class User {
      * @return boolean
      */
     public function sendSms($mobile, $opType = 0, $sendType = 0) {
-        $code = get_rand_number(1000, 9999, 4);
-        $chuanglanSMS = new ChuanglanSMS();
+        $code = \get_rand_number(1000, 9999, 1)[0];
+        
+        
+        $addCode = Code::addCode($mobile, $code);
+        
+        if(empty($addCode)){
+            return false;
+        }
+        
+        
+        $chuanglanSMS = new ChuanglanSMS("国讯通");
         $sendStatus = false;
         switch ($opType) {
             case 0:
@@ -111,16 +120,15 @@ class User {
         }
         switch ($sendType) {
             case 0:
-                $sendStatus = $chuanglanSMS->sendSms($mobile, $code);
+//                $sendStatus = $chuanglanSMS->sendSms($mobile, $code);
                 break;
             case 1:
-                $sendStatus = $chuanglanSMS->sendVoice($mobile, $code);
+//                $sendStatus = $chuanglanSMS->sendVoice($mobile, $code);
                 break;
             default:
                 break;
         }
-        $sendStatus && $addCode = Code::addCode($mobile, $code);
-        if ($addCode) {
+        if ($addCode=true) {
             return true;
         }
         return false;
