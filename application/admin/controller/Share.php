@@ -19,8 +19,7 @@ class Share extends Admin {
         if (!empty($title)) {
             $map["title|content"] = ["like", "%" . $title . "%"];
         }
-        $Share = new ShareModel();
-        $lists = $Share->where($map)->paginate();
+        $lists = ShareModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }

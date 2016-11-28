@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="fr cf">
-        <a class="btn add-btn" href="{:url('deal')}">新 增</a>
+        <a class="btn add-btn" href="{:url('add')}">新 增</a>
         <button class="btn del-btn ajax-post confirm" url="{:url('del')}" target-form="ids">删 除</button>
         <a class="btn export-btn-out" href="{:url('import')}">导 出</a>
     </div>
@@ -44,7 +44,7 @@
                         <td><span>{$vo->last_login_ip}</span></td>
 			<td><span>{$vo->last_login_time_fromat}</span></td>
                     <td>
-                        <a title="编辑" style="color: #61c362;" href="{:url('deal?id='.$vo['id'])}">编辑</a>
+                        <a title="编辑" style="color: #61c362;" href="{:url('edit?id='.$vo['id'])}">编辑</a>
                         <a class="confirm ajax-get" style="color: #fd9701;padding-left: 10px;" title="删除" href="{:url('del?id='.$vo['id'])}">删除</a>
                     </td>
                 </tr>

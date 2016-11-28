@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 use think\Request;
-use application\common\logic\AuthRule as AuthRuleLogic;
+use application\common\model\AuthRule as AuthRuleModel;
 use application\common\service\Meun;
 use application\common\api\Log;
 
@@ -23,13 +23,13 @@ class AuthRule extends Admin {
         $pid = $request->param("pid", 0);
         $map["pid"] = $pid;
         if (empty($pid)) {
-            $data = AuthRuleLogic::get($pid);
+            $data = AuthRuleModel::get($pid);
             $this->assign('data', $data);
         }
         if($title = $request->param("title")){
             $map["title"] = $title;
         }
-        $lists = AuthRuleLogic::paginate($map);
+        $lists = AuthRuleModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
@@ -41,13 +41,11 @@ class AuthRule extends Admin {
      */
     public function add(Request $request){
         if($request->isPost()){
-             $authRuleLogic = new AuthRuleLogic();
-             $statusDeal = $authRuleLogic->addAuthRule($request->param());
-            if($statusDeal){
-                Log::action("add_authRules", $statusDeal, $request->user->id);
-                $this->success("操作成功","index");
-            }
-            $this->success("操作失败:".$authRuleLogic->getError());
+            $authRuleModel =  AuthRuleModel::create($request->param());
+            $this->opReturn($authRuleModel, "AuthRule/index", function($opResult,$refreshUrl){
+                Log::action("add_authRules", 0, $request->user->id);
+                $this->success("操作成功",$refreshUrl);
+            });
         }
         $this->assign("info", ["pid"=>0]);
         $meun = new Meun();
@@ -63,14 +61,13 @@ class AuthRule extends Admin {
     public function edit(Request $request) {
         $id = $request->param("id");
         if($request->isPost()){
-            $authRuleLogic = new AuthRuleLogic();
-            $statusDeal =$authRuleLogic->editAuthRule($request->param());
+            $statusDeal =AuthRuleLogic::editAuthRule($request->param());
             if($statusDeal){
                 $this->success("操作成功","index");
             }
             $this->success("操作失败".$authRuleLogic->getError());
         }
-        $authRuleGet = AuthRuleLogic::getLineData(["id"=>$id]);
+        $authRuleGet = AuthRuleLogic::get($id);
         $this->assign("info", $authRuleGet);
         $meun = new Meun();
         $this->assign('menus',$meun->selectToMenus());
@@ -104,7 +101,7 @@ class AuthRule extends Admin {
         }
         $id = $request->param("id");
         if($id){
-            $authRuleGet = AuthRuleLogic::getLineData(["id"=>$id]);
+            $authRuleGet = AuthRuleLogic::get($id);
             $this->assign("info", $authRuleGet);
         }else{
             $this->assign("info", ["pid"=>0]);

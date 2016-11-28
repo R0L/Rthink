@@ -29,19 +29,37 @@ class Member extends Admin {
     
     
     /**
-     * 后台管理员的编辑或者添加
+     * 后台管理员的添加
      * @param Request $request
      * @return type
      */
-    public function deal(Request $request) {
+    public function add(Request $request) {
         if($request->isPost()){
-            $statusDeal = MemberModel::deal($request->param());
-            if($statusDeal){
-                $this->success("操作成功");
-            }
-            $this->error("操作失败");
+            $this->opReturn(MemberModel::create($request->param()));
         }
         $this->assign("info", ["pid"=>$request->user->id]);
         return $this->fetch("edit");
+    }
+    
+    /**
+     * 后台管理员的编辑
+     * @param Request $request
+     * @return type
+     */
+    public function edit(Request $request) {
+        if($request->isPost()){
+            $this->opReturn(MemberModel::edit($request->param()));
+        }
+        $this->assign("info", ["pid"=>$request->user->id]);
+        return $this->fetch("edit");
+    }
+    
+    /**
+     * 后台管理员的删除
+     * @param Request $request
+     * @return type
+     */
+    public function del(Request $request) {
+        $this->opReturn(MemberModel::delByIds($request->param("id/a")));
     }
 }

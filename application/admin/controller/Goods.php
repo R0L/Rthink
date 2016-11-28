@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\common\logic\Goods as GoodsLogic;
+use application\common\model\Goods as GoodsModel;
 use application\common\logic\Category;
 use application\common\model\Brand;
 use think\Request;
@@ -28,7 +28,7 @@ class Goods extends Admin{
             $map["title"] = ["like", "%" . $title . "%"];
         }
         $map["goods_status"] = $goods_status;
-        $lists = GoodsLogic::paginate($map);
+        $lists = GoodsModel::paginate($map);
         $this->assign('lists', $lists);
         $this->assign('goods_status', $goods_status);
         return $this->fetch("index");
@@ -41,7 +41,7 @@ class Goods extends Admin{
      * @return type
      */
     public function nochecked(Request $request) {
-        return $this->index($request, GoodsLogic::GOODS_NOCHECKED);
+        return $this->index($request, GoodsModel::GOODS_NOCHECKED);
     }
     /**
      * 已审核/待上线
@@ -49,7 +49,7 @@ class Goods extends Admin{
      * @return type
      */
     public function checked(Request $request) {
-        return $this->index($request, GoodsLogic::GOODS_CHECKED);
+        return $this->index($request, GoodsModel::GOODS_CHECKED);
     }
     /**
      * 已上线/夺宝中
@@ -57,7 +57,7 @@ class Goods extends Admin{
      * @return type
      */
     public function online(Request $request) {
-        return $this->index($request, GoodsLogic::GOODS_ONLINE);
+        return $this->index($request, GoodsModel::GOODS_ONLINE);
     }
     /**
      * 已结束
@@ -65,7 +65,7 @@ class Goods extends Admin{
      * @return type
      */
     public function complete(Request $request) {
-        return $this->index($request, GoodsLogic::GOODS_COMPLETE);
+        return $this->index($request, GoodsModel::GOODS_COMPLETE);
     }
     
     
@@ -76,17 +76,12 @@ class Goods extends Admin{
      */
     public function add(Request $request) {
       if ($request->isPost()) {
-          $goodsLogic = new GoodsLogic();
-          $add = $goodsLogic->add($request->param());
-          $this->opReturn($add, "nochecked");
+          $this->opReturn(GoodsModel::create($request->param()), "goods/nochecked");
         }
-            
         //返回栏目
-        $selectToCategory = Category::selectToCategoryTree();
-        $this->assign("category_list",$selectToCategory);
+        $this->assign("category_list",Category::selectToCategoryTree());
         //返回品牌
-        $all = Brand::all();
-        $this->assign("brand_list",$all);
+        $this->assign("brand_list",Brand::all());
 
         return $this->fetch("edit");
     }
@@ -96,49 +91,25 @@ class Goods extends Admin{
      * @param Request $request
      */
     public function edit(Request $request) {
-        return $this->deal($request);
+        if ($request->isPost()) {
+            $this->opReturn(GoodsModel::update($request->except("file")));
+        } 
+        $this->assign("info", GoodsModel::get($request->param("id")));
+
+        //返回栏目
+        $this->assign("category_list",Category::selectToCategoryTree());
+        //返回品牌
+        $this->assign("brand_list",Brand::all());
+
+        return $this->fetch("edit");
     }
     
-    /**
-     * 商品的操作
-     * @param Request $request
-     * @return type
-     */
-    private function deal(Request $request) {
-        if ($request->isPost()) {
-            $statusDeal = GoodsModel::deal($request->except("file"));
-            if ($statusDeal) {
-                $this->success("操作成功", "nochecked");
-            }
-            $this->error("操作失败:");
-        } else {
-            $id = $request->param("id");
-            if($id){
-                $goodsGet = GoodsModel::getLineData($id);
-                $this->assign("info", $goodsGet);
-            }
-            
-            //返回栏目
-            $selectToCategory = Category::selectToCategoryTree();
-            $this->assign("category_list",$selectToCategory);
-            //返回品牌
-            $all = Brand::all();
-            $this->assign("brand_list",$all);
-            
-            return $this->fetch("edit");
-        }
-    }
-
     /**
      * 删除商品
      * @param Request $request
      */
     public function del(Request $request) {
-        $delByIds = GoodsModel::delByIds($request->param('param.id/a'));
-        if ($delByIds) {
-            $this->success("操作成功", "index");
-        }
-        $this->error("操作失败:");
+       $this->opReturn(GoodsModel::delByIds($request->param('param.id/a')));
     }
     
 }

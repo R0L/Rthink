@@ -126,7 +126,7 @@ class AuthManager extends Admin {
             $addAuthGroup = $authGroup->editAuthGroup($reqesut->param(),$id);
             $this->opReturn($addAuthGroup);
         }
-        $authGroupGet = AuthGroup::getLineData($id);
+        $authGroupGet = AuthGroup::get($id);
         $this->assign("info", $authGroupGet);
         return $this->fetch("edit");
     }
@@ -155,9 +155,7 @@ class AuthManager extends Admin {
      */
     public function userAdd(Request $request) {
        if($request->isPost()){
-            $authGroupAccess = new AuthGroupAccess();
-            $add = $authGroupAccess->add($request->param());
-            $this->opReturn($add);
+            $this->opReturn(AuthGroupAccess::create($request->param()));
        }
        
        $selectToAuthGroup = AuthGroup::selectToAuthGroup(null,$request->param('group_id'));

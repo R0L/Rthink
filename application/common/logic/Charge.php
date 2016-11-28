@@ -28,8 +28,7 @@ class Charge extends ChargeModel {
      * @return type
      */
     public static function payment($data) {
-        $chargeModel = new ChargeModel();
-        return $chargeModel->add($data);
+        return ChargeModel::create($data);
     }
     
     /**

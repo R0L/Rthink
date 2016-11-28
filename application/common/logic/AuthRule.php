@@ -47,7 +47,7 @@ class AuthRule extends AuthRuleModel {
      */
     public function addAuthRule($data) {
         Cache::delCache();
-        return $this->add($data);
+        return AuthRuleModel::create($data);
     }
     
     /**
@@ -55,9 +55,9 @@ class AuthRule extends AuthRuleModel {
      * @param type $data
      * @return type
      */
-    public function editAuthRule($data) {
+    public static function editAuthRule($data) {
         Cache::delCache();
-        return $this->edit($data,["id"=>$data["id"]]);
+        return AuthRuleModel::update($data,["id"=>$data["id"]]);
     }
     
     /**

@@ -14,7 +14,7 @@ class Category extends BaseCommon {
      * 查询所有终极的栏目
      * @return type
      */
-    public function getLastLevelCategory() {
-        return $this->all(["id"=>["not in",$this->column('pid')]]);
+    public static function getLastLevelCategory() {
+        return parent::all(["id"=>["not in",parent::column('pid')]]);
     }
 }

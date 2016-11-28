@@ -1,7 +1,7 @@
 <?php
 
 namespace application\admin\controller;
-use application\common\logic\Config as ConfigLogic;
+use application\common\model\Config as ConfigModel;
 use think\Request;
 /**
  * @author ROL
@@ -18,7 +18,7 @@ class Config extends Admin {
      */
     public function index(Request $request) {
         $param = $request->except("page");
-        $lists = ConfigLogic::paginate($param);
+        $lists = ConfigModel::paginate($param);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
@@ -30,7 +30,7 @@ class Config extends Admin {
      * @return type
      */
     public function website(Request $request) {
-        return $this->setConfig($request, ConfigLogic::CONFIG_WEBSITE);
+        return $this->setConfig($request, ConfigModel::CONFIG_WEBSITE);
     }
     
     /**
@@ -38,36 +38,34 @@ class Config extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $id = $request->param("id");
-        empty($id) && $this->error("参数ID为空");
-        $statusDel = ConfigLogic::del(["id"=>$id]);
-        if($statusDel){
-            $this->success("操作成功");
-        }
-        $this->error("操作失败");
+        $this->opReturn(ConfigModel::delByIds($request->param("id/a")));
     }
     
     /**
-     * 编辑或者添加配置
+     * 配置添加
      * @param Request $request
      */
-    public function deal(Request $request) {
+    public function add(Request $request) {
         if($request->isPost()){
-            $deal = ConfigLogic::deal($request->param());
-            if($deal){
-                $this->success("操作成功","Config/index");
-            }
-            $this->error("操作失败");
+            $this->opReturn(ConfigModel::create($request->param()));
         }
-        $id = $request->param("id");
-        if($id){
-            $config_get = ConfigLogic::getLineData(["id"=>$id]);
-            $this->assign("info", $config_get);
-        }
-        $configType = ConfigLogic::getConfigType();
-        $this->assign("config_type_list", $configType);
+        $this->assign("config_type_list", ConfigModel::getConfigType());
         return $this->fetch("edit");
     }
+    
+    /**
+     * 配置编辑
+     * @param Request $request
+     */
+    public function edit(Request $request) {
+        if($request->isPost()){
+            $this->opReturn(ConfigModel::update($request->param()));
+        }
+        $this->assign("info", ConfigModel::get($request->param("id")));
+        $this->assign("config_type_list", ConfigModel::getConfigType());
+        return $this->fetch("edit");
+    }
+    
     
     
     /**
@@ -75,7 +73,7 @@ class Config extends Admin {
      * @param Request $request
      */
     public function export(Request $request) {
-        $selectToConfig = ConfigLogic::selectToConfig($request->param("ids/a"));
+        $selectToConfig = ConfigModel::selectToConfig($request->param("ids/a"));
         create_xls($selectToConfig,"网站配置列表".date("Y-m-d H:i:s").".xls");
     }
     
@@ -94,13 +92,13 @@ class Config extends Admin {
      */
     private function setConfig(Request $request,$ConfigType=0){
         if($request->isPost()){
-            $statusUpdate = ConfigLogic::updateByConfigType($request->param("id/a"),$request->param("value/a"));
+            $statusUpdate = ConfigModel::updateByConfigType($request->param("id/a"),$request->param("value/a"));
             if($statusUpdate){
                 $this->success("操作成功");
             }
             $this->error("操作失败");
         }
-        $selectByConfigType = ConfigLogic::selectByConfigType($ConfigType);
+        $selectByConfigType = ConfigModel::selectByConfigType($ConfigType);
         $this->assign("info_list",$selectByConfigType);
         return $this->fetch("config");
     }
@@ -112,7 +110,7 @@ class Config extends Admin {
      * @return type
      */
     public function payment(Request $request) {
-        return $this->setConfig($request, ConfigLogic::CONFIG_PAYMENT);
+        return $this->setConfig($request, ConfigModel::CONFIG_PAYMENT);
     }
     /**
      * 短信配置
@@ -120,7 +118,7 @@ class Config extends Admin {
      * @return type
      */
     public function message(Request $request) {
-        return $this->setConfig($request, ConfigLogic::CONFIG_MESSAGE);
+        return $this->setConfig($request, ConfigModel::CONFIG_MESSAGE);
     }
     /**
      * 邮件配置
@@ -128,7 +126,7 @@ class Config extends Admin {
      * @return type
      */
     public function mail(Request $request) {
-        return $this->setConfig($request, ConfigLogic::CONFIG_MAIL);
+        return $this->setConfig($request, ConfigModel::CONFIG_MAIL);
     }
     
 }

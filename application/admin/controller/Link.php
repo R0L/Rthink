@@ -34,7 +34,10 @@ class Link extends Admin {
      * @return type
      */
     public function add(Request $request) {
-       return $this->deal($request);
+       if($request->isPost()){
+           $this->opReturn(LinkModel::create($request->param()));
+        }
+        return $this->fetch("edit");
     }
     
     
@@ -44,7 +47,11 @@ class Link extends Admin {
      * @return type
      */
     public function edit(Request $request) {
-        return $this->deal($request);
+        if($request->isPost()){
+           $this->opReturn(LinkModel::update($request->param()));
+        }
+        $this->assign("info", LinkModel::get($request->param("id")));
+        return $this->fetch("edit");
     }
     
     
@@ -53,37 +60,7 @@ class Link extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $delByIds = LinkModel::delByIds($request->param("id/a"));
-        if(empty($delByIds)){
-            $this->error("操作失败");
-        }
-        $this->success("操作成功");
+        $this->opReturn(LinkModel::delByIds($request->param("id/a")));
     }
-    
-    
-    /**
-     * 友情链接的编辑或者添加
-     * @param Request $request
-     * @return type
-     */
-    private function deal(Request $request) {
-        if($request->isPost()){
-            $statusDeal = LinkModel::deal($request->param());
-            if(empty($statusDeal)){
-                $this->error("操作失败");
-            }
-            $this->success("操作成功","index");
-        }
-        $id = $request->param("id");
-        if($id){
-            $articleGet = LinkModel::getLineData($id);
-            $this->assign("info", $articleGet);
-        }  else {
-            $this->assign("info", ["member_id"=>$request->user->id,"pub_id"=>$request->pubuser->id]);
-        }
-        
-        return $this->fetch("edit");
-    }
-    
     
 }

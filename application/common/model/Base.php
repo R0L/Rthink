@@ -119,47 +119,28 @@ class Base extends Model {
     public static function paginate($map = null) {
         return parent::where($map)->paginate();
     }
-
-    /**
-     * 操作数据的更新或添加
-     * @param type $data
-     * @param type $where
-     * @return type
-     */
-    public static function deal($data, $where = [],$op = false) {
-        $model = new static();
-        if ($op || array_key_exists($model->getPk(), $data)){
-            $result = $model->validate(true)->isUpdate(true)->allowField(true)->save($data, $where);
-            return $model;
-        }
-        $result = $model->validate(true)->isUpdate(false)->allowField(true)->save($data, []);
-        return $model;
-    }
-    
     
     /**
      * 数据添加
      * @param type $data
      * @return type
      */
-    public function add($data) {
-        $statusSave = $this->validate(true)->isUpdate(false)->allowField(true)->save($data);
-        if($statusSave){
-            return $this->id;
-        }
-        return $statusSave;
+    public static function create($data = []){
+        $model = new static();
+        $model->validate(true)->isUpdate(false)->allowField(true)->save($data, []);
+        return $model;
     }
-    
     /**
      * 数据编辑
      * @param type $data
      * @param type $where
      * @return type
      */
-    public function edit($data,$where) {
-        return $this->validate(true)->isUpdate(true)->allowField(true)->save($data, $where);
+    public static function update($data = [], $where = []){
+        $model  = new static();
+        $result = $model->validate(true)->isUpdate(true)->allowField(true)->save($data, $where);
+        return $model;
     }
-    
 
     /**
      * 根据id删除
@@ -185,14 +166,5 @@ class Base extends Model {
      */
     public static function delByIds($ids = [],$force = false) {
         return self::del(["id"=>["in", $ids]],$force);
-    }
-
-    /**
-     * 根据id查询
-     * @param type $map
-     * @return type
-     */
-    public static function getLineData($map = NULL) {
-        return parent::get($map);
     }
 }

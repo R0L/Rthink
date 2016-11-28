@@ -2,7 +2,7 @@
 
 namespace application\admin\controller;
 
-use application\common\logic\ActionLog;
+use application\common\model\ActionLog;
 use think\Request;
 
 /**
@@ -13,13 +13,13 @@ class Action extends Admin {
     /**
      * 行为日志列表
      */
-    public function actionLog(Request $request) {
+    public function index(Request $request) {
         $map = [];
         $title = $request->param("title");
         $title && $map["remark"] = ["like", "%" . $title . "%"];
         $lists = ActionLog::paginate($map);
         $this->assign('lists', $lists);
-        return $this->fetch();
+        return $this->fetch("actionLog");
     }
     
     /**
@@ -27,11 +27,7 @@ class Action extends Admin {
      * @param Request $request
      */
     public function clear(Request $request) {
-        $statusClear = ActionLog::del(["status"=>1]);
-        if($statusClear){
-            $this->success("操作成功");
-        }
-        $this->error("操作失败");
+        $this->opReturn(ActionLog::del());
     }
     
     /**
@@ -39,11 +35,7 @@ class Action extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $statusDel = ActionLog::del(["id"=>["in",$request->param("ids/a")]]);
-        if($statusDel){
-            $this->success("操作成功");
-        }
-        $this->error("操作失败");
+        $this->opReturn(ActionLog::delByIds($request->param("ids/a")));
     }
     
     /**

@@ -28,39 +28,33 @@ class Channel extends Admin {
         return $this->fetch();
     }
 
-//    /**
-//     * 导航删除
-//     * @param Request $request
-//     */
-//    public function del(Request $request) {
-//        $delByIds = ChannelModel::delByIds($request->param("id/a"));
-//        if ($delByIds) {
-//            $this->success("操作成功", "index");
-//        }
-//        $this->error("操作失败");
-//    }
-
     /**
-     * 导航管理编辑或者添加
+     * 导航添加
      * @param Request $request
-     * @return type
      */
-    public function deal(Request $request) {
+    public function add(Request $request) {
         if ($request->isPost()) {
-            $dealModel = ChannelModel::deal($request->param());
-            if ($dealModel->getError()) {
-                $this->error("操作失败:".$dealModel->getError());
-            }
-            $this->success("操作成功", "Channel/index");
-        }
-        $id = $request->param("id");
-        if ($id) {
-            $channelGet = ChannelModel::getLineData(["id" => $id]);
-            $this->assign("info", $channelGet);
-        } else {
-            $this->assign("info", ["member_id" => $request->user->id, "pub_id" => $request->pubuser->id]);
+            $this->opReturn(ChannelModel::create($request->param()));
         }
         return $this->fetch("edit");
     }
-
+    /**
+     * 导航编辑
+     * @param Request $request
+     */
+    public function edit(Request $request) {
+        if ($request->isPost()) {
+            $this->opReturn(ChannelModel::update($request->param()));
+        }
+        $this->assign("info", ChannelModel::get($request->param("id")));
+        return $this->fetch("edit");
+    }
+    
+    /**
+     * 导航删除
+     * @param Request $request
+     */
+    public function del(Request $request) {
+        $this->opReturn(ChannelModel::delByIds($request->param("id/a")));
+    }
 }

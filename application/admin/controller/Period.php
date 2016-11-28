@@ -1,6 +1,6 @@
 <?php
 namespace application\admin\controller;
-use application\common\logic\Period as PeriodLogic;
+use application\common\model\Period as PeriodModel;
 use think\Request;
 /**
  * @author ROL
@@ -22,10 +22,10 @@ class Period extends Admin {
             $map["periods_name"] = ["like", "%" . $title . "%"];
         }
         if(empty($periods_status)){
-            $periods_status = $request->param("periods_status",  PeriodLogic::PERIODS_INLOTTERY);
+            $periods_status = $request->param("periods_status",  PeriodModel::PERIODS_INLOTTERY);
         }
         $map["periods_status"] = $periods_status;
-        $lists = PeriodLogic::paginate($map);
+        $lists = PeriodModel::paginate($map);
         $this->assign('lists', $lists);
         $this->assign('periods_status', $periods_status);
         return $this->fetch("index");
@@ -38,7 +38,7 @@ class Period extends Admin {
      * @return type
      */
     public function inlottery(Request $request) {
-        return $this->index($request, PeriodLogic::PERIODS_INLOTTERY);
+        return $this->index($request, PeriodModel::PERIODS_INLOTTERY);
     }
     
     /**
@@ -47,7 +47,7 @@ class Period extends Admin {
      * @return type
      */
     public function haslottery(Request $request) {
-        return $this->index($request, PeriodLogic::PERIODS_HASLOTTERY);
+        return $this->index($request, PeriodModel::PERIODS_HASLOTTERY);
     }
     
 }

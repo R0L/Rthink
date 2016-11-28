@@ -47,7 +47,7 @@ class AuthGroup extends AuthGroupModel {
      * @return type
      */
     public function addAuthGroup($data) {
-        return $this->add($data);
+        return AuthGroupModel::create($data);
     }
     
     /**
@@ -57,7 +57,7 @@ class AuthGroup extends AuthGroupModel {
      * @return type
      */
     public function editAuthGroup($data,$id) {
-        return $this->edit($data,["id"=>$id]);
+       return AuthGroupModel::update($data,["id"=>$id]);
     }
 
     /**

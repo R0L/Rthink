@@ -31,7 +31,10 @@ class Slider  extends Admin{
      * @return type
      */
     public function add(Request $request) {
-        return $this->deal($request);
+        if($request->isPost()){
+            $this->opReturn(SliderModel::create($request->except("file"))."Slider/index");
+        }
+        return $this->fetch("edit");
     }
     /**
      * 幻灯片编辑
@@ -39,7 +42,11 @@ class Slider  extends Admin{
      * @return type
      */
     public function edit(Request $request) {
-        return $this->deal($request);
+        if($request->isPost()){
+            $this->opReturn(SliderModel::update($request->except("file"))."Slider/index");
+        }
+        $this->assign("info", SliderModel::get($request->param("id")));
+        return $this->fetch("edit");
     }
     
     /**
@@ -47,35 +54,7 @@ class Slider  extends Admin{
      * @param Request $request
      */
     public function del(Request $request) {
-        $delByIds = SliderModel::delByIds($request->param("id/a"));
-        if($delByIds){
-            $this->success("操作成功");
-        }
-        $this->error("操作失败");
+        $this->opReturn(SliderModel::delByIds($request->param("id/a")));
     }
-    
-    /**
-     * 幻灯片管理编辑或者添加
-     * @param Request $request
-     * @return type
-     */
-    private function deal(Request $request){
-        if($request->isPost()){
-            $statusDeal = SliderModel::deal($request->except("file"));
-            if($statusDeal){
-                $this->success("操作成功","index");
-            }
-            $this->error("操作失败");
-        }
-        $id = $request->param("id");
-        if($id){
-            $sliderGet = SliderModel::getLineData(["id"=>$id]);
-            $this->assign("info", $sliderGet);
-        }else{
-            $this->assign("info", ["member_id"=>$request->user->id,"pub_id"=>$request->pubuser->id]);
-        }
-        return $this->fetch("edit");
-    }
-    
     
 }

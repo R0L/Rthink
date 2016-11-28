@@ -50,7 +50,7 @@ class Code{
         
         
         
-        return $codeModel->add(["mobile"=>$mobile,"code"=>$code]);
+        return CodeModel::create(["mobile"=>$mobile,"code"=>$code]);
     }
     
 }

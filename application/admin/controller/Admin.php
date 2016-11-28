@@ -74,11 +74,17 @@ class Admin extends Common {
      * 全局操作
      * @param type $opResult
      */
-    protected function opReturn($opResult = false,$refreshUrl="index"){
-        if($opResult){
+    protected function opReturn($opResult = false,$refreshUrl="index",$cb= false){
+        if(is_object($opResult) && $opResult->getError()){
+            $this->error("操作失败:".$model->getError());
+        }
+        if(empty($opResult)){
+            $this->error("操作失败");
+        }
+        if(empty($cb)){
             $this->success("操作成功",$refreshUrl);
         }
-        $this->error("操作失败");
+        call_user_func_array($cb, [$opResult,$refreshUrl]);
     }
     
     
@@ -88,7 +94,7 @@ class Admin extends Common {
      * @return type
      */
     public function add(Request $request) {
-        return $this->deal($request);
+        return true;
     }
 
     /**
@@ -97,7 +103,7 @@ class Admin extends Common {
      * @return \application\admin\controller\type
      */
     public function edit(Request $request) {
-        return $this->deal($request);
+        return true;
     }
     
     
@@ -106,11 +112,7 @@ class Admin extends Common {
      * @param Request $request
      */
     public function del(Request $request) {
-        $delByIds = ChannelModel::delByIds($request->param("id/a"));
-        if ($delByIds) {
-            $this->success("操作成功", "index");
-        }
-        $this->error("操作失败");
+        return true;
     }
     
 }

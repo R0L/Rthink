@@ -79,7 +79,7 @@ class User {
         if (empty($verifiCode)) {
             throw new Exception("验证码不存在", 400);
         }
-        $statusDeal = UserLogic::deal(["user_name" => $mobile, "mobile" => $mobile, "password" => $password]);
+        $statusDeal = UserLogic::create(["user_name" => $mobile, "mobile" => $mobile, "password" => $password]);
 
         if (empty($statusDeal)) {
             throw new Exception("用户添加失败", 400);
@@ -191,8 +191,7 @@ class User {
      * @return type
      */
     public function addAddress($data) {
-        $userAddress = new UserAddress();
-        return $userAddress->add($data);
+        return UserAddress::create($data);
     }
     
     /**
@@ -202,8 +201,7 @@ class User {
      * @return type
      */
     public function editAddress($data,$where) {
-        $userAddress = new UserAddress();
-        return $userAddress->edit($data, $where);
+        return UserAddress::update($data, $where);
     }
     
     /**

@@ -62,8 +62,7 @@ class Order{
      * @return type
      */
     public function addShoppingcart($data) {
-        $orderLogic =new OrderLogic();
-        return $orderLogic->add($data);
+        return OrderLogic::create($data);
     }
     
     /**
@@ -73,8 +72,7 @@ class Order{
      * @return type
      */
     public function editShoppingcart($id,$data) {
-        $orderLogic =new OrderLogic();
-        return $orderLogic->edit($data,["id"=>$id]);
+        return OrderLogic::update($data,["id"=>$id]);
     }
     
 }

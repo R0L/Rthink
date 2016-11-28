@@ -30,19 +30,11 @@ class User extends Admin {
     }
     
     public function add(Request $request) {
-        return $this->deal($request);
+        return ;
     }
     
     public function edit(Request $request) {
-        return $this->deal($request);
-    }
-    
-    private function deal(Request $request){
-        if($request->isPost()){
-            
-        }
-       return $this->fetch("edit");
-        
+        return ;
     }
 
 }

@@ -34,7 +34,12 @@ class Brand extends Admin {
      * @return type
      */
     public function add(Request $request) {
-        return $this->deal($request);
+        if (request()->isPost()) {
+            $this->opReturn(BrandModel::create($request->param()));
+        }
+        //返回终极栏目
+        $this->assign("categorys", Category::getLastLevelCategory());
+        return $this->fetch("edit");
     }
 
     /**
@@ -43,30 +48,14 @@ class Brand extends Admin {
      * @return type
      */
     public function edit(Request $request) {
-        return $this->deal($request);
-    }
-
-    /**
-     * 品牌操作
-     * @param Request $request
-     * @return type
-     */
-    private function deal(Request $request) {
-        $Brand = new BrandModel();
         if (request()->isPost()) {
-            if ($Brand->deal(input())) {
-                $this->success("操作成功", "index");
-            }
-            $this->error("操作失败:" . $Brand->getError());
-        } else {
-
-            //返回终极栏目
-            $Category = new Category();
-            $this->assign("categorys", $Category->getLastLevelCategory());
-
-            ($id = input("param.id")) ? $this->assign("info", $Brand->get($id)) : "";
-            return $this->fetch("edit");
+            $this->opReturn(BrandModel::update($request->param()));
         }
+
+        //返回终极栏目
+        $this->assign("categorys", Category::getLastLevelCategory());
+        $this->assign("info", BrandModel::get($request->param("id")));
+        return $this->fetch("edit");
     }
 
     /**
@@ -74,14 +63,7 @@ class Brand extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $id = array_unique((array) input('param.id/a'), 0);
-        empty($id) && $this->error("不存在参数ID");
-        $Brand = new BrandModel();
-        $staus_deal = $Brand->save(["status" => -1], ["id" => ["in", $id]]);
-        if ($staus_deal) {
-            $this->success("操作成功", url("index"));
-        }
-        $this->error("操作失败:" . $Brand->getError());
+        $this->opReturn(BrandModel::delByIds($request->param('id/a')));
     }
 
 }

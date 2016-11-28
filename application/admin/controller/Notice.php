@@ -36,7 +36,7 @@ class Notice extends Admin {
      * @return type
      */
     public function addNoti(Request $request) {
-        return $this->deal($request);
+        return $this->add($request);
     }
     
     /**
@@ -45,7 +45,7 @@ class Notice extends Admin {
      * @return type
      */
     public function editNoti(Request $request) {
-        return $this->deal($request);
+        return $this->edit($request);
     }
     
     /**
@@ -54,7 +54,7 @@ class Notice extends Admin {
      * @return type
      */
     public function addAnno(Request $request) {
-        return $this->deal($request);
+        return $this->add($request);
     }
     
     /**
@@ -63,7 +63,7 @@ class Notice extends Admin {
      * @return type
      */
     public function editAnno(Request $request) {
-        return $this->deal($request);
+        return $this->edit($request);
     }
     
     /**
@@ -105,22 +105,27 @@ class Notice extends Admin {
      * @param type $noticeType
      * @return type
      */
-    private function deal(Request $request) {
+    public function add(Request $request) {
         $notice_type = $request->param("notice_type",0);
         if($request->isPost()){
-            $deal = NoticeModel::deal($request->param());
-            if($deal){
-                $this->success("操作成功",$notice_type?"anno":"noti");
-            }
-            $this->error("操作失败");
+            $this->opReturn(NoticeModel::create($request->param()),$notice_type?"anno":"noti");
         }
-        $id = $request->param("id");
-        if($id){
-            $noticeGet = NoticeModel::getLineData(["id"=>$id]);
-            $this->assign("info", $noticeGet);
-        }else{
-            $this->assign("info", ["member_id"=>$request->user->id,"pub_id"=>$request->pubuser->id]);
+        $this->assign("info", NoticeModel::get($request->param("id")));
+        $this->assign("notice_type_text", NoticeModel::$noticeTypeStstus[$notice_type]);
+        return $this->fetch("edit");
+    }
+    /**
+     * 编辑的处理
+     * @param Request $request
+     * @param type $noticeType
+     * @return type
+     */
+    public function edit(Request $request) {
+        $notice_type = $request->param("notice_type",0);
+        if($request->isPost()){
+            $this->opReturn(NoticeModel::update($request->param()),$notice_type?"anno":"noti");
         }
+        $this->assign("info", NoticeModel::get($request->param("id")));
         $this->assign("notice_type_text", NoticeModel::$noticeTypeStstus[$notice_type]);
         return $this->fetch("edit");
     }

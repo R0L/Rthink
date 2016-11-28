@@ -53,8 +53,7 @@ class Period{
      * @return type
      */
     public function addShare($data) {
-        $shareLogic =new ShareLogic();
-        return $shareLogic->add($data);
+        return ShareLogic::create($data);
     }
     /**
      * 编辑晒单
@@ -63,8 +62,7 @@ class Period{
      * @return type
      */
     public function editShare($id,$data) {
-        $shareLogic =new ShareLogic();
-        return $shareLogic->edit($data, ["id"=>$id]);
+        return ShareLogic::update($data, ["id"=>$id]);
     }
     
     /**

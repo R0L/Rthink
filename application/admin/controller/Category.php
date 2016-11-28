@@ -2,6 +2,7 @@
 
 namespace application\admin\controller;
 
+use application\common\model\Category as CategoryModel;
 use application\common\logic\Category as CategoryLogic;
 use think\Request;
 
@@ -23,7 +24,7 @@ class Category extends Admin {
         if ($title = $request->param("title")) {
             $map["title"] = ["like", "%" . $title . "%"];
         }
-        $lists = CategoryLogic::paginate($map);
+        $lists = CategoryModel::paginate($map);
         $this->assign('lists', $lists);
         return $this->fetch();
     }
@@ -36,12 +37,9 @@ class Category extends Admin {
      */
     public function add(Request $request) {
         if ($request->isPost()) {
-            $categoryLogic = new CategoryLogic();
-            $add = $categoryLogic->add($request->param());
-            $this->opReturn($add);
+            $this->opReturn(CategoryModel::create($request->param()));
         }
-        $categoryTree = CategoryLogic::selectToCategoryTree();
-        $this->assign("category_list",$categoryTree);
+        $this->assign("category_list",CategoryLogic::selectToCategoryTree());
         return $this->fetch("edit");
     }
     
@@ -53,14 +51,10 @@ class Category extends Admin {
     public function edit(Request $request) {
         $id = $request->param("id");
         if ($request->isPost()) {
-            $categoryLogic = new CategoryLogic();
-            $edit = $categoryLogic->edit($request->param(), $id);
-            $this->opReturn($edit);
+            $this->opReturn(CategoryModel::update($request->param(), ["id"=>$id]));
         } 
-        $categoryGet = CategoryLogic::getLineData($id);
-        $this->assign("info",$categoryGet);
-        $categoryTree = CategoryLogic::selectToCategoryTree();
-        $this->assign("category_list",$categoryTree);
+        $this->assign("info",CategoryModel::get($id));
+        $this->assign("category_list",CategoryLogic::selectToCategoryTree());
         return $this->fetch("edit");
     }
     
@@ -70,11 +64,7 @@ class Category extends Admin {
      * @param Request $request
      */
     public function del(Request $request) {
-        $stausDeal = CategoryLogic::delByIds($request->param('id/a'));
-        if ($stausDeal) {
-            $this->success("操作成功", "index");
-        }
-        $this->error("操作失败");
+        $this->opReturn(CategoryModel::delByIds($request->param('id/a')));
     }
 
 }
