@@ -2,6 +2,7 @@
 
 namespace application\common\logic;
 use application\common\model\User as UserModel;
+use application\common\model\UserInfo;
 
 /**
  * @author ROL
@@ -12,18 +13,11 @@ use application\common\model\User as UserModel;
 class User extends UserModel{
     
     /**
-     * 编辑用户信息 通过$mobile
-     * @param type $map
-     */
-    public static function updateUserByMobile($mobile,$data) {
-        UserModel::update($data,["mobile"=>$mobile]);
-    }
-    /**
      * 编辑用户信息 通过$id
      * @param type $map
      */
-    public static function updateUserByID($id,$data) {
-        UserModel::update($data,["id"=>$id]);
+    public static function updateUserById($id,$data) {
+        return UserModel::update($data,["id"=>$id]);
     }
     
     /**
@@ -33,6 +27,26 @@ class User extends UserModel{
      */
     public static function getUserByMobile($mobile) {
        return UserModel::get(["mobile"=>$mobile]);
+    }
+    
+    /**
+     * 添加用户
+     * @param type $user_name
+     * @param type $mobile
+     * @param type $password
+     * @return type
+     */
+    public static function addUser($user_name,$mobile,$password) {
+        return UserModel::create(["user_name" => $user_name, "mobile" => $mobile, "password" => $password]);
+    }
+    
+    /**
+     * 获取用户数量 根据$mobile
+     * @param type $mobile
+     * @return type
+     */
+    public static function isExistMobile($mobile) {
+        return UserModel::where(["mobile"=>$mobile])->count();
     }
     
 }

@@ -10,6 +10,8 @@ use application\common\logic\UserAddress;
 use application\common\logic\Notice;
 use application\common\logic\Slider;
 use ROL\Chuanglan\ChuanglanSMS;
+use think\Config;
+use application\common\controller\Attach;
 
 /**
  * @author ROL
@@ -25,17 +27,24 @@ class User {
      * @param type $password
      * @return type
      */
-    public function updatePassword($userId, $password) {
-        return UserLogic::updateUserByID($userId, ["password" => $password]);
+    public static function updatePassword($userId, $password) {
+        return UserLogic::updateUserById($userId, ["password" => $password]);
+        
     }
 
     /**
      * 修改用户头像
-     * @param type $userId
-     * @param type $portrait
+     * @param type $request
+     * @param type $userId 1244 图片上传失败；
      */
-    public function updatePortrait($userId, $portrait) {
-        return UserInfo::updateUserInfo($userId, ["portrait" => $portrait]);
+    public static function updatePortrait($request,$userId) {
+        $Attach = new Attach();
+        try {
+            $portrait = $Attach->uploadPicture($request);
+        } catch (Exception $exc) {
+            return 1244;
+        }
+        return UserLogic::updateUserById($userId, ["portrait" => $portrait]);
     }
 
     /**
@@ -55,12 +64,12 @@ class User {
      * @param type $code
      * @return type
      */
-    public function updateMobileINCode($userId, $mobile, $code) {
+    public function updateMobileInCode($userId, $mobile, $code) {
         $verifiCode = Code::verifiCode($mobile, $code);
         if (empty($verifiCode)) {
             throw new Exception("验证码不存在", 400);
         }
-        $updateUserByID = UserLogic::updateUserByID($userId, ["mobile" => $mobile]);
+        $updateUserByID = UserLogic::updateUserById($userId, ["mobile" => $mobile]);
         if (empty($updateUserByID)) {
             throw new Exception("用户修改手机号码失败", 400);
         }
@@ -72,40 +81,45 @@ class User {
      * @param type $mobile
      * @param type $password
      * @param type $code
-     * @return boolean
+     * @return type 1231 数据库插入用户数据失败；1241 用户已经存在
      */
-    public function addUserInCode($mobile, $password, $code) {
-        $verifiCode = Code::verifiCode($mobile, $code);
-        if (empty($verifiCode)) {
-            throw new Exception("验证码不存在", 400);
+    public static function addUserInCode($mobile, $password, $code) {
+        
+        $existStstus = UserLogic::isExistMobile($mobile);
+        
+        if($existStstus){
+            return 1241;
         }
-        $statusDeal = UserLogic::create(["user_name" => $mobile, "mobile" => $mobile, "password" => $password]);
-
-        if (empty($statusDeal)) {
-            throw new Exception("用户添加失败", 400);
+        
+        $verifiCode = self::verifiCode($mobile, $code);
+        if($verifiCode){
+            return $verifiCode;
         }
-
-        return true;
+        $statusAdd = UserLogic::addUser($mobile, $mobile, $password);
+        if ($statusAdd->getError()) {
+            return 1231;
+        }
+        return 0;
     }
 
     /**
      * 发送验证码
-     * @param type $mobile
-     * @param type $opType
-     * @param type $sendType
-     * @return boolean
+     * @param type $mobile 手机号码
+     * @param type $opType 发送内容
+     * @param type $sendType 发送类型 0:短信;1:语音
+     * @return type  1203 短信验证码发送失败；
      */
-    public function sendSms($mobile, $opType = 0, $sendType = 0) {
+    public static function sendSms($mobile, $opType = 0, $sendType = 0) {
+        
+        //生成验证码
         $code = \get_rand_number(1000, 9999, 1)[0];
         
-        
-        $addCode = Code::addCode($mobile, $code);
-        
-        if(empty($addCode)){
-            return false;
+        $addCode = Code::addCodeForAllow($mobile, $code);
+        if($addCode){
+            return $addCode;
         }
         
-        
+        //初始化发送组件
         $chuanglanSMS = new ChuanglanSMS("国讯通");
         $sendStatus = false;
         switch ($opType) {
@@ -120,28 +134,39 @@ class User {
         }
         switch ($sendType) {
             case 0:
-//                $sendStatus = $chuanglanSMS->sendSms($mobile, $code);
+                $sendStatus = $chuanglanSMS->sendSms($mobile, $code);
                 break;
             case 1:
-//                $sendStatus = $chuanglanSMS->sendVoice($mobile, $code);
+                $sendStatus = $chuanglanSMS->sendVoice($mobile, $code);
                 break;
             default:
                 break;
         }
-        if ($addCode=true) {
-            return true;
+        if (empty($sendStatus)) {
+            return 1203;
         }
-        return false;
+        return 0;
     }
 
     /**
      * 验证验证码
      * @param type $mobile
      * @param type $code
-     * @return type
+     * @return type 1206 短信验证码状态更新失败；1207 短信验证码匹配不成功；1205 该用户还没有发送短信
      */
-    public function verifiCode($mobile, $code) {
-        return Code::verifiCode($mobile, $code);
+    public static function verifiCode($mobile, $code) {
+        $findCode = Code::findToNewCode($mobile);
+        if(empty($findCode)){
+            return 1205;
+        }
+        if($findCode['code'] == $code){
+            $updateStatus = Code::updateToCodeUsered($findCode['id']);
+            if($updateStatus->getError()){
+                return 1206;
+            }
+            return 0;
+        }
+        return 1207;
     }
 
     /**
@@ -149,7 +174,7 @@ class User {
      * @param type $userId
      * @return type
      */
-    public function getUserInfo($userId) {
+    public static function getUserInfo($userId) {
         return UserLogic::get($userId);
     }
 

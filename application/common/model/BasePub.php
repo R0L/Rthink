@@ -26,7 +26,8 @@ class BasePub extends Base {
 //            $this->pub_id = $this->user_id;
 //        }
         $request = Request::instance();
-        $this->pub_id = $request->param("pub_id");
+//        $this->pub_id = $request->param("pub_id");
+        $this->pub_id = 1;
     }
 
     //自动完成

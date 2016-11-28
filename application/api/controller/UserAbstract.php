@@ -14,4 +14,27 @@ abstract class UserAbstract extends Api{
      */
     abstract function sendSms($mobile,$opType,$sendType);
     
+    
+    /**
+     * 验证手机号接口
+     */
+    abstract function verifiCode($mobile, $code);
+    
+    
+    /**
+     * 修改用户密码接口
+     */
+    abstract function updatePassword($userId, $password);
+    
+    /**
+     * 添加用户含短信验证接口
+     */
+    abstract function addUserInCode($mobile, $password, $code);
+    
+    
+    /**
+     * 获取用户资料
+     */
+    abstract function getUserInfo($userId);
+    
 }

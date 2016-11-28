@@ -21,7 +21,7 @@ class Attach extends Base {
      */
     private $default_setting = [
         'mimes' => array(), //允许上传的文件MiMe类型
-        'maxSize' => 0, //上传的文件大小限制 (0-不做限制)
+        'maxSize' => 553145728, //上传的文件大小限制 (0-不做限制)
         'ext' => 'jpg,gif,png,jpeg', //允许上传的文件后缀
         'savePath' => './Uploads' . DS . 'Picture'.DS, //保存路径
         'saveName' => 'uniqid', //上传文件命名规则
@@ -47,7 +47,7 @@ class Attach extends Base {
             return $exists;
         }
         $info = $file
-                ->validate(['ext' => $setting['ext'], 'size' => $setting['size']])
+                ->validate(['ext' => $setting['ext'], 'size' => $setting['maxSize']])
                 ->rule($setting['saveName'])
                 ->move($setting['savePath'], true, $setting['replace']);
         if ($info) {

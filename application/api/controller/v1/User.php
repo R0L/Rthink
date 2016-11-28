@@ -12,27 +12,99 @@ use application\common\service\User as UserService;
 class User extends UserAbstract {
     
     /**
-     * 用户服务接口
-     * @var type 
-     */
-    private $user = null;
-    
-    /**
      * 构造函数
      */
-    function _initialize() {
-        $this->user = new UserService();
+    function _initialize() {}
+
+    
+    /**
+     * 发送短信验证码接口
+     * @param type $mobile 手机号
+     * @param type $opType 发送内容类型
+     * @param type $sendType 发送方式类型 0：文字|1：语音
+     * @return type
+     */
+    public function sendSms($mobile, $opType = 0, $sendType = 0) {
+        $this->checkMobile($mobile);
+        $sendSms = UserService::sendSms($mobile, $opType, $sendType);
+        return parent::jCode($sendSms,1204);
     }
 
-    public function sendSms($mobile, $opType = 0, $sendType = 0) {
-        if(empty($mobile)){
-            return parent::jException("缺少手机号码");
-        }
-        if(!preg_match("/^1[3456789]\d{9}$/",$mobile)){
-            return parent::jException("手机号码不符合规则");
-        }
-        $this->user->sendSms($mobile, $opType, $sendType);
-        return $pub_id;
+    
+    /**
+     * 单独验证短信接口
+     * @param type $mobile
+     * @param type $code
+     * @return type 
+     */
+    public function verifiCode($mobile, $code) {
+        $this->checkMobile($mobile);
+        $this->checkCode($code);
+        $verifiCode = UserService::verifiCode($mobile, $code);
+        return parent::jCode($verifiCode, 1208);
     }
+
+    /**
+     * 修改用户密码接口
+     * @param type $userId
+     * @param type $password
+     * @return type
+     */
+    public function updatePassword($userId, $password) {
+        $this->checkUserId($userId);
+        $this->checkPassword($password);
+        $updateModel = UserService::updatePassword($userId, $password);
+        if($updateModel->getError()){
+            return parent::jCode(1209,$updateModel->getError());
+        }
+        return parent::jCode(0,1230);
+    }
+    
+    
+    /**
+     * 
+     * @param type $mobile
+     * @param type $password
+     * @param type $code
+     * @return type 
+     */
+    public function addUserInCode($mobile, $password, $code) {
+        $this->checkMobile($mobile);
+        $this->checkPassword($password);
+        $this->checkCode($code);
+        $addUserInCode = UserService::addUserInCode($mobile, $password, $code);
+        return parent::jCode($addUserInCode,1240);
+    }
+
+    /**
+     * 获取用户数据接口
+     * @param type $userId
+     * @return type 1242 用户资料获取失败；
+     */
+    public function getUserInfo($userId) {
+        $this->checkUserId($userId);
+        $userInfo = UserService::getUserInfo($userId);
+        if(empty($userInfo)){
+            return parent::jCode($userInfo);
+        }
+        $userInfo['userinfo'] = $userInfo->userinfo;
+        return parent::jCode(0,1243,$userInfo);
+    }
+
+    
+    /**
+     * 修改用户头像接口
+     * @param type $userId
+     * @return type
+     */
+    public function updatePortrait($userId) {
+        $this->checkUserId($userId);
+        $updateModel = UserService::updatePortrait(\think\Request::instance(),$userId);
+        if($updateModel->getError()){
+            return parent::jCode(1245,$updateModel->getError());
+        }
+        return parent::jCode(0,1246);
+    }
+    
 
 }

@@ -4,6 +4,7 @@ namespace application\api\controller;
 
 use application\common\controller\Common;
 use think\Request;
+use think\config;
 
 
 
@@ -33,7 +34,9 @@ class Api extends Common {
     public function _initialize() {
         $resquest = Request::instance();
         
-        $resquest->param("pub_id");
+        $resquest->param(["pub_id"=>1]);
+        
+//        $param = $resquest->param("pub_id");
         
 //        $this->terminal = $resquest->param("terminal");
 //        if(empty($this->terminal)){
@@ -100,6 +103,9 @@ class Api extends Common {
         if(empty($data)){
             return ["status"=>Api::EXCEPTION,"message"=>$message];
         }
+        if(is_numeric($data)){
+            return ["status"=>Api::EXCEPTION.$data,"message"=>$message];
+        }
         return ["status"=>Api::EXCEPTION,"message"=>$message,"data"=>$data];
     }
     /**
@@ -112,7 +118,88 @@ class Api extends Common {
         if(empty($data)){
             return ["status"=>Api::ERROR,"message"=>$message];
         }
+        if(is_numeric($data)){
+            return ["status"=>Api::ERROR.$data,"message"=>$message];
+        }
         return ["status"=>Api::ERROR,"message"=>$message,"data"=>$data];
     }
     
+    /**
+     * 数据返回
+     * @param type $code
+     * @param type $data
+     * @param type $message
+     * @return type
+     */
+    public static function jCode($code = 0, $message = "", $data = []) {
+        $data["code"] = $code;
+        if ($code == 0 && is_numeric($message)) {
+            $message = Config::get("code.$message");
+        } else {
+            $message = Config::get("code.$code").$message;
+        }
+        $data["message"] = $message?:"操作成功";
+        if(empty($data)){
+            $data["data"] = $data;
+        }
+        return $data;
+    }
+    
+    
+    /**
+     * 检查mobile
+     * @param type $mobile
+     * @return type
+     */
+    protected function checkMobile($mobile) {
+        if(empty($mobile)){
+            return parent::jCode(1101);
+        }
+        if(!preg_match("/^1[3456789]\d{9}$/",$mobile)){
+            return parent::jCode(1102);
+        }
+    }
+    
+    /**
+     * 检查code
+     * @param type $code
+     * @return type
+     */
+    protected function checkCode($code) {
+        if(empty($code)){
+            return parent::jCode(1103);
+        }
+        if(!preg_match("/^\d{4}$/",$code)){
+            return parent::jCode(1104);
+        }
+    }
+    
+    /**
+     * 检查userId
+     * @param type $userId
+     * @return type
+     */
+    protected function checkUserId($userId) {
+        if(empty($userId)){
+            return parent::jCode(1105);
+        }
+    }
+    
+    /**
+     * 检查userPassword
+     * @param type $password
+     * @return type
+     */
+    protected function checkPassword($password) {
+         if(empty($password)){
+            return parent::jCode(1106);
+        }
+        if(!preg_match("/^\w{0,10}$/",$password)){
+            return parent::jCode(1107);
+        }
+    }
+    
+    
+    
+
 }

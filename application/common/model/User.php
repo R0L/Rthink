@@ -9,10 +9,14 @@ namespace application\common\model;
  * @desc   
  */
 class User extends BasePub {
+    
+    // 定义时间戳字段名
+    protected $createTime = 'register_time';
+    protected $updateTime = 'last_login_time';
 
     //自动完成
     protected $auto = ['last_login_time', 'last_login_ip'];
-    protected $insert = ['status' => 1,'login_num'=> 0,'register_time', 'register_ip'];
+    protected $insert = ['status' => 1,'login_num'=> 0,'register_time', 'register_ip','pub_id'];
     protected $update = [];
 
     /**
@@ -82,5 +86,17 @@ class User extends BasePub {
     public function userinfo() {
         return $this->hasOne('UserInfo', "user_id", "id");
     }
-
+    
+    
+    /**
+     * 数据添加
+     * @param type $data
+     * @return type
+     */
+    public static function create($data = []){
+        $model = new static();
+        $model->validate(true)->isUpdate(false)->allowField(true)->profile()->save($data, []);
+        return $model;
+    }
+    
 }

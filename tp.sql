@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-11-25 17:00:01
+Date: 2016-11-28 17:17:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -7878,7 +7878,7 @@ CREATE TABLE `tp_channel` (
   `pub_id` int(11) NOT NULL,
   `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_channel
@@ -7888,6 +7888,9 @@ INSERT INTO `tp_channel` VALUES ('2', '博客', 'Article/index?category=blog', '
 INSERT INTO `tp_channel` VALUES ('3', '官网', 'http://www.onethink.cn', '3', '1379475154', '1387163458', '1', '0', '1', '1');
 INSERT INTO `tp_channel` VALUES ('4', '测试1', 'index/u1', '0', '1479359322', '1479359897', '-1', '1', '1', '1');
 INSERT INTO `tp_channel` VALUES ('5', '导航名称', '导航链接', '0', '1479359862', '1479359897', '-1', '1', '1', '1');
+INSERT INTO `tp_channel` VALUES ('6', '', '', '0', '1480146490', '1480146490', '0', '1', '1', '1');
+INSERT INTO `tp_channel` VALUES ('7', '1', '1', '0', '1480150826', '1480150826', '0', '1', '1', '1');
+INSERT INTO `tp_channel` VALUES ('8', '3', '3', '0', '1480151785', '1480151785', '0', '1', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_charge
@@ -7925,15 +7928,20 @@ CREATE TABLE `tp_code` (
   `code` varchar(20) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `delete_time` int(10) NOT NULL,
+  `delete_time` int(10) DEFAULT NULL,
   `code_status` tinyint(4) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_code
 -- ----------------------------
+INSERT INTO `tp_code` VALUES ('1', '13678235158', '2986', '1480138356', '1480318461', null, '0', '1');
+INSERT INTO `tp_code` VALUES ('2', '13678235158', '5305', '1480140030', '1480318461', null, '0', '1');
+INSERT INTO `tp_code` VALUES ('3', '13678235158', '5878', '1480151521', '1480318461', null, '0', '1');
+INSERT INTO `tp_code` VALUES ('4', '13281563097', '5524', '1480151780', '1480318461', null, '0', '1');
+INSERT INTO `tp_code` VALUES ('5', '13281563097', '3668', '1480300545', '1480323541', null, '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_config
@@ -7949,7 +7957,7 @@ CREATE TABLE `tp_config` (
   `remark` varchar(100) NOT NULL DEFAULT '' COMMENT '配置说明',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '状态',
+  `delete_time` int(10) DEFAULT NULL COMMENT '状态',
   `value` text COMMENT '配置值',
   `sort` smallint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `pub_id` int(11) NOT NULL,
@@ -7958,20 +7966,23 @@ CREATE TABLE `tp_config` (
   UNIQUE KEY `uk_name` (`name`),
   KEY `type` (`type`),
   KEY `group` (`config_type`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_config
 -- ----------------------------
-INSERT INTO `tp_config` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '1378898976', '1379235274', '1', 'OneThink内容管理框架', '0', '1', '1');
-INSERT INTO `tp_config` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', '1', 'OneThink内容管理框架', '1', '1', '1');
-INSERT INTO `tp_config` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'ThinkPHP,OneThink', '8', '1', '1');
-INSERT INTO `tp_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1', '1', '1');
-INSERT INTO `tp_config` VALUES ('5', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '0', '', '主要用于数据解析和页面表单的生成', '1378898976', '1479876630', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
-INSERT INTO `tp_config` VALUES ('6', 'AliPay_ON', '4', '支付宝开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持支付宝支付', '1479791624', '1479799408', '1', '', '0', '0', '1');
-INSERT INTO `tp_config` VALUES ('7', 'WeiPay_ON', '4', '微信支付开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持微信支付', '1479791740', '1479791740', '1', '', '0', '0', '1');
-INSERT INTO `tp_config` VALUES ('8', 'WEB_ADMIN_TITLE', '2', '后台标题', '1', '', '网站后台的标题', '1479798958', '1479798958', '1', '', '0', '0', '1');
-INSERT INTO `tp_config` VALUES ('9', 'WEB_ADMIN_DESCRIPTION', '2', '网站后台描述', '1', '', '网站后台描述', '1479799004', '1479803619', '1', '', '10', '0', '1');
+INSERT INTO `tp_config` VALUES ('1', 'WEB_SITE_TITLE', '1', '网站标题', '1', '', '网站标题前台显示标题', '1378898976', '1379235274', null, 'OneThink内容管理框架', '0', '1', '1');
+INSERT INTO `tp_config` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描述', '1', '', '网站搜索引擎描述', '1378898976', '1379235841', null, 'OneThink内容管理框架', '1', '1', '1');
+INSERT INTO `tp_config` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', null, 'ThinkPHP,OneThink', '8', '1', '1');
+INSERT INTO `tp_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', null, '1', '1', '1', '1');
+INSERT INTO `tp_config` VALUES ('5', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '0', '', '主要用于数据解析和页面表单的生成', '1378898976', '1479876630', null, '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2', '1', '1');
+INSERT INTO `tp_config` VALUES ('6', 'AliPay_ON', '4', '支付宝开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持支付宝支付', '1479791624', '1479799408', null, '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('7', 'WeiPay_ON', '4', '微信支付开关', '2', '0:关闭\r\n1:开启', '是否网站和app支持微信支付', '1479791740', '1479791740', null, '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('8', 'WEB_ADMIN_TITLE', '2', '后台标题', '1', '', '网站后台的标题', '1479798958', '1479798958', null, '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('9', 'WEB_ADMIN_DESCRIPTION', '2', '网站后台描述', '1', '', '网站后台描述', '1479799004', '1479803619', null, '', '10', '0', '1');
+INSERT INTO `tp_config` VALUES ('10', 'CODE_DAY_LIMIT', '0', '每日限制短信', '3', '', '相同手机号每一天可以发送的手机短信条数，于手机短信供应商相关', '1480140286', '1480140664', null, '5', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('11', 'CODE_API_ACCOUNT', '2', '创蓝账号', '3', '', '创蓝短信的创蓝账号', '1480140577', '1480140577', null, '', '0', '0', '1');
+INSERT INTO `tp_config` VALUES ('12', 'API_PASSWORD', '2', '创蓝密码', '3', '', '创蓝短信的创蓝密码', '1480140633', '1480140633', null, '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_goods
@@ -8619,7 +8630,7 @@ CREATE TABLE `tp_picture` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_picture
@@ -8632,6 +8643,7 @@ INSERT INTO `tp_picture` VALUES ('50', '/Uploads\\Picture\\20161118\\38cf19e05a3
 INSERT INTO `tp_picture` VALUES ('46', '/Uploads\\Picture\\20161118\\47dd8f939ce0a2d90818f735cc9b17dd.jpg', '', '8eec8ba26892df4cb595ecb3191ab662', '8e8a2c2b31de19d94f9f313d89fbfe035f68ae36', '1', '1479448723', '1479448723');
 INSERT INTO `tp_picture` VALUES ('52', '/Uploads\\Picture\\20161118\\f7ab9f605ab2abcc6b8cd5c74bccbc4f.png', '', '070b2e6ce7abb151eb552a4e33ef0948', 'df28661fe0b100d67ff710a619cbe2aae453d2e2', '1', '1479452801', '1479452801');
 INSERT INTO `tp_picture` VALUES ('53', '/Uploads\\Picture\\20161118\\111ca3877541853d9e0e38550ca4e626.png', '', '32543b6e37be02ebb39fdbc5cfccd363', '3ac4c357222f9003e16d074364d4c058e04f2bfb', '1', '1479453744', '1479453744');
+INSERT INTO `tp_picture` VALUES ('54', '/Uploads\\Picture\\583bee70769a8.jpg', '', 'a6ebd47cd38d96bd99178ff94e800df7', 'b3e85e4434d0c2c8d57028f32ea409395766d4c5', '1', '1480322670', '1480322670');
 
 -- ----------------------------
 -- Table structure for tp_share
@@ -8695,7 +8707,7 @@ DROP TABLE IF EXISTS `tp_token`;
 CREATE TABLE `tp_token` (
   `id` int(11) NOT NULL,
   `version` int(1) NOT NULL,
-  `appsecret` varchar(30) NOT NULL,
+  `apikey` varchar(30) NOT NULL,
   `terminal` tinyint(4) NOT NULL DEFAULT '3' COMMENT '3:WAP, 4 :Android, 5:IOS, 6:WeChat',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -8713,7 +8725,7 @@ CREATE TABLE `tp_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(30) NOT NULL,
   `mobile` varchar(11) NOT NULL,
-  `email` varchar(30) NOT NULL,
+  `email` varchar(30) DEFAULT NULL,
   `password` varchar(10) NOT NULL,
   `login_num` int(11) NOT NULL,
   `register_ip` varchar(15) NOT NULL,
@@ -8723,12 +8735,13 @@ CREATE TABLE `tp_user` (
   `status` tinyint(2) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_user
 -- ----------------------------
-INSERT INTO `tp_user` VALUES ('1', '天空下的海', '13281563075', '2080775740@qq.com', 'qwe12358', '10', '192.168.0.7', '192.168.0.7', '1451750400', '1451750400', '1', '1');
+INSERT INTO `tp_user` VALUES ('1', '天空下的海', '13281563075', '2080775740@qq.com', '12312358', '10', '192.168.0.7', '127.0.0.1', '1451750400', '1480322670', '1', '1');
+INSERT INTO `tp_user` VALUES ('2', '13678235158', '13678235158', null, '123456789', '0', '127.0.0.1', '127.0.0.1', '1480319349', '1480319349', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_user_address
@@ -8768,7 +8781,7 @@ CREATE TABLE `tp_user_info` (
   `portrait` int(11) DEFAULT NULL,
   `address` varchar(30) DEFAULT NULL,
   `address_id` int(11) DEFAULT NULL,
-  `info` varchar(255) NOT NULL,
+  `info` varchar(255) DEFAULT NULL,
   `red_packets` double(10,2) NOT NULL DEFAULT '0.00',
   `nick_name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
