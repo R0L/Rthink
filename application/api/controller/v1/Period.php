@@ -40,5 +40,23 @@ class Period extends PeriodAbstract {
         $inlottery = PeriodService::inlottery($userId);
         return parent::jCode(0,1320,$inlottery->toArray());
     }
+    
+    /**
+     * 热门（当前期数）接口
+     */
+    public function hotPeriod() {
+        $hotperiod = PeriodService::hotPeriod();
+        return parent::jCode(0,1330,$hotperiod->toArray());
+    }
+    
+    /**
+     * 最新（时间） 接口
+     * @return type
+     */
+    public function newestPeriod() {
+        $newestperiod = PeriodService::newestPeriod();
+        return parent::jCode(0,1340,$newestperiod->toArray());
+    }
+
 
 }

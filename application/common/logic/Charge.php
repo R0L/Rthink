@@ -27,7 +27,13 @@ class Charge extends ChargeModel {
      * @param type $data
      * @return type
      */
-    public static function payment($data) {
+    public static function payment($userId,$money,$describle ="",$chargeCode="",$chargeType = ChargeModel::CHARGE_TYPE_SYSTEM,$chargeStatus=ChargeLogic::CHARGE_SUCCESS) {
+        $data["user_id"] = $userId;
+        $data["money"] = $money;
+        $data["describle"] = $describle;
+        $data["charge_code"] = $chargeCode;
+        $data["charge_type"] = $chargeType;
+        $data["charge_status"] = $chargeStatus;
         return ChargeModel::create($data);
     }
     
@@ -36,7 +42,7 @@ class Charge extends ChargeModel {
      * @param type $param
      */
     public static function selectByChargeStatus($userId,$chargeStatus=  ChargeModel::CHARGE_TYPE_TIXIAN) {
-        return ChargeModel::all(["user_id"=>$userId,"charge_status"=>$chargeStatus]);
+        return ChargeModel::paginate(["user_id"=>$userId,"charge_status"=>$chargeStatus]);
     }
     
     /**
@@ -44,11 +50,13 @@ class Charge extends ChargeModel {
      * @param type $param
      */
     public static function selectByMoneyCon($userId,$moneyCon=false) {
+        $map["user_id"] = $userId;
         if($moneyCon){
-            return ChargeModel::all(["user_id"=>$userId,"money"=>["gt",0]]);
+            $map["money"] = ["elt",0];
         }else{
-            return ChargeModel::all(["user_id"=>$userId,"money"=>["elt",0]]);
+            $map["money"] = ["gt",0];
         }
+        return ChargeModel::paginate($map);
     }
     
 }

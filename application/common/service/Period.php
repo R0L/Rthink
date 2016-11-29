@@ -77,8 +77,6 @@ class Period{
             $goodsGet = GoodsLogic::get($item->goods_id);
             $pictureGet = PictureLogic::get($goodsGet->cover_id);
             $orderGet = OrderLogic::get(["user_id"=>$userId,"period_id"=>$item->id]);
-            $userGet = UserLogic::get($item->user_id); 
-            $userOrderGet = OrderLogic::get(["order_code"=>$item->order_code]);
             $item->data("periods_no",$item["periods_no"]);//期号
             $item->data("goods_picture",$pictureGet["path"]);//商品图片
             $item->data("goods_title",$goodsGet["title"]);//商品名称
@@ -117,12 +115,70 @@ class Period{
     }
     
     /**
+     * 热门（当前期数）
+     * @return type
+     */
+    public static function hotPeriod() {
+        $hotPeriod = GoodsLogic::selectOyCurrentPeriods();
+        foreach ($hotPeriod as $item) {
+            $periodGet = PeriodLogic::getCurrentPeriodByGoodsId($item->id);
+            $pictureGet = PictureLogic::get($hotPeriod->cover_id);
+            $item->data("periods_no",$periodGet["periods_no"]);//期号
+            $item->data("goods_picture",$pictureGet["path"]);//商品图片
+            $item->data("goods_title",$hotPeriod["title"]);//商品名称
+            $item->data("total_time",$hotPeriod["total_time"]);//购买份数
+            $item->data("buy_time",$periodGet["buy_time"]);//购买份数
+            $item->visible(["periods_no","goods_picture","goods_title","total_time","buy_time"]);
+        }
+        return $hotPeriod;
+    }
+    
+    /**
+     * 最新（时间）
+     * @return type
+     */
+    public static function newestPeriod() {
+        $newestperiod = PeriodLogic::selectOyCreateTime();
+        foreach ($newestperiod as $item) {
+            $goodsGet = GoodsLogic::get($item->goods_id);
+            $pictureGet = PictureLogic::get($goodsGet->cover_id);
+            $item->data("periods_no",$item["periods_no"]);//期号
+            $item->data("goods_picture",$pictureGet["path"]);//商品图片
+            $item->data("goods_title",$goodsGet["title"]);//商品名称
+            $item->data("total_time",$goodsGet["total_time"]);//购买份数
+            $item->data("buy_time",$item["buy_time"]);//购买份数
+            $item->visible(["periods_no","goods_picture","goods_title","total_time","buy_time"]);
+        }
+        return $newestperiod;
+    }
+    
+    /**
+     * 进度（购买人次/总次数）
+     * @return type
+     */
+    public static function progressPeriod() {
+        $progressperiod = PeriodLogic::selectOyBuyTimeTotalTime();
+        foreach ($progressperiod as $item) {
+            $goodsGet = GoodsLogic::get($item->goods_id);
+            $pictureGet = PictureLogic::get($goodsGet->cover_id);
+            $item->data("periods_no",$item["periods_no"]);//期号
+            $item->data("goods_picture",$pictureGet["path"]);//商品图片
+            $item->data("goods_title",$goodsGet["title"]);//商品名称
+            $item->data("total_time",$goodsGet["total_time"]);//购买份数
+            $item->data("buy_time",$item["buy_time"]);//购买份数
+            $item->visible(["periods_no","goods_picture","goods_title","total_time","buy_time"]);
+        }
+        return $progressperiod;
+    }
+    
+    
+    /**
      * 期数列表
      * @param type $type 热门（当前期数）、最新（时间）、进度（购买人次/总次数）、人次（购买人次) 0、1、2、3
      * 4 即将揭晓
      * @return type
      */
-    public function listPeriod($type){
+    public static function listPeriod($type){
         switch ($type) {
             case 0:
                 GoodsLogic::selectOyCurrentPeriods();

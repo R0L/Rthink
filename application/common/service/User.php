@@ -5,12 +5,10 @@ namespace application\common\service;
 use application\common\logic\User as UserLogic;
 use application\common\logic\Code;
 use application\common\logic\UserInfo;
-use application\common\logic\Amap;
-use application\common\logic\UserAddress;
 use application\common\logic\Notice;
+use application\common\logic\Picture;
 use application\common\logic\Slider;
 use ROL\Chuanglan\ChuanglanSMS;
-use think\Config;
 use application\common\controller\Attach;
 
 /**
@@ -223,17 +221,29 @@ class User extends Common {
     /**
      * 通知列表
      * @param type $userId
-     * @param type $noticeType
      */
-    public function listMessage($userId,$noticeType=Notice::NOTICE_NOTIFICATION) {
-        return Notice::selectByNoticeType($userId,$noticeType);
+    public static function notification($userId) {
+        return Notice::paginateByNoticeType($userId,Notice::NOTICE_NOTIFICATION);
+    }
+    /**
+     * 公告列表
+     * @param type $userId
+     */
+    public static function announcement($userId) {
+        return Notice::paginateByNoticeType($userId,Notice::NOTICE_ANNOUNCEMENT);
     }
     
     /**
      * 图片轮播列表
      */
-    public function listSlider() {
-        return Slider::selectToSlider();
+    public static function listSlider() {
+        $selectToSlider = Slider::selectToSlider();
+        foreach ($selectToSlider as $item) {
+            $pictureGet = Picture::get($item->picture_id);
+            $item->data("picture",$pictureGet["path"]);
+            $item->visible(["title","picture","link","click_id"]);
+        }
+        return $selectToSlider;
     }
     
 }

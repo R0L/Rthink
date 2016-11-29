@@ -26,4 +26,9 @@ abstract class PeriodAbstract extends Api {
     abstract function haswin($userId);
     
     
+    /**
+     * 热门（当前期数）接口
+     */
+    abstract function hotPeriod();
+    
 }

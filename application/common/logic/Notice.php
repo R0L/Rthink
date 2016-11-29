@@ -17,8 +17,8 @@ class Notice extends NoticeModel {
      * @param type $noticeType
      * @return type
      */
-    public static function selectByNoticeType($userId,$noticeType=NoticeModel::NOTICE_NOTIFICATION) {
-        return NoticeModel::all(["user_id"=>$userId,"notice_type"=>$noticeType]);
+    public static function paginateByNoticeType($userId,$noticeType=NoticeModel::NOTICE_NOTIFICATION) {
+        return NoticeModel::paginate(["user_id"=>$userId,"notice_type"=>$noticeType]);
     }
     
     

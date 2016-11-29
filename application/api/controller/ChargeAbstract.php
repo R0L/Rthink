@@ -23,20 +23,20 @@ abstract class ChargeAbstract extends Api {
     /**
      * 提现
      */
-    abstract function tixian();
+    abstract function tixian($userId,$money,$describle,$chargeStatus);
 
     /**
      * 消费记录
      */
-    abstract function consumeRecharge();
+    abstract function recordConsume($userId);
 
     /**
      * 充值记录
      */
-    abstract function recordRecharge();
+    abstract function recordRecharge($userId);
 
     /**
      * 提现记录
      */
-    abstract function recordTixian();
+    abstract function recordTixian($userId);
 }

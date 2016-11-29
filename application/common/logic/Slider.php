@@ -13,11 +13,12 @@ class Slider extends SliderModel{
     
     /**
      * 获取Slider 通过$map
-     * @param type $map
      * @return type
      */
-    public static function selectToSlider($map=[]) {
-        return SliderModel::all($map);
+    public static function selectToSlider() {
+        return SliderModel::all(function($query){
+            $query->order('sort', 'asc');
+        });
     }
     
     

@@ -46,7 +46,12 @@ class Period extends PeriodModel{
         return PeriodModel::order("buy_time desc")->paginate();
     }
     
-    public static function con(){
+    /**
+     * 获取当前期数 通过$goodsId
+     * @param type $goodsId
+     */
+    public static function getCurrentPeriodByGoodsId($goodsId){
+        return PeriodModel::get(["goods_id"=>$goodsId,"periods_status"=>PeriodModel::PERIODS_INLOTTERY]);
     }
     
     

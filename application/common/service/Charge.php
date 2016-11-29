@@ -27,8 +27,12 @@ class Charge extends Common {
      * 充值
      * @param type $data
      */
-    public function recharge($data) {
-        return ChargeLogic::recharge($data);
+    public function recharge($userId,$money,$chargeType,$describle="",$chargeStatus=ChargeLogic::CHARGE_INIT) {
+        parent::checkUserId($userId);
+        $chargeCode = StrOrderOne();
+        $payment = ChargeLogic::payment($userId,$money,$describle,$chargeCode,$chargeType,$chargeStatus);
+        $payment->data("chargeCode",$chargeCode)->append("chargeCode");
+        return $payment;
     }
     
     
@@ -37,8 +41,9 @@ class Charge extends Common {
      * @param type $data
      * @return type
      */
-    public function tixian($data) {
-        return ChargeLogic::payment($data);
+    public function tixian($userId,$money,$describle="") {
+        parent::checkUserId($userId);
+        return ChargeLogic::payment($userId,$money,$describle,null,ChargeLogic::CHARGE_TYPE_TIXIAN,ChargeLogic::CHARGE_SUCCESS);
     }
     
     
@@ -47,7 +52,7 @@ class Charge extends Common {
      * @param type $userId
      * @return type
      */
-    public function consumeRecharge($userId) {
+    public function recordConsume($userId) {
         return ChargeLogic::selectByMoneyCon($userId);
     }
     

@@ -49,4 +49,19 @@ abstract class UserAbstract extends Api{
      */
     abstract function updateUserName($userId,$userName);
     
+    /**
+     * 通知
+     */
+    abstract function notification($userId);
+    
+    /**
+     * 公告
+     */
+    abstract function announcement($userId);
+    
+    /**
+     * 图片轮播
+     */
+    abstract function listSlider();
+    
 }

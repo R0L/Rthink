@@ -264,3 +264,17 @@ function is_login() {
 function think_md5($str){
 	return '' === $str ? '' : md5($str);
 }
+
+ /* [build_order_no 生成唯一订单号]
+ * @author 邱先生 
+ * @copyright 烟火里的尘埃
+ * @version [V1.0版本] 
+ * @date 2016-07-13
+ * @return [type] [description]
+ */        
+function StrOrderOne(){
+    /* 选择一个随机的方案 */
+    mt_srand((double) microtime() * 1000000);
+     
+    return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+}

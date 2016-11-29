@@ -109,6 +109,32 @@ class User extends UserAbstract {
         return parent::jCode(0,1248);
     }
 
-    
+    /**
+     * 通知列表接口
+     * @param type $userId
+     */
+    public function announcement($userId) {
+        $announ = UserService::announcement($userId);
+        return parent::jCode(0,1250,$announ->toArray());
+    }
+
+    /**
+     * 公告列表接口
+     * @param type $userId
+     * @return type
+     */
+    public function notification($userId) {
+        $notifi = UserService::notification($userId);
+        return parent::jCode(0,1251,$notifi->toArray());
+    }
+
+    /**
+     * 图片轮播接口
+     */
+    public function listSlider() {
+        $listSlider = UserService::listSlider();
+        return parent::jCode(0,1252,$listSlider->toArray());
+    }
+
 
 }
