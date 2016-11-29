@@ -25,7 +25,6 @@ class User extends UserAbstract {
      * @return type
      */
     public function sendSms($mobile, $opType = 0, $sendType = 0) {
-        $this->checkMobile($mobile);
         $sendSms = UserService::sendSms($mobile, $opType, $sendType);
         return parent::jCode($sendSms,1204);
     }
@@ -38,8 +37,6 @@ class User extends UserAbstract {
      * @return type 
      */
     public function verifiCode($mobile, $code) {
-        $this->checkMobile($mobile);
-        $this->checkCode($code);
         $verifiCode = UserService::verifiCode($mobile, $code);
         return parent::jCode($verifiCode, 1208);
     }
@@ -51,8 +48,6 @@ class User extends UserAbstract {
      * @return type
      */
     public function updatePassword($userId, $password) {
-        $this->checkUserId($userId);
-        $this->checkPassword($password);
         $updateModel = UserService::updatePassword($userId, $password);
         if($updateModel->getError()){
             return parent::jCode(1209,$updateModel->getError());
@@ -69,9 +64,6 @@ class User extends UserAbstract {
      * @return type 
      */
     public function addUserInCode($mobile, $password, $code) {
-        $this->checkMobile($mobile);
-        $this->checkPassword($password);
-        $this->checkCode($code);
         $addUserInCode = UserService::addUserInCode($mobile, $password, $code);
         return parent::jCode($addUserInCode,1240);
     }
@@ -82,7 +74,6 @@ class User extends UserAbstract {
      * @return type 1242 用户资料获取失败；
      */
     public function getUserInfo($userId) {
-        $this->checkUserId($userId);
         $userInfo = UserService::getUserInfo($userId);
         if(empty($userInfo)){
             return parent::jCode($userInfo);
@@ -98,13 +89,26 @@ class User extends UserAbstract {
      * @return type
      */
     public function updatePortrait($userId) {
-        $this->checkUserId($userId);
         $updateModel = UserService::updatePortrait(\think\Request::instance(),$userId);
         if($updateModel->getError()){
             return parent::jCode(1245,$updateModel->getError());
         }
         return parent::jCode(0,1246);
     }
+    
+    /**
+     * 修改用户昵称接口
+     * @param type $userId
+     * @param type $userName
+     */
+    public function updateUserName($userId, $userName) {
+        $updateModel = UserService::updateUserName($userId, $userName);
+        if($updateModel->getError()){
+            return parent::jCode(1247,$updateModel->getError());
+        }
+        return parent::jCode(0,1248);
+    }
+
     
 
 }

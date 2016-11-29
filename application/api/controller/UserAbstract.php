@@ -37,4 +37,16 @@ abstract class UserAbstract extends Api{
      */
     abstract function getUserInfo($userId);
     
+    
+    /**
+     * 修改用户头像
+     */
+    abstract function updatePortrait($userId);
+    
+    
+    /**
+     * 修改用户昵称
+     */
+    abstract function updateUserName($userId,$userName);
+    
 }

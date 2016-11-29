@@ -12,6 +12,17 @@ use application\common\model\UserAddress as UserAddressModel;
 class UserAddress extends UserAddressModel{
     
     
+    /**
+     * 获取用户地址列表 通过$userId
+     * @param type $userId
+     * @return type
+     */
+    public static function selectAddressByUserId($userId) {
+        return UserAddressModel::paginate(["user_id"=>$userId]);
+    }
+    
+    
+    
     
     
 }

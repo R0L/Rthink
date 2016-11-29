@@ -48,9 +48,10 @@ class BasePub extends Base {
 
     // 定义全局的查询范围
     protected function base($query) {
+        $table = $query->getTable();
         $map = [];
-        empty($this->pub_id) || $map['pub_id'] = $this->pub_id;
-        $query->where($map);
+        empty($this->pub_id) || $map[$table.'.pub_id'] = $this->pub_id;
+        $query->where($map)->field("delete_time",true);
     }
 
 }

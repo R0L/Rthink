@@ -32,10 +32,11 @@ class Api extends Common {
      * 初始化
      */
     public function _initialize() {
-        $resquest = Request::instance();
-        
-        $resquest->param(["pub_id"=>1]);
-        
+//        $resquest = Request::instance();
+//        
+//        $array_merge = array_merge($resquest->param(), ["pub_id"=>1]);
+//        $resquest->param($array_merge);
+//        halt($resquest->param());
 //        $param = $resquest->param("pub_id");
         
 //        $this->terminal = $resquest->param("terminal");
@@ -132,17 +133,17 @@ class Api extends Common {
      * @return type
      */
     public static function jCode($code = 0, $message = "", $data = []) {
-        $data["code"] = $code;
+        $temp["code"] = $code;
         if ($code == 0 && is_numeric($message)) {
             $message = Config::get("code.$message");
         } else {
             $message = Config::get("code.$code").$message;
         }
-        $data["message"] = $message?:"操作成功";
-        if(empty($data)){
-            $data["data"] = $data;
+        $temp["message"] = $message?:"操作成功";
+        if(!empty($data)){
+            $temp["result"] = $data;
         }
-        return $data;
+        return $temp;
     }
     
     
@@ -153,10 +154,10 @@ class Api extends Common {
      */
     protected function checkMobile($mobile) {
         if(empty($mobile)){
-            return parent::jCode(1101);
+            return self::jCode(1101);
         }
         if(!preg_match("/^1[3456789]\d{9}$/",$mobile)){
-            return parent::jCode(1102);
+            return self::jCode(1102);
         }
     }
     
@@ -167,10 +168,10 @@ class Api extends Common {
      */
     protected function checkCode($code) {
         if(empty($code)){
-            return parent::jCode(1103);
+            return self::jCode(1103);
         }
         if(!preg_match("/^\d{4}$/",$code)){
-            return parent::jCode(1104);
+            return self::jCode(1104);
         }
     }
     
@@ -181,7 +182,7 @@ class Api extends Common {
      */
     protected function checkUserId($userId) {
         if(empty($userId)){
-            return parent::jCode(1105);
+            return self::jCode(1105);
         }
     }
     
@@ -192,10 +193,24 @@ class Api extends Common {
      */
     protected function checkPassword($password) {
          if(empty($password)){
-            return parent::jCode(1106);
+            return self::jCode(1106);
         }
         if(!preg_match("/^\w{0,10}$/",$password)){
-            return parent::jCode(1107);
+            return self::jCode(1107);
+        }
+    }
+    
+    /**
+     * 检查nickName
+     * @param type $username
+     * @return type
+     */
+    protected function checkUserName($username) {
+         if(empty($username)){
+            return self::jCode(1108);
+        }
+        if(!preg_match("/^\w{0,30}$/",$username)){
+            return self::jCode(1109);
         }
     }
     

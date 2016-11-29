@@ -87,16 +87,4 @@ class User extends BasePub {
         return $this->hasOne('UserInfo', "user_id", "id");
     }
     
-    
-    /**
-     * 数据添加
-     * @param type $data
-     * @return type
-     */
-    public static function create($data = []){
-        $model = new static();
-        $model->validate(true)->isUpdate(false)->allowField(true)->profile()->save($data, []);
-        return $model;
-    }
-    
 }

@@ -30,7 +30,7 @@ class Config extends ConfigModel{
      * 查询支持的支付方式
      */
     public static function selectToPayType() {
-        return ConfigModel::all(["config_type" => ConfigModel::CONFIG_PAYMENT,"name"=>["like","%_ON"],"value"=>1]);
+        return ConfigModel::where(["config_type" => ConfigModel::CONFIG_PAYMENT,"name"=>["like","%_ON"]])->field(["name","title","value"])->select();
     }
 
 

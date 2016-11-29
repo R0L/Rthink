@@ -10,15 +10,16 @@ use application\common\logic\Charge as ChargeLogic;
  * @version V1.0
  * @desc   
  */
-class Charge {
+class Charge extends Common {
     
     
     /**
      * 支持支付的类型
      * @return type
      */
-    public function getChargeType() {
-        return Config::selectByConfigType();
+    public static function getChargeType() {
+        $payType = Config::selectToPayType();
+        return $payType;
     }
     
     

@@ -12,12 +12,12 @@ class Period extends PeriodModel{
     
     /**
      * 获取期数信息 通过$periodsStatus
-     * @param type $uiserId
+     * @param type $userId
      * @param type $periodsStatus
      * @return type
      */
-    public static function selectByPeriodsStatus($uiserId,$periodsStatus=PeriodModel::PERIODS_INLOTTERY) {
-       return PeriodModel::paginate(["user_id"=>$uiserId,"periods_status"=>$periodsStatus]);
+    public static function selectByPeriodsStatus($userId,$periodsStatus=PeriodModel::PERIODS_INLOTTERY) {
+       return PeriodModel::paginate(["user_id"=>$userId,"periods_status"=>$periodsStatus]);
     }
     
     /**
@@ -47,6 +47,17 @@ class Period extends PeriodModel{
     }
     
     public static function con(){
+    }
+    
+    
+    /**
+     * 增加购买次数
+     * @param type $periodId
+     * @param type $addTime
+     * @return type
+     */
+    public static function addBuyTime($periodId,$addTime) {
+        return PeriodModel::where(["id"=>$periodId])->setInc("buy_time",$addTime);
     }
     
     

@@ -19,7 +19,28 @@ use application\common\controller\Attach;
  * @version V1.0
  * @desc   
  */
-class User {
+class User extends Common {
+    
+    
+    /**
+     * 初始化用户数据
+     * @param type $user_name
+     * @param type $mobile
+     * @param type $password
+     * @return int 1231 用户数据插入失败；1232 用户信息插入失败
+     */
+    private static function initUser($user_name,$mobile,$password) {
+        $addUser = UserLogic::addUser($user_name, $mobile, $password);
+        if($addUser->getError()){
+            return 1231;
+        }
+        $addUserInfo = UserInfo::addUserInfo($addUser["id"]);
+        if($addUserInfo->getError()){
+            return 1232;
+        }
+        return 0;
+    }
+    
 
     /**
      * 修改用户密码
@@ -28,33 +49,37 @@ class User {
      * @return type
      */
     public static function updatePassword($userId, $password) {
+        parent::checkUserId($userId);
+        parent::checkPassword($password);
         return UserLogic::updateUserById($userId, ["password" => $password]);
-        
     }
-
+    
     /**
      * 修改用户头像
      * @param type $request
      * @param type $userId 1244 图片上传失败；
      */
     public static function updatePortrait($request,$userId) {
+        parent::checkUserId($userId);
         $Attach = new Attach();
         try {
             $portrait = $Attach->uploadPicture($request);
         } catch (Exception $exc) {
             return 1244;
         }
-        return UserLogic::updateUserById($userId, ["portrait" => $portrait]);
+        return UserInfo::updateUserInfo($userId, ["portrait" => $portrait]);
     }
 
     /**
      * 修改用户昵称
      * @param type $userId
-     * @param type $nick_name
+     * @param type $userName
      * @return type
      */
-    public function updateNickname($userId, $nick_name) {
-        return UserInfo::updateUserInfo($userId, ["nick_name" => $nick_name]);
+    public static function updateUserName($userId, $userName) {
+        parent::checkUserId($userId);
+        parent::checkUserName($userName);
+        return UserLogic::updateUserById($userId, ["user_name" => $userName]);
     }
 
     /**
@@ -84,22 +109,14 @@ class User {
      * @return type 1231 数据库插入用户数据失败；1241 用户已经存在
      */
     public static function addUserInCode($mobile, $password, $code) {
-        
-        $existStstus = UserLogic::isExistMobile($mobile);
-        
-        if($existStstus){
-            return 1241;
-        }
-        
+        parent::checkMobile($mobile);
+        parent::checkPassword($password,true);
+        parent::checkCode($code);
         $verifiCode = self::verifiCode($mobile, $code);
         if($verifiCode){
             return $verifiCode;
         }
-        $statusAdd = UserLogic::addUser($mobile, $mobile, $password);
-        if ($statusAdd->getError()) {
-            return 1231;
-        }
-        return 0;
+        return self::initUser($mobile, $mobile, $password);
     }
 
     /**
@@ -110,7 +127,7 @@ class User {
      * @return type  1203 短信验证码发送失败；
      */
     public static function sendSms($mobile, $opType = 0, $sendType = 0) {
-        
+        parent::checkMobile($mobile,$opType);
         //生成验证码
         $code = \get_rand_number(1000, 9999, 1)[0];
         
@@ -155,6 +172,8 @@ class User {
      * @return type 1206 短信验证码状态更新失败；1207 短信验证码匹配不成功；1205 该用户还没有发送短信
      */
     public static function verifiCode($mobile, $code) {
+        parent::checkMobile($mobile);
+        parent::checkCode($code);
         $findCode = Code::findToNewCode($mobile);
         if(empty($findCode)){
             return 1205;
@@ -175,6 +194,7 @@ class User {
      * @return type
      */
     public static function getUserInfo($userId) {
+        parent::checkUserId($userId);
         return UserLogic::get($userId);
     }
 
@@ -197,54 +217,6 @@ class User {
         }
 
         return true;
-    }
-
-    
-    /**
-     * 地址接口
-     * @param type $adcode
-     * @param type $level
-     * @return type
-     */
-    public function listAmap($adcode=null,$level="province") {
-        return Amap::getAmap($adcode, $level);
-    }
-    
-    /**
-     * 添加地址
-     * @param type $data
-     * @return type
-     */
-    public function addAddress($data) {
-        return UserAddress::create($data);
-    }
-    
-    /**
-     * 编辑地址
-     * @param type $data
-     * @param type $where
-     * @return type
-     */
-    public function editAddress($data,$where) {
-        return UserAddress::update($data, $where);
-    }
-    
-    /**
-     * 删除地址
-     * @param type $id
-     * @return type
-     */
-    public function delAddress($id) {
-        return UserAddress::delById($id);
-    }
-    
-    /**
-     * 地址列表
-     * @param type $userId
-     * @return type
-     */
-    public function listAddress($userId) {
-        return UserAddress::all(["user_id"=>$userId]);
     }
     
     

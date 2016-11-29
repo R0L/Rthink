@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Order extends BaseCommon {
+class Order extends BasePub {
     
     
     const ORDER_SHOPPINGCART = 0 ;// 加入购物车
@@ -18,6 +18,8 @@ class Order extends BaseCommon {
     const ORDER_SUNSHEET = -1 ;// 已晒单
     
     public static $orderStstus=[-1 => '未中奖', 0 => '加入购物车', 1 => '进行中', 2 => '已中奖', 3 => '已晒单'];
+    
+    
     
     /**
      * 获取订单状态
@@ -62,5 +64,6 @@ class Order extends BaseCommon {
     public function user() {
         return $this->belongsTo('application\common\model\User', "user_id", "id");
     }
+    
 
 }

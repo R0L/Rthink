@@ -1,6 +1,9 @@
 <?php
 namespace application\common\service;
 use application\common\logic\Order as OrderLogic;
+use application\common\logic\Period as PeriodLogic;
+use application\common\logic\Picture as PictureLogic;
+use application\common\logic\Goods as GoodsLogic;
 /**
  * @author ROL
  * @date 2016-11-10 12:44:15
@@ -8,71 +11,82 @@ use application\common\logic\Order as OrderLogic;
  * @desc   
  */
 
-class Order{
+class Order extends Common{
     
-    
-    /**
-     * 进行中
-     * @param type $userId
-     * @return type
-     */
-    public function haveinhand($userId) {
-        return OrderLogic::selectByOrderStatus($userId,OrderLogic::ORDER_HAVEINHAND);
-    }
-    
-    /**
-     * 已揭晓
-     * @param type $userId
-     * @return type
-     */
-    public function haslottery($userId) {
-        return OrderLogic::selectByOrderStatus($userId,OrderLogic::HASWONTHEPRIZE|OrderLogic::ORDER_NOTWINNING);
-    }
-    
-    /**
-     * 已中奖
-     * @param type $userId
-     * @return type
-     */
-    public function haswontheprize($userId) {
-        return OrderLogic::selectByOrderStatus($userId,OrderLogic::HASWONTHEPRIZE);
-    }
     
     /**
      * 购物车
      * @param type $userId
      * @return type
      */
-    public function shoppingcart($userId) {
-        return OrderLogic::selectByOrderStatus($userId,OrderLogic::ORDER_SHOPPINGCART);
+    public static function shoppingcart($userId) {
+        parent::checkUserId($userId);
+        $shoppingcart = OrderLogic::selectByOrderStatus($userId,OrderLogic::ORDER_SHOPPINGCART);
+        
+        foreach ($shoppingcart as $item) {
+            $periodGet = PeriodLogic::get($item->period_id);
+            $goodsGet = GoodsLogic::get($periodGet->goods_id);
+            $pictureGet = PictureLogic::get($goodsGet->cover_id);
+            $item->data("goods_picture",$pictureGet["path"]);//商品图片
+            $item->data("goods_title",$goodsGet["title"]);//商品名称
+            $item->data("total_time",$goodsGet["total_time"]);//总份数
+            $item->data("buy_time",$item["buy_time"]);//购买份数
+            $item->data("surplus_time",$goodsGet["total_time"]-$periodGet["buy_time"]);//剩余次数
+            $item->visible(["goods_picture","goods_title","total_time","buy_time","surplus_time"]);
+        }
+        return $shoppingcart;
+        
     }
     
-    /**
-     * 删除购物车
-     * @param type $id
-     * @return type
-     */
-    public function delShoppingcart($id) {
-        return OrderLogic::delById($id);
-    }
     
-    /**
-     * 添加购物车
-     * @param type $data
-     * @return type
-     */
-    public function addShoppingcart($data) {
-        return OrderLogic::create($data);
-    }
+    
+    
+    
+    
+    
     
     /**
      * 编辑购物车
-     * @param type $id
-     * @param type $data
+     * @param type $orderId
+     * @param type $buyTime
      * @return type
      */
-    public function editShoppingcart($id,$data) {
-        return OrderLogic::update($data,["id"=>$id]);
+    public static function shoppingcartEidt($orderId, $buyTime) {
+        parent::checkOrderId($orderId);
+        parent::checkNum($buyTime);
+        if(empty($buyTime)){
+            $delById = OrderLogic::delById($orderId);
+            if(empty($delById)){
+                return 1342;
+            }
+            return 0;
+        }
+        $updateModel = OrderLogic::update(["buy_time"=>$buyTime], ["id"=>$orderId]);
+        if($updateModel->getError()){
+            return 1341;
+        }
+        return 0;
     }
+    
+    
+    /**
+     * 添加购物车
+     * @param type $userId
+     * @param type $periodId
+     * @param type $buyTime
+     */
+    public static function shoppingcartAdd($userId, $periodId, $buyTime) {
+        $addOrder = OrderLogic::addOrder(["user_id"=>$userId,"period_id"=>$periodId,"buy_time"=>$buyTime]);
+        if($addOrder->getError()){
+            return 1343;
+        }
+        $addBuyTime = PeriodLogic::addBuyTime($periodId,$buyTime);
+        if(empty($addBuyTime)){
+            return 1345;
+        }
+        return 0;
+    }
+    
+    
     
 }

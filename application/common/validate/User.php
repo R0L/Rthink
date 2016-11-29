@@ -13,12 +13,12 @@ use think\Validate;
 class User extends Validate {
 
     protected $rule = [
-        'user_name' => 'length:6,30|regex:/^\w+$/u',
+        'user_name' => 'length:2,30|regex:/^\w+$/u',
         'mobile' => 'length:11|regex:/^1[3456789]\d{9}$/',
         'email' => 'email',
     ];
     protected $message = [
-        'user_name.length' => '用户帐号长度在6~30字符',
+        'user_name.length' => '用户帐号长度在2~30字符',
         'user_name.regex' => '用户帐号只支持 英文、数字、下划线',
         'mobile.length' => '用户手机号码长度在11字符',
         'mobile.regex' => '用户手机号码不符合规则',

@@ -25,4 +25,19 @@ class Amap extends AmapModel{
     }
     
     
+    /**
+     * 1-2-3 转化为 四川省 成都市 仁寿县 等
+     * @param type $amap_id
+     * @return type
+     */
+     public static function getAmapName($amap_id=null) {
+         $amapExplode = explode("-", $amap_id);
+         $amap = "";
+         foreach ($amapExplode as $item) {
+             $amapName = AmapModel::where(["adcode"=>$item])->value("name");
+             $amap .= $amapName;
+         }
+         return $amap;
+    }
+    
 }

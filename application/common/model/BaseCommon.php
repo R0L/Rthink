@@ -58,8 +58,9 @@ class BaseCommon extends Base {
     // 定义全局的查询范围
     protected function base($query) {
         parent::base($query);
-        $map['member_id'] = $this->user_id;
+        $map=[];
         empty($this->pub_id) || $map['pub_id'] = $this->pub_id;
+        empty($this->user_id) || $map['member_id'] = $this->user_id;
         $query->where($map);
     }
     

@@ -2,7 +2,6 @@
 
 namespace application\common\logic;
 use application\common\model\User as UserModel;
-use application\common\model\UserInfo;
 
 /**
  * @author ROL
@@ -47,6 +46,14 @@ class User extends UserModel{
      */
     public static function isExistMobile($mobile) {
         return UserModel::where(["mobile"=>$mobile])->count();
+    }
+    /**
+     * 获取用户数量 根据$userId
+     * @param type $userId
+     * @return type
+     */
+    public static function isExistUserId($userId) {
+        return UserModel::where(["id"=>$userId])->find();
     }
     
 }

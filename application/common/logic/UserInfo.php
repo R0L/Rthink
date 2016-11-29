@@ -18,7 +18,16 @@ class UserInfo extends UserInfoModel{
      * @param type $data
      */
     public static function updateUserInfo($userId,$data=[]) {
-        UserInfoModel::update($data,["user_id"=>$userId]);
+        return UserInfoModel::update($data,["user_id"=>$userId]);
+    }
+    
+    /**
+     * 添加用户资料
+     * @param type $userId
+     * @return type
+     */
+    public static function addUserInfo($userId) {
+        return UserInfoModel::create(["user_id"=>$userId]);
     }
     
 }
