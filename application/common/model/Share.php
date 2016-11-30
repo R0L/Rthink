@@ -9,7 +9,15 @@ namespace application\common\model;
  * @desc   
  */
 class Share extends Base {
+    
+    
+    
+    public static $shareStatus = [-1 => '审核失败', 0 => '已提交', 1 => '审核成功'];
 
+    const SHARE_INIT = 0;
+    const SHARE_FAIL = -1;
+    const SHARE_SUCCESS = 1;
+    
     protected $insert = ['status' => 1, 'share_status' => 1, 'create_time'];
 
     /**
@@ -22,8 +30,7 @@ class Share extends Base {
         if (empty($share_status)) {
             $share_status = $data["share_status"];
         }
-        $op_status = [-1 => '审核失败', 0 => '已提交', 1 => '审核成功'];
-        return $op_status[intval($share_status)];
+        return self::$shareStatus[intval($share_status)];
     }
 
     /**

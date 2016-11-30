@@ -20,6 +20,10 @@ class Period extends PeriodModel{
        return PeriodModel::paginate(["user_id"=>$userId,"periods_status"=>$periodsStatus]);
     }
     
+    public static function selectToPeriods($periodsStatus=PeriodModel::PERIODS_INLOTTERY) {
+       return PeriodModel::paginate(["periods_status"=>$periodsStatus]);
+    }
+    
     /**
      * 最新（时间）
      * @return type
@@ -34,7 +38,8 @@ class Period extends PeriodModel{
      */
     public static function selectOyBuyTimeTotalTime() {
 //        return PeriodModel::hasWhere($relation, $where)
-        return PeriodModel::order("buy_time desc")->paginate();
+        return \think\Db::name("period")->alias('p')->field("*",false,"goods","p")->join("goods g","p.goods_id = g.id", 'LEFT' )->
+                order("p.buy_time/g.total_time desc")->paginate();
     }
     
     /**
@@ -45,6 +50,7 @@ class Period extends PeriodModel{
 //        return PeriodModel::hasWhere($relation, $where)
         return PeriodModel::order("buy_time desc")->paginate();
     }
+    
     
     /**
      * 获取当前期数 通过$goodsId

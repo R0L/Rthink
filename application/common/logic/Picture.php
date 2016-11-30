@@ -9,5 +9,25 @@ use application\common\model\Picture as PictureModel;
  * @desc   
  */
 class Picture extends PictureModel{
-    //put your code here
+    
+    
+    /**
+     * 获取图片Path 通过$ids
+     * @param type $ids
+     * @return type
+     */
+    public static function selectToPathByIds($ids = []) {
+       return PictureModel::where(["id"=>["in",$ids]])->column("path");
+    }
+    
+    /**
+     * 获取图片Path 通过$id
+     * @param type $id
+     * @return type
+     */
+    public static function getPathById($id) {
+       return PictureModel::where(["id"=>$id])->column("path");
+    }
+    
+    
 }

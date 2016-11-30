@@ -52,6 +52,25 @@ return [
         ':version/inlottery/:userId'   => ['api/:version.period/inlottery',['method'=>'get']],
         ':version/haswin/:userId'   => ['api/:version.period/haswin',['method'=>'get']],
         
+        ':version/hotperiod'   => ['api/:version.period/hotPeriod',['method'=>'get']],
+        ':version/newestperiod'   => ['api/:version.period/newestPeriod',['method'=>'get']],
+        ':version/progressperiod'   => ['api/:version.period/progressPeriod',['method'=>'get']],
+        ':version/mantimeperiod'   => ['api/:version.period/mantimePeriod',['method'=>'get']],
+        ':version/soonperiod'   => ['api/:version.period/soonPeriod',['method'=>'get']],
+        
+        
+         //晒单
+        ':version/share'   => ['api/:version.share/index',['method'=>'get']],
+        ':version/share/add'   => ['api/:version.share/add',['method'=>'post']],
+        ':version/share/edit'   => ['api/:version.share/edit',['method'=>'post']],
+        ':version/share/del'   => ['api/:version.share/del',['method'=>'post']],
+        
+        
+        
+        //Tools 
+        ':version/upload'   => ['api/:version.tools/uploadPicture',['method'=>'post']],
+        ':version/time'   => ['api/:version.tools/getCurrentTime',['method'=>'get']],
+        ':version/lottery'   => ['api/:version.tools/lottery',['method'=>'get']],
         
 
     ],

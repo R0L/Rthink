@@ -11,11 +11,6 @@ use application\common\service\User as UserService;
  */
 class User extends UserAbstract {
     
-    /**
-     * 构造函数
-     */
-    function _initialize() {}
-
     
     /**
      * 发送短信验证码接口

@@ -4,7 +4,9 @@ namespace application\api\controller;
 
 use application\common\controller\Common;
 use think\Request;
-use think\config;
+use think\Response;
+use think\Config;
+use think\exception\HttpResponseException;
 
 
 
@@ -32,29 +34,10 @@ class Api extends Common {
      * 初始化
      */
     public function _initialize() {
-//        $resquest = Request::instance();
-//        
-//        $array_merge = array_merge($resquest->param(), ["pub_id"=>1]);
-//        $resquest->param($array_merge);
-//        halt($resquest->param());
-//        $param = $resquest->param("pub_id");
-        
-//        $this->terminal = $resquest->param("terminal");
-//        if(empty($this->terminal)){
-//            return ["code"=>Api::EXCEPTION,"message"=>"缺少终端类型"];
+//        if(empty($this->checkToken(Request::instance()))){
+//            $response = Response::create(self::jCode(1100), Config::get('default_ajax_return'));
+//            throw new HttpResponseException($response);
 //        }
-//        $this->apptoken = $resquest->param("apptoken");
-//        if(empty($this->apptoken)){
-//            return ["code"=>Api::EXCEPTION,"message"=>"缺少token"];
-//        }
-//        $this->version = $resquest->param("version",0);
-//        $map["terminal"] = $this->terminal;
-//        empty($this->version) || $map["version"] = $this->version;
-//        $version = $this->checkToken();
-//        if($version){
-//            return ["code"=>Api::EXCEPTION,"message"=>"token错误"];
-//        }
-//        $this->version = $version;
     }
     
     /**
@@ -63,20 +46,46 @@ class Api extends Common {
     private function versionControl() {
         
     }
+    
+    /**
+     * 生成token
+     * @param type $request
+     * @return type
+     */
+    private function createToken($request){
+        $param = $request->param();
+        $paramValue=[];
+        foreach ($param as $key => $value) {
+            $paramValue[] = $value;
+        }
+        
+        $paramValue[] = $request->header("pub_id");
+        $paramValue[] = $request->header("terminal");
+        
+        ksort($paramValue);
+        
+        $map["terminal"] = $request->header("terminal");
+        $map["version"] = $request->param("version");
+        $time = $request->header("time");
+        $apikey = \think\Db::name("token")->field("apikey")->find($map);
+        
+        return md5(implode("", $paramValue)+$time+$apikey);
+    }
 
     
     /**
      * 检查token符合条件
      * @return type
      */
-    private function checkToken() {
-        
-        $findToken = \think\Db::name("token")->order(["version","desc"])->find($map);
-        
-        $serverApptoken = md5(date("Y-m-d",time()).$findToken["appsecret"].$this->version);
-        
-        if($serverApptoken == $this->apptoken){
-            return $findToken["version"];
+    private function checkToken($request) {
+        $time = $request->header("time");
+        if($time>time()){
+            return false;
+        }
+        $serverApptoken = $this->createToken($request);
+        $token = $request->header("token");
+        if($serverApptoken == $token){
+            return true;
         }
         return false;
         
@@ -128,8 +137,8 @@ class Api extends Common {
     /**
      * 数据返回
      * @param type $code
-     * @param type $data
      * @param type $message
+     * @param type $data
      * @return type
      */
     public static function jCode($code = 0, $message = "", $data = []) {

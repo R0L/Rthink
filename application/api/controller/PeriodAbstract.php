@@ -9,26 +9,44 @@ namespace application\api\controller;
  * @desc   
  */
 abstract class PeriodAbstract extends Api {
-    
+
     /**
      * 进行中
      */
     abstract function inlottery($userId);
-    
+
     /**
      * 已揭晓
      */
     abstract function haslottery($userId);
-    
+
     /**
      * 已中奖
      */
     abstract function haswin($userId);
-    
-    
+
     /**
-     * 热门（当前期数）接口
+     * 热门（当前期数）
      */
     abstract function hotPeriod();
+
+    /**
+     * 最新（时间）
+     */
+    abstract function newestPeriod();
+
+    /**
+     * 进度（购买人次/总次数）
+     */
+    abstract function progressPeriod();
+
+    /**
+     * 人次（购买人次) 
+     */
+    abstract function mantimePeriod();
     
+    /**
+     * 即将揭晓
+     */
+    abstract function soonPeriod();
 }
