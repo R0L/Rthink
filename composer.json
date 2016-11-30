@@ -30,7 +30,9 @@
         "riverslei/payment": "^2.6",
         "phpmailer/phpmailer": "^5.2",
         "rol/chuanglan": "dev-master",
-        "jasonroman/flot": "^1.0"
+        "jasonroman/flot": "^1.0",
+        "topthink/think-worker": "^1.0",
+        "workerman/workerman-for-win": "^3.3"
     },
     "extra": {
         "think-path": "thinkphp"
