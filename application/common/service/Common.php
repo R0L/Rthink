@@ -17,7 +17,7 @@ class Common {
      * @param type $opType
      * @return type
      */
-    public static function checkMobile($mobile,$opType) {
+    public static function checkMobile($mobile,$opType = false) {
         if(empty($mobile)){
             return 1101;
         }
@@ -113,5 +113,7 @@ class Common {
             return 1111;
         }
     }
+    
+    
     
 }

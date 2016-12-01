@@ -19,9 +19,21 @@ class Address extends Api {
      * @return type
      */
     public function index($userId) {
-        $listAddress = AddressService::listAddress($userId);
-        return parent::jCode(0, 1400, $listAddress->toArray());
+        $result = AddressService::listAddress($userId);
+        return parent::jResult($result);
     }
+    
+    /**
+     * 获取数据库地址列表接口
+     * @param type $adcode
+     * @param type $level
+     * @return type
+     */
+    public function amap($adcode=null,$level="province") {
+        $result = AddressService::listAmap($adcode,$level);
+        return parent::jResult($result);
+    }
+    
 
     /**
      * 个人地址添加接口
@@ -34,11 +46,8 @@ class Address extends Api {
      * @return type
      */
     public function add($userId, $recipients, $phone, $chooseArea, $address = null, $default = 0) {
-        $addAddress = AddressService::addAddress($userId, $recipients, $phone, $chooseArea, $address, $default);
-        if ($addAddress->getError()) {
-            return parent::jCode(1402, $addAddress->getError());
-        }
-        return parent::jCode(1401);
+        $result = AddressService::addAddress($userId, $recipients, $phone, $chooseArea, $address, $default);
+        return parent::jResult($result);
     }
 
     /**
@@ -52,23 +61,17 @@ class Address extends Api {
      * @return type
      */
     public function edit($addresId, $recipients, $phone, $chooseArea, $address = null, $default = 0) {
-        $editAddress = AddressService::editAddress($addresId, $recipients, $phone, $chooseArea, $address, $default);
-        if ($editAddress->getError()) {
-            return parent::jCode(1404, $editAddress->getError());
-        }
-        return parent::jCode(1403);
+        $result = AddressService::editAddress($addresId, $recipients, $phone, $chooseArea, $address, $default);
+        return parent::jResult($result);
     }
 
     /**
      * 个人地址删除接口
      * @param type $addresId
      */
-    public function delete($addresId) {
-        $delAddress = AddressService::delAddress($addresId);
-        if ($delAddress->getError()) {
-            return parent::jCode(1406, $delAddress->getError());
-        }
-        return parent::jCode(1405);
+    public function del($addresId) {
+        $result = AddressService::delAddress($addresId);
+        return parent::jResult($result);
     }
 
 }

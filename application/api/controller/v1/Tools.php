@@ -34,7 +34,7 @@ class Tools extends Api {
      * @return type
      */
     public function getCurrentTime() {
-        return parent::jCode(0, 1250, time());
+        return parent::jCode(0, 1253, time());
     }
 
     /**
@@ -65,5 +65,7 @@ class Tools extends Api {
         }
         return ["data"=>$temp,"fromat_data"=>$result];
     }
-
+    
+    
+    
 }

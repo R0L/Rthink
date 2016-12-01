@@ -26,7 +26,7 @@ class Picture extends PictureModel{
      * @return type
      */
     public static function getPathById($id) {
-       return PictureModel::where(["id"=>$id])->column("path");
+       return PictureModel::where(["id"=>$id])->value("path");
     }
     
     

@@ -3,6 +3,7 @@
 namespace application\common\service;
 use application\common\logic\UserAddress;
 use application\common\logic\Amap;
+use application\common\api\Result;
 
 /**
  * @author ROL
@@ -18,8 +19,9 @@ class Address extends Common {
      * @param type $level
      * @return type
      */
-    public function listAmap($adcode = null, $level = "province") {
-        return Amap::getAmap($adcode, $level);
+    public static function listAmap($adcode = null, $level = "province") {
+        $amap = Amap::getAmap($adcode, $level);
+        return Result::success(1407,$amap);
     }
 
     /**
@@ -27,14 +29,17 @@ class Address extends Common {
      * @return type
      */
     public static function addAddress($userId,$recipients,$phone,$chooseArea,$address=null,$default = 0) {
-        parent::checkUserId($userId);
         $data["user_id"] = $userId;
         $data["recipients"] = $recipients;
         $data["phone"] = $phone;
-        $data["chooseArea"] = $chooseArea;
+        $data["amap_id"] = $chooseArea;
         $data["address"] = $address;
         $data["default"] = $default;
-        return UserAddress::create($data);
+        $createModel = UserAddress::create($data);
+        if ($createModel->getError()) {
+            return Result::error(1402, $createModel->getError());
+        }
+        return Result::success(1401);
     }
 
     /**
@@ -44,10 +49,14 @@ class Address extends Common {
     public static function editAddress($addresId,$recipients,$phone,$chooseArea,$address,$default) {
         $data["recipients"] = $recipients;
         $data["phone"] = $phone;
-        $data["chooseArea"] = $chooseArea;
+        $data["amap_id"] = $chooseArea;
         $data["address"] = $address;
         $data["default"] = $default;
-        return UserAddress::update($data, ["id"=>$addresId]);
+        $updateModel = UserAddress::update($data, ["id"=>$addresId]);
+        if ($updateModel->getError()) {
+            return Result::error(1404, $updateModel->getError());
+        }
+        return Result::success(1403);
     }
 
     /**
@@ -56,7 +65,11 @@ class Address extends Common {
      * @return type
      */
     public static function delAddress($id) {
-        return UserAddress::delById($id);
+        $delById = UserAddress::delById($id,true);
+        if (empty($delById)) {
+            return Result::error(1406);
+        }
+        return Result::success(1405);
     }
 
     /**
@@ -71,7 +84,7 @@ class Address extends Common {
             $item->data("chooseArea",$amapName);
             $item->visible(["chooseArea","address","recipients","phone","default"]);
         }
-        return $address;
+        return Result::success(1400,$address);
     }
 
 }

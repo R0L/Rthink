@@ -14,20 +14,25 @@ return [
         //用户
         ':version/sendsms'   => ['api/:version.user/sendSms',['method'=>'post']],
         ':version/verificode'   => ['api/:version.user/verifiCode',['method'=>'post']],
-        ':version/updatepassword'   => ['api/:version.user/updatePassword',['method'=>'post']],
-        ':version/adduserincode'   => ['api/:version.user/addUserInCode',['method'=>'post']],
-        ':version/getuserinfo/:userId'   => ['api/:version.user/getUserInfo',['method'=>'get']],
-        ':version/updateportrait'   => ['api/:version.user/updatePortrait',['method'=>'post']],
-        ':version/updateusername'   => ['api/:version.user/updateUserName',['method'=>'post']],
+        ':version/password'   => ['api/:version.user/updatePassword',['method'=>'post']],
+        ':version/register'   => ['api/:version.user/addUserInCode',['method'=>'post']],
+        ':version/userinfo/:userId'   => ['api/:version.user/getUserInfo',['method'=>'get']],
+        ':version/portrait'   => ['api/:version.user/updatePortrait',['method'=>'post']],
+        ':version/nickname'   => ['api/:version.user/updateNickName',['method'=>'post']],
         
-        ':version/notification'   => ['api/:version.user/notification',['method'=>'get']],
-        ':version/announcement'   => ['api/:version.user/announcement',['method'=>'get']],
+        ':version/notif/:userId'   => ['api/:version.user/notification',['method'=>'get']],
+        ':version/updatenotif'   => ['api/:version.user/updateNotification',['method'=>'post']],
+        ':version/annou/:userId'   => ['api/:version.user/announcement',['method'=>'get']],
+        ':version/slider'   => ['api/:version.user/listSlider',['method'=>'get']],
+        ':version/login'   => ['api/:version.user/userLogin',['method'=>'post']],
         
         //地址
         ':version/address/:userId'   => ['api/:version.address/index',['method'=>'get']],
         ':version/address/add'   => ['api/:version.address/add',['method'=>'post']],
         ':version/address/edit'   => ['api/:version.address/edit',['method'=>'post']],
         ':version/address/del'   => ['api/:version.address/del',['method'=>'post']],
+        
+        ':version/address/list'   => ['api/:version.address/amap',['method'=>'post']],
         
         
         //消费

@@ -20,8 +20,8 @@ class User extends UserAbstract {
      * @return type
      */
     public function sendSms($mobile, $opType = 0, $sendType = 0) {
-        $sendSms = UserService::sendSms($mobile, $opType, $sendType);
-        return parent::jCode($sendSms,1204);
+        $result = UserService::sendSms($mobile, $opType, $sendType);
+        return parent::jResult($result);
     }
 
     
@@ -32,8 +32,8 @@ class User extends UserAbstract {
      * @return type 
      */
     public function verifiCode($mobile, $code) {
-        $verifiCode = UserService::verifiCode($mobile, $code);
-        return parent::jCode($verifiCode, 1208);
+        $result = UserService::verifiCode($mobile, $code);
+        return parent::jResult($result);
     }
 
     /**
@@ -43,24 +43,21 @@ class User extends UserAbstract {
      * @return type
      */
     public function updatePassword($userId, $password) {
-        $updateModel = UserService::updatePassword($userId, $password);
-        if($updateModel->getError()){
-            return parent::jCode(1209,$updateModel->getError());
-        }
-        return parent::jCode(0,1230);
+        $result = UserService::updatePassword($userId, $password);
+        return parent::jResult($result);
     }
     
     
     /**
-     * 
+     * 添加用户接口
      * @param type $mobile
      * @param type $password
      * @param type $code
      * @return type 
      */
     public function addUserInCode($mobile, $password, $code) {
-        $addUserInCode = UserService::addUserInCode($mobile, $password, $code);
-        return parent::jCode($addUserInCode,1240);
+        $result = UserService::addUserInCode($mobile, $password, $code);
+        return parent::jResult($result);
     }
 
     /**
@@ -69,12 +66,8 @@ class User extends UserAbstract {
      * @return type 1242 用户资料获取失败；
      */
     public function getUserInfo($userId) {
-        $userInfo = UserService::getUserInfo($userId);
-        if(empty($userInfo)){
-            return parent::jCode($userInfo);
-        }
-        $userInfo['userinfo'] = $userInfo->userinfo;
-        return parent::jCode(0,1243,$userInfo);
+        $result = UserService::getUserInfo($userId);
+        return parent::jResult($result);
     }
 
     
@@ -83,25 +76,19 @@ class User extends UserAbstract {
      * @param type $userId
      * @return type
      */
-    public function updatePortrait($userId) {
-        $updateModel = UserService::updatePortrait(\think\Request::instance(),$userId);
-        if($updateModel->getError()){
-            return parent::jCode(1245,$updateModel->getError());
-        }
-        return parent::jCode(0,1246);
+    public function updatePortrait($userId,$pictureId) {
+        $result = UserService::updatePortrait($pictureId,$userId);
+        return parent::jResult($result);
     }
     
     /**
      * 修改用户昵称接口
      * @param type $userId
-     * @param type $userName
+     * @param type $nickName
      */
-    public function updateUserName($userId, $userName) {
-        $updateModel = UserService::updateUserName($userId, $userName);
-        if($updateModel->getError()){
-            return parent::jCode(1247,$updateModel->getError());
-        }
-        return parent::jCode(0,1248);
+    public function updateNickName($userId, $nickName) {
+        $result = UserService::updateNickName($userId, $nickName);
+        return parent::jResult($result);
     }
 
     /**
@@ -109,8 +96,8 @@ class User extends UserAbstract {
      * @param type $userId
      */
     public function announcement($userId) {
-        $announ = UserService::announcement($userId);
-        return parent::jCode(0,1250,$announ->toArray());
+        $result = UserService::announcement($userId);
+        return parent::jResult($result);
     }
 
     /**
@@ -119,8 +106,19 @@ class User extends UserAbstract {
      * @return type
      */
     public function notification($userId) {
-        $notifi = UserService::notification($userId);
-        return parent::jCode(0,1251,$notifi->toArray());
+        $result = UserService::notification($userId);
+        return parent::jResult($result);
+    }
+    
+    /**
+     * 修改通知接口
+     * @param type $userId
+     * @param type $noticeId
+     * @return type
+     */
+    public function updateNotification($userId,$noticeId){
+         $result = UserService::updateNotification($userId,$noticeId);
+        return parent::jResult($result);
     }
 
     /**
@@ -128,7 +126,18 @@ class User extends UserAbstract {
      */
     public function listSlider() {
         $listSlider = UserService::listSlider();
-        return parent::jCode(0,1252,$listSlider->toArray());
+        return parent::jResult($listSlider);
+    }
+    
+    /**
+     * 用户登录成功接口
+     * @param type $mobile
+     * @param type $password
+     * @return type
+     */
+    public function userLogin($mobile, $password) {
+        $userLogin = UserService::userLogin($mobile,$password);
+        return parent::jResult($userLogin);
     }
 
 

@@ -45,10 +45,10 @@ class User extends UserModel{
      * @return type
      */
     public static function isExistMobile($mobile) {
-        return UserModel::where(["mobile"=>$mobile])->count();
+        return UserModel::where(["mobile"=>$mobile])->find();
     }
     /**
-     * 获取用户数量 根据$userId
+     * 判断用户Id存在 根据$userId
      * @param type $userId
      * @return type
      */

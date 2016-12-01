@@ -8,6 +8,11 @@ namespace application\common\model;
  */
 class NoticeRecord extends Base {
     
+    public $noticeRecordStatus = [0=>'未阅读',1 => '已阅读', 2 => '已点赞', 4 => '已回复', 8 => '再次回复'];
+
+    const NOT_READ = 0;//未阅读
+    const ALREADY_READ = 1;//已阅读
+
     /**
      * 获取公告记录状态的格式化
      * @param type $notice_record_status
@@ -18,8 +23,7 @@ class NoticeRecord extends Base {
         if (empty($notice_record_status)) {
             $notice_record_status = $data["notice_record_status"];
         }
-        $op_status = [1 => '已阅读', 2 => '已点赞', 4 => '已回复', 8 => '再次回复'];
-        return $op_status[intval($notice_record_status)];
+        return self::$noticeRecordStatus[intval($notice_record_status)];
     }
     
     

@@ -145,8 +145,10 @@ class Api extends Common {
         $temp["code"] = $code;
         if ($code == 0 && is_numeric($message)) {
             $message = Config::get("code.$message");
-        } else {
+        }else if(is_string($message)){
             $message = Config::get("code.$code").$message;
+        }else{
+            $message = Config::get("code.$code");
         }
         $temp["message"] = $message?:"操作成功";
         if(!empty($data)){
@@ -156,74 +158,26 @@ class Api extends Common {
     }
     
     
-    /**
-     * 检查mobile
-     * @param type $mobile
-     * @return type
-     */
-    protected function checkMobile($mobile) {
-        if(empty($mobile)){
-            return self::jCode(1101);
+    public function jResult($result) {
+        $temp["code"] = 0;
+        $temp["message"] = "操作成功";
+        $code = $result->getCode();
+        $message = $result->getMessage();
+        $data = $result->getData();
+        $code?$message = $message.Config::get("code.$code"):null;
+        if($result->isError()){
+            $temp["code"] = $code;
         }
-        if(!preg_match("/^1[3456789]\d{9}$/",$mobile)){
-            return self::jCode(1102);
+        $temp["message"] = $message;
+        if(empty($data)){
+                
+        }else if(is_object($data)){
+            $temp["result"] = $data->toArray();
+        }else{
+            $temp["result"] = $data;
         }
+        return $temp;
+        
     }
     
-    /**
-     * 检查code
-     * @param type $code
-     * @return type
-     */
-    protected function checkCode($code) {
-        if(empty($code)){
-            return self::jCode(1103);
-        }
-        if(!preg_match("/^\d{4}$/",$code)){
-            return self::jCode(1104);
-        }
-    }
-    
-    /**
-     * 检查userId
-     * @param type $userId
-     * @return type
-     */
-    protected function checkUserId($userId) {
-        if(empty($userId)){
-            return self::jCode(1105);
-        }
-    }
-    
-    /**
-     * 检查userPassword
-     * @param type $password
-     * @return type
-     */
-    protected function checkPassword($password) {
-         if(empty($password)){
-            return self::jCode(1106);
-        }
-        if(!preg_match("/^\w{0,10}$/",$password)){
-            return self::jCode(1107);
-        }
-    }
-    
-    /**
-     * 检查nickName
-     * @param type $username
-     * @return type
-     */
-    protected function checkUserName($username) {
-         if(empty($username)){
-            return self::jCode(1108);
-        }
-        if(!preg_match("/^\w{0,30}$/",$username)){
-            return self::jCode(1109);
-        }
-    }
-    
-    
-    
-
 }

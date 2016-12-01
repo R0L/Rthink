@@ -41,13 +41,13 @@ abstract class UserAbstract extends Api{
     /**
      * 修改用户头像
      */
-    abstract function updatePortrait($userId);
+    abstract function updatePortrait($userId,$pictureId);
     
     
     /**
      * 修改用户昵称
      */
-    abstract function updateUserName($userId,$userName);
+    abstract function updateNickName($userId,$nickName);
     
     /**
      * 通知
@@ -60,8 +60,19 @@ abstract class UserAbstract extends Api{
     abstract function announcement($userId);
     
     /**
+     * 修改通知状态
+     */
+    abstract function updateNotification($userId,$noticeId);
+    
+    /**
      * 图片轮播
      */
     abstract function listSlider();
+    
+    
+    /**
+     * 用户登录
+     */
+    abstract function userLogin($mobile, $password);
     
 }

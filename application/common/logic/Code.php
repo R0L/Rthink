@@ -55,24 +55,13 @@ class Code{
     
     
     /**
-     * 首先判断是否在今天发送的限制之内，添加CODE
+     * 当天同一手机发送短信数量
      * @param type $mobile
      * @param type $code
-     * @return type 1201 短信验证码初始化失败；1202 短信验证码达到今日发送上线；0 短信初始化成功；
+     * @return type 
      */
-    public static function addCodeForAllow($mobile,$code){
-        
-        $countCode = CodeModel::whereTime('create_time', 'd')->where(["mobile"=>$mobile])->count();
-        
-        if(Config::get("CODE_DAY_LIMIT")<=$countCode){
-            $addCode = self::addCode($mobile, $code);
-            if(empty($addCode)){
-                return 1201;
-            }
-            return 0;
-            
-        }
-        return 1202;
+    public static function countByMobile($mobile){
+        return CodeModel::whereTime('create_time', 'd')->where(["mobile"=>$mobile])->count();
     }
     
 }

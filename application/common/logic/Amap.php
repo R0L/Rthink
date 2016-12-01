@@ -21,7 +21,7 @@ class Amap extends AmapModel{
     public static function getAmap($adcode=null,$level="province") {
         $map["level"] = $level;
         empty($adcode) || $map["adcode"] = $adcode;
-        return AmapModel::all($map);
+        return AmapModel::where($map)->field(["adcode","name"])->paginate();
     }
     
     
