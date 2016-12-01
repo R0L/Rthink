@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-11-30 17:29:34
+Date: 2016-12-01 17:40:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -7932,7 +7932,7 @@ CREATE TABLE `tp_code` (
   `code_status` tinyint(4) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_code
@@ -7942,6 +7942,9 @@ INSERT INTO `tp_code` VALUES ('2', '13678235158', '5305', '1480140030', '1480318
 INSERT INTO `tp_code` VALUES ('3', '13678235158', '5878', '1480151521', '1480318461', null, '0', '1');
 INSERT INTO `tp_code` VALUES ('4', '13281563097', '5524', '1480151780', '1480318461', null, '0', '1');
 INSERT INTO `tp_code` VALUES ('5', '13281563097', '3668', '1480300545', '1480384297', null, '1', '1');
+INSERT INTO `tp_code` VALUES ('6', '13281563075', '4557', '1480561175', '1480562455', null, '1', '1');
+INSERT INTO `tp_code` VALUES ('7', '13678235158', '2509', '1480561472', '1480575968', null, '1', '1');
+INSERT INTO `tp_code` VALUES ('8', '13678235158', '3405', '1480576087', '1480576118', null, '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_config
@@ -8310,7 +8313,7 @@ CREATE TABLE `tp_notice` (
   `sort` int(11) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `delete_time` int(10) NOT NULL,
+  `delete_time` int(10) DEFAULT NULL,
   `notice_type` tinyint(4) NOT NULL DEFAULT '0' COMMENT '0 公告  1 通知',
   `member_id` int(11) NOT NULL,
   `pub_id` int(11) NOT NULL,
@@ -8320,12 +8323,12 @@ CREATE TABLE `tp_notice` (
 -- ----------------------------
 -- Records of tp_notice
 -- ----------------------------
-INSERT INTO `tp_notice` VALUES ('1', '发不了', '这是一个好东西哦', '1', '1452682745', '1452682745', '1', '1', '1', '1');
-INSERT INTO `tp_notice` VALUES ('2', '公告2', '公告公告公告', '2', '1452682745', '1479283070', '-1', '0', '1', '1');
-INSERT INTO `tp_notice` VALUES ('3', '测试测试', '测试测试 这是内容', '0', '1479281895', '1479283077', '-1', '0', '1', '1');
-INSERT INTO `tp_notice` VALUES ('4', '再次测试', '再次测试内容', '0', '1479282050', '1479283077', '-1', '0', '1', '1');
-INSERT INTO `tp_notice` VALUES ('5', '第三次测试', '第三次测试内容', '0', '1479282082', '1479283965', '-1', '0', '1', '1');
-INSERT INTO `tp_notice` VALUES ('6', '通知标题', '通知内容', '0', '1479359804', '1479359804', '1', '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('1', '发不了', '这是一个好东西哦', '1', '1452682745', '1452682745', null, '1', '1', '1');
+INSERT INTO `tp_notice` VALUES ('2', '公告2', '公告公告公告', '2', '1452682745', '1479283070', null, '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('3', '测试测试', '测试测试 这是内容', '0', '1479281895', '1479283077', null, '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('4', '再次测试', '再次测试内容', '0', '1479282050', '1479283077', null, '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('5', '第三次测试', '第三次测试内容', '0', '1479282082', '1479283965', null, '0', '1', '1');
+INSERT INTO `tp_notice` VALUES ('6', '通知标题', '通知内容', '0', '1479359804', '1479359804', null, '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_notice_record
@@ -8337,17 +8340,18 @@ CREATE TABLE `tp_notice_record` (
   `user_id` varchar(255) NOT NULL,
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
-  `delete_time` int(10) NOT NULL,
+  `delete_time` int(10) DEFAULT NULL,
   `notice_record_status` tinyint(4) NOT NULL,
   `notice_record_id` int(11) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_notice_record
 -- ----------------------------
-INSERT INTO `tp_notice_record` VALUES ('1', '1', '1', '1452682745', '1452682745', '1', '1', null, null);
+INSERT INTO `tp_notice_record` VALUES ('2', '1', '1', '1480580972', '1480580972', null, '1', null, null);
+INSERT INTO `tp_notice_record` VALUES ('3', '2', '1', '1480581083', '1480581083', null, '1', null, null);
 
 -- ----------------------------
 -- Table structure for tp_order
@@ -8756,14 +8760,15 @@ CREATE TABLE `tp_user` (
   `status` tinyint(2) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_user
 -- ----------------------------
-INSERT INTO `tp_user` VALUES ('1', '李瑞', '13281563075', '2080775740@qq.com', '12312358', '10', '192.168.0.7', '127.0.0.1', '1451750400', '1480385326', '1', '1');
-INSERT INTO `tp_user` VALUES ('2', '13678235158', '13678235158', null, '123456789', '0', '127.0.0.1', '127.0.0.1', '1480319349', '1480319349', '1', '1');
+INSERT INTO `tp_user` VALUES ('1', '李瑞', '13281563075', '2080775740@qq.com', '3', '10', '192.168.0.7', '127.0.0.1', '1451750400', '1480561017', '1', '1');
 INSERT INTO `tp_user` VALUES ('9', '13281563097', '13281563097', null, '123456789', '0', '127.0.0.1', '127.0.0.1', '1480384297', '1480384297', '1', '1');
+INSERT INTO `tp_user` VALUES ('10', '13281563075', '13281563075', null, '123456', '0', '127.0.0.1', '127.0.0.1', '1480562455', '1480562455', '1', '1');
+INSERT INTO `tp_user` VALUES ('21', '13678235158', '13678235158', null, '1234567890', '0', '127.0.0.1', '127.0.0.1', '1480575968', '1480576139', '1', '1');
 
 -- ----------------------------
 -- Table structure for tp_user_address
@@ -8780,14 +8785,17 @@ CREATE TABLE `tp_user_address` (
   `create_time` int(10) NOT NULL,
   `update_time` int(10) NOT NULL,
   `delete_time` int(10) DEFAULT NULL,
-  `pub_id` int(11) DEFAULT NULL,
+  `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_user_address
 -- ----------------------------
 INSERT INTO `tp_user_address` VALUES ('1', '李瑞环', '13281563077', '110000-110100-110101', '高新区温州商贸128号', '1', '1', '1451750400', '1451750400', null, '1');
+INSERT INTO `tp_user_address` VALUES ('2', '李瑞', '18783318204', '0', '哈哈舒服撒', '1', '1', '1480582412', '1480582412', null, '1');
+INSERT INTO `tp_user_address` VALUES ('3', '李瑞', '18783318204', '0', '哈哈舒服撒', '1', '1', '1480582505', '1480582505', null, '1');
+INSERT INTO `tp_user_address` VALUES ('4', '李瑞', '18783318204', '0', '哈哈舒服撒', '1', '1', '1480582517', '1480582517', null, '1');
 
 -- ----------------------------
 -- Table structure for tp_user_info
@@ -8805,10 +8813,22 @@ CREATE TABLE `tp_user_info` (
   `red_packets` double(10,2) NOT NULL DEFAULT '0.00',
   `nick_name` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_user_info
 -- ----------------------------
-INSERT INTO `tp_user_info` VALUES ('1', '1', '1000', '238.00', '54', '1', null, '我就是我!', '300.00', '111');
+INSERT INTO `tp_user_info` VALUES ('1', '1', '1000', '238.00', '1', '1', null, '我就是我!', '300.00', '222');
 INSERT INTO `tp_user_info` VALUES ('2', '9', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('3', '10', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('4', '11', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('5', '12', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('6', '13', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('7', '14', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('8', '15', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('9', '16', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('10', '17', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('11', '18', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('12', '19', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('13', '20', '0', '0.00', null, null, null, null, '0.00', null);
+INSERT INTO `tp_user_info` VALUES ('14', '21', '0', '0.00', null, null, null, null, '0.00', null);
