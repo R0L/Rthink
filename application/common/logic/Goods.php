@@ -12,9 +12,10 @@ class Goods extends GoodsModel{
     
     
     /**
-     * 热门（当前期数）
+     * 获取按照当前期数排序的分页
      */
-    public static function selectOyCurrentPeriods() {
-        return GoodsModel::order("current_periods desc")->paginate();
-    }
+//    public static function selectOyCurrentPeriods() {
+////        return GoodsModel::scope("goods_status")->order("current_periods desc")->paginate();
+//        return GoodsModel::scope("goods_status")->alias("goods")->join("period","")
+//    }
 }

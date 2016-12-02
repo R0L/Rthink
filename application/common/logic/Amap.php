@@ -19,9 +19,31 @@ class Amap extends AmapModel{
      * @return type
      */
     public static function getAmap($adcode=null,$level="province") {
-        $map["level"] = $level;
+        empty($level) || $map["level"] = $level;
         empty($adcode) || $map["adcode"] = $adcode;
         return AmapModel::where($map)->field(["adcode","name"])->paginate();
+    }
+    
+    /**
+     * 获取下级地址
+     * @param type $adcode
+     * @param type $level
+     * @return type
+     */
+    public static function getNextAmapList($adcode=null,$level="province") {
+        switch ($level){
+            case "province":
+                $map["adcode"] = ["like","__0000"];
+                break;
+            case "city":
+                $map["adcode"] = ["like",substr($adcode, 0, 2)."__00"];
+                break;
+            case "district":
+                $map["adcode"] = ["like",substr($adcode, 0, 4)."__00"];
+                break;
+        }
+        $map["level"] = $level;
+        return AmapModel::all($map);
     }
     
     

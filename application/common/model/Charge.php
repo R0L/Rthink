@@ -31,7 +31,7 @@ class Charge extends BasePub {
     
     
     
-    protected $insert = ['charge_status'=>0, 'create_time'];
+    protected $insert = ['charge_status'=>0, 'create_time', 'pub_id'];
     
     /**
      * 获取账单的状态的格式化

@@ -2,49 +2,36 @@
 
 namespace application\api\controller\v1;
 use application\api\controller\OrderAbstract;
-use application\common\service\Order as OrderSerive;
+use application\common\service\Order as OrderService;
 /**
  * @author ROL
- * @date 2016-11-29 10:28:18
+ * @date 2016-12-2 15:30:19
  * @version V1.0
  * @desc   
  */
-class Order extends OrderAbstract {
+class Order extends OrderAbstract{
     
     /**
-     * 购物车接口
-     * @param type $userId
-     * @return type
+     * 进行中接口
      */
-    public function shoppingcart($userId) {
-        $shoppingcart = OrderSerive::shoppingcart($userId);
-        return parent::jCode(0,1330,$shoppingcart->toArray());
+    public function haslottery($userId) {
+        $haslottery = OrderService::haslottery($userId);
+        return parent::jResult($haslottery);
     }
-    
-    
     /**
-     * 编辑购物车接口
-     * @param type $userId
-     * @param type $orderId
-     * @param type $buyTime
+     * 已揭晓接口
      */
-    public function shoppingcartEidt($orderId, $buyTime) {
-        $shoppingcartEidt = OrderSerive::shoppingcartEidt($orderId, $buyTime);
-        return parent::jCode($shoppingcartEidt,1340);
-    }
-    
-    /**
-     * 添加购物车接口
-     * @param type $userId
-     * @param type $periodId
-     * @param type $buyTime
-     */
-    public function shoppingcartAdd($userId, $periodId, $buyTime) {
-        $shoppingcartAdd = OrderSerive::shoppingcartAdd($userId, $periodId, $buyTime);
-        return parent::jCode($shoppingcartAdd,1343);
+    public function haswin($userId) {
+         $haswin = OrderService::haswin($userId);
+        return parent::jResult($haswin);
     }
 
-    
-
+    /**
+     * 已中奖接口
+     */
+    public function inlottery($userId) {
+         $inlottery = OrderService::inlottery($userId);
+        return parent::jResult($inlottery);
+    }
 
 }

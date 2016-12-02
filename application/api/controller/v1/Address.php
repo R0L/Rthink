@@ -26,7 +26,6 @@ class Address extends Api {
     /**
      * 获取数据库地址列表接口
      * @param type $adcode
-     * @param type $level
      * @return type
      */
     public function amap($adcode=null,$level="province") {

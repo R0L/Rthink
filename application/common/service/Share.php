@@ -7,6 +7,8 @@ use application\common\logic\UserInfo as UserInfoLogic;
 use application\common\logic\Picture as PictureLogic;
 use application\common\logic\Period as PeriodLogic;
 use application\common\logic\Goods as GoodsLogic;
+
+use application\common\api\Result;
 /**
  * @author ROL
  * @date 2016-11-30 10:40:04
@@ -38,22 +40,39 @@ class Share extends Common {
             $item->data("goods_name",$goodsGet["title"]);//商品名称
             $item->visible(["id","user_portrait","user_name","share_title","share_content","share_picture","share_time","goods_name"]);
         }
-        return $listShare;
+        
+        return Result::success(1700,$listShare);
     }
     
     /**
      * 添加晒单
+     * @param type $userId
+     * @param type $periodId
      * @param type $title
      * @param type $content
      * @param type $pictures
      * @return type
      */
-    public static function addShare($title,$content,$pictures) {
+    public static function addShare($userId,$periodId,$title,$content,$pictures) {
+        
+        $existPeriod = PeriodLogic::isExistPeriod($userId, $periodId);
+        
+        if(empty($existPeriod)){
+            return Result::error(1707);
+        }
+        
+        
+        $data["user_id"] = $userId;
+        $data["period_id"] = $periodId;
         $data["title"] = $title;
         $data["content"] = $content;
         $data["pic_list"] = $pictures;
         $data["share_status"] = ShareLogic::SHARE_INIT;
-        return ShareLogic::create($data);
+        $createModel = ShareLogic::create($data);
+        if ($createModel->getError()) {
+            return Result::error(1702,$createModel->getError());
+        }
+        return Result::success(1701);
     }
     
     /**
@@ -64,12 +83,16 @@ class Share extends Common {
      * @param type $pictures
      * @return type
      */
-    public static function editShare($id,$title,$content,$pictures) {
-        $data["title"] = $title;
-        $data["content"] = $content;
-        $data["pic_list"] = $pictures;
+    public static function editShare($id,$title = null,$content = null,$pictures = null) {
+        empty($title) || $data["title"] = $title;
+        empty($content) || $data["content"] = $content;
+        empty($pictures) || $data["pic_list"] = $pictures;
         $data["share_status"] = ShareLogic::SHARE_INIT;
-        return ShareLogic::update($data, ["id"=>$id]);
+        $updateModel = ShareLogic::update($data, ["id"=>$id]);
+        if ($updateModel->getError()) {
+            return Result::error(1704,$updateModel->getError());
+        }
+        return Result::success(1703);
     }
     
     
@@ -79,6 +102,10 @@ class Share extends Common {
      * @return type
      */
     public static function delShare($id) {
-        return ShareLogic::delById($id, true);
+        $delShare = ShareLogic::delById($id, true);
+        if (empty($delShare)) {
+            return Result::error(1704);
+        }
+        return Result::success(1705);
     }
 }

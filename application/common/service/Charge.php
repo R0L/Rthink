@@ -3,7 +3,7 @@
 namespace application\common\service;
 use application\common\logic\Config;
 use application\common\logic\Charge as ChargeLogic;
-
+use application\common\api\Result;
 /**
  * @author ROL
  * @date 2016-11-22 10:59:15
@@ -19,7 +19,8 @@ class Charge extends Common {
      */
     public static function getChargeType() {
         $payType = Config::selectToPayType();
-        return $payType;
+        return Result::success(1600,$payType);
+        
     }
     
     
@@ -27,12 +28,13 @@ class Charge extends Common {
      * 充值
      * @param type $data
      */
-    public function recharge($userId,$money,$chargeType,$describle="",$chargeStatus=ChargeLogic::CHARGE_INIT) {
-        parent::checkUserId($userId);
+    public static function recharge($userId,$money,$chargeType,$describle="",$chargeStatus=ChargeLogic::CHARGE_INIT) {
         $chargeCode = StrOrderOne();
-        $payment = ChargeLogic::payment($userId,$money,$describle,$chargeCode,$chargeType,$chargeStatus);
-        $payment->data("chargeCode",$chargeCode)->append("chargeCode");
-        return $payment;
+        $paymentModel = ChargeLogic::payment($userId,$money,$describle,$chargeCode,$chargeType,$chargeStatus);
+        if($paymentModel->getError()){
+            return Result::error(1633,$paymentModel->getError());
+        }
+        return Result::success(1634,["chargeCode"=>$chargeCode]);
     }
     
     
@@ -41,9 +43,12 @@ class Charge extends Common {
      * @param type $data
      * @return type
      */
-    public function tixian($userId,$money,$describle="") {
-        parent::checkUserId($userId);
-        return ChargeLogic::payment($userId,$money,$describle,null,ChargeLogic::CHARGE_TYPE_TIXIAN,ChargeLogic::CHARGE_SUCCESS);
+    public static function tixian($userId,$money,$describle="") {
+        $payment = ChargeLogic::payment($userId,$money,$describle,null,ChargeLogic::CHARGE_TYPE_TIXIAN,ChargeLogic::CHARGE_INIT);
+        if($payment->getError()){
+            return Result::error(1631,$payment->getError());
+        }
+        return Result::success(1632);
     }
     
     
@@ -52,8 +57,9 @@ class Charge extends Common {
      * @param type $userId
      * @return type
      */
-    public function recordConsume($userId) {
-        return ChargeLogic::selectByMoneyCon($userId);
+    public static function recordConsume($userId) {
+        $recordConsume = ChargeLogic::selectByMoneyCon($userId);
+        return Result::success(1610,$recordConsume);
     }
     
     /**
@@ -61,8 +67,9 @@ class Charge extends Common {
      * @param type $userId
      * @return type
      */
-    public function recordRecharge($userId) {
-        return ChargeLogic::selectByMoneyCon($userId, true);
+    public static function recordRecharge($userId) {
+        $recordRecharge = ChargeLogic::selectByMoneyCon($userId, true);
+        return Result::success(1620,$recordRecharge);
     }
     
     
@@ -71,8 +78,9 @@ class Charge extends Common {
      * @param type $userId
      * @return type
      */
-    public function recordTixian($userId) {
-        return ChargeLogic::selectByChargeStatus($userId,  ChargeLogic::CHARGE_TYPE_TIXIAN);
+    public static function recordTixian($userId) {
+        $recordTixian = ChargeLogic::selectByChargeStatus($userId,  ChargeLogic::CHARGE_TYPE_TIXIAN);
+        return Result::success(1630,$recordTixian);
     }
     
     

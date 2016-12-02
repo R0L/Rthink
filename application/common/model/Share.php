@@ -8,7 +8,7 @@ namespace application\common\model;
  * @version V1.0
  * @desc   
  */
-class Share extends Base {
+class Share extends BasePub {
     
     
     
@@ -18,7 +18,7 @@ class Share extends Base {
     const SHARE_FAIL = -1;
     const SHARE_SUCCESS = 1;
     
-    protected $insert = ['status' => 1, 'share_status' => 1, 'create_time'];
+    protected $insert = ['share_status' => 1, 'create_time',"pub_id"];
 
     /**
      * 获取晒单状态

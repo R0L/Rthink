@@ -19,51 +19,44 @@ class Share extends Api {
      */
     public function index() {
         $listShare = ShareService::listShare();
-        return parent::jCode(0, 1700, $listShare->toArray());
+        return parent::jResult($listShare);
     }
 
     /**
      * 晒单添加接口
+     * @param type $userId
+     * @param type $periodId
      * @param type $title
      * @param type $content
      * @param type $pictures
      * @return type
      */
-    public function add($title, $content, $pictures) {
-        $addShare = ShareService::addShare($title, $content, $pictures);
-        if ($addShare->getError()) {
-            return parent::jCode(1702, $addShare->getError());
-        }
-        return parent::jCode(0, 1701);
+    public function add($userId,$periodId,$title, $content, $pictures) {
+        $addShare = ShareService::addShare($userId,$periodId,$title, $content, $pictures);
+        return parent::jResult($addShare);
     }
 
     /**
      * 晒单编辑接口
-     * @param type $id
+     * @param type $shareId
      * @param type $title
      * @param type $content
      * @param type $pictures
      * @return type
      */
-    public function edit($id, $title, $content, $pictures) {
-        $editShare = ShareService::editShare($id, $title, $content, $pictures);
-        if ($editShare->getError()) {
-            return parent::jCode(1704, $editShare->getError());
-        }
-        return parent::jCode(0, 1703);
+    public function edit($shareId, $title, $content, $pictures) {
+        $editShare = ShareService::editShare($shareId, $title, $content, $pictures);
+        return parent::jResult($editShare);
     }
 
     /**
      * 晒单删除接口
-     * @param type $id
+     * @param type $shareId
      * @return type
      */
-    public function delete($id) {
-        $delShare = ShareService::delShare($id);
-        if (empty($delShare)) {
-            return parent::jCode(1704);
-        }
-        return parent::jCode(0, 1705);
+    public function del($shareId) {
+        $delShare = ShareService::delShare($shareId);
+        return parent::jResult($delShare);
     }
 
 }

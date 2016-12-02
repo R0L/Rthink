@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50715
 File Encoding         : 65001
 
-Date: 2016-12-01 17:40:28
+Date: 2016-12-02 16:53:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -7898,25 +7898,30 @@ INSERT INTO `tp_channel` VALUES ('8', '3', '3', '0', '1480151785', '1480151785',
 DROP TABLE IF EXISTS `tp_charge`;
 CREATE TABLE `tp_charge` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charge_code` varchar(255) NOT NULL,
+  `charge_code` varchar(255) DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `money` double(10,2) NOT NULL,
   `describle` varchar(255) DEFAULT NULL,
   `update_time` int(10) DEFAULT NULL,
   `create_time` int(10) DEFAULT NULL,
-  `delete_time` int(10) NOT NULL,
+  `delete_time` int(10) DEFAULT NULL,
   `charge_type` tinyint(4) NOT NULL,
   `charge_status` tinyint(4) NOT NULL,
   `pub_id` int(11) NOT NULL,
-  `member_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of tp_charge
 -- ----------------------------
-INSERT INTO `tp_charge` VALUES ('1', '201611100007', '1', '100.00', '充值了', '1451750400', '1451750400', '1', '1', '1', '1', '1');
-INSERT INTO `tp_charge` VALUES ('2', '201611100009', '1', '-10.00', '消费了', '1451750400', '1451750400', '1', '4', '1', '1', '1');
+INSERT INTO `tp_charge` VALUES ('1', '201611100007', '1', '100.00', '充值了', '1451750400', '1451750400', null, '1', '1', '1');
+INSERT INTO `tp_charge` VALUES ('2', '201611100009', '1', '-10.00', '消费了', '1451750400', '1451750400', null, '4', '1', '1');
+INSERT INTO `tp_charge` VALUES ('3', '2016120285293', '1', '10.00', '描述', '1480646286', '1480646286', null, '1', '0', '1');
+INSERT INTO `tp_charge` VALUES ('4', '2016120296000', '1', '10.00', '描述', '1480646594', '1480646594', null, '1', '0', '1');
+INSERT INTO `tp_charge` VALUES ('5', '2016120202310', '1', '10.00', '描述', '1480646745', '1480646745', null, '1', '0', '1');
+INSERT INTO `tp_charge` VALUES ('6', '2016120238470', '1', '10.00', '描述', '1480646772', '1480646772', null, '1', '0', '1');
+INSERT INTO `tp_charge` VALUES ('7', '2016120283746', '1', '10.00', '描述', '1480646844', '1480646844', null, '1', '0', '1');
+INSERT INTO `tp_charge` VALUES ('8', null, '1', '10.00', '提现', '1480647164', '1480647164', null, '6', '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_code
@@ -8366,14 +8371,14 @@ CREATE TABLE `tp_order` (
   `buy_time` int(11) unsigned NOT NULL DEFAULT '0',
   `create_time` int(10) unsigned NOT NULL,
   `update_time` int(10) NOT NULL DEFAULT '0',
-  `delete_time` int(10) DEFAULT '0',
+  `delete_time` int(10) DEFAULT NULL,
   `order_status` tinyint(4) NOT NULL,
   `pub_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `pid` (`period_id`),
   KEY `uid` (`user_id`),
   KEY `order_id` (`order_code`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of tp_order
@@ -8397,6 +8402,8 @@ INSERT INTO `tp_order` VALUES ('16', '201611100005', '1', '123456789', '1', '50'
 INSERT INTO `tp_order` VALUES ('17', '201611100005', '1', '123456789', '1', '50', '1451750400', '1451750400', null, '2', '1');
 INSERT INTO `tp_order` VALUES ('18', '201611100005', '1', '123456789', '1', '50', '1451750400', '1451750400', null, '2', '1');
 INSERT INTO `tp_order` VALUES ('19', '201611100005', '1', '123456789', '1', '50', '1451750400', '1451750400', null, '2', '1');
+INSERT INTO `tp_order` VALUES ('20', '', '1', null, '1', '30', '1480657122', '1480657122', null, '0', '1');
+INSERT INTO `tp_order` VALUES ('21', '', '1', null, '1', '16', '1480657239', '1480658782', null, '0', '1');
 
 -- ----------------------------
 -- Table structure for tp_period
@@ -8412,8 +8419,7 @@ CREATE TABLE `tp_period` (
   `periods_name` varchar(16) NOT NULL,
   `periods_no` varchar(50) NOT NULL,
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
-  `update_time` double(13,0) unsigned NOT NULL DEFAULT '0',
-  `announce_time` int(11) DEFAULT NULL,
+  `update_time` int(10) unsigned NOT NULL DEFAULT '0',
   `delete_time` int(10) unsigned DEFAULT '0',
   `periods_status` tinyint(4) NOT NULL DEFAULT '0',
   `pub_id` int(11) NOT NULL,
@@ -8424,221 +8430,221 @@ CREATE TABLE `tp_period` (
 -- ----------------------------
 -- Records of tp_period
 -- ----------------------------
-INSERT INTO `tp_period` VALUES ('1', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('2', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('3', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('4', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('5', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('6', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('7', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('8', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('9', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('10', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('11', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('12', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('13', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '1', '1', null);
-INSERT INTO `tp_period` VALUES ('14', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('15', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('16', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('17', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('18', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('19', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('20', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('21', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('22', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('23', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('24', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('25', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('26', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('27', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('28', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('29', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('30', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('31', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('32', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('33', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('34', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('35', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('36', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('37', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('38', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('39', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('40', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('41', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('42', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('43', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('44', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('45', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('46', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('47', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('48', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('49', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('50', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('51', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('52', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('53', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('54', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('55', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('56', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('57', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('58', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('59', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('60', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('61', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('62', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('63', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('64', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('65', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('66', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('67', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('68', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('69', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('70', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('71', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('72', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('73', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('74', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('75', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('76', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('77', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('78', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('79', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('80', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('81', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('82', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('83', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('84', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('85', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('86', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('87', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('88', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('89', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('90', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('91', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('92', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('93', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('94', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('95', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('96', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('97', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('98', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('99', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('100', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('101', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('102', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('103', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('104', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('105', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('106', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('107', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('108', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('109', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('110', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('111', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('112', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('113', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('114', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('115', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('116', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('117', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('118', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('119', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('120', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('121', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('122', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('123', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('124', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('125', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('126', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('127', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('128', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('129', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('130', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('131', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('132', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('133', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('134', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('135', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('136', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('137', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('138', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('139', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('140', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('141', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('142', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('143', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('144', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('145', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('146', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('147', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('148', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('149', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('150', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('151', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('152', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('153', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('154', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('155', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('156', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('157', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('158', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('159', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('160', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('161', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('162', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('163', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('164', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('165', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('166', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('167', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('168', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('169', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('170', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('171', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('172', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('173', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('174', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('175', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('176', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('177', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('178', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('179', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('180', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('181', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('182', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('183', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('184', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('185', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('186', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('187', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('188', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('189', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('190', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('191', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('192', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('193', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('194', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('195', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('196', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('197', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('198', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('199', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('200', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('201', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('202', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('203', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('204', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('205', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('206', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('207', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('208', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('209', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('210', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('211', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('212', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('213', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('214', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
-INSERT INTO `tp_period` VALUES ('215', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('1', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('2', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('3', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('4', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('5', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('6', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('7', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('8', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('9', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('10', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('11', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('12', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('13', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '1', '1', null);
+INSERT INTO `tp_period` VALUES ('14', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('15', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('16', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('17', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('18', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('19', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('20', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('21', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('22', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('23', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('24', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('25', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('26', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('27', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('28', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('29', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('30', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('31', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('32', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('33', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('34', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('35', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('36', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('37', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('38', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('39', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('40', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('41', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('42', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('43', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('44', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('45', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('46', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('47', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('48', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('49', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('50', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('51', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('52', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('53', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('54', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('55', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('56', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('57', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('58', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('59', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('60', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('61', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('62', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('63', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('64', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('65', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('66', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('67', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('68', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('69', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('70', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('71', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('72', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('73', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('74', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('75', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('76', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('77', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('78', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('79', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('80', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('81', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('82', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('83', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('84', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('85', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('86', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('87', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('88', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('89', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('90', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('91', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('92', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('93', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('94', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('95', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('96', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('97', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('98', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('99', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('100', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('101', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('102', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('103', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('104', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('105', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('106', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('107', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('108', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('109', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('110', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('111', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('112', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('113', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('114', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('115', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('116', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('117', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('118', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('119', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('120', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('121', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('122', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('123', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('124', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('125', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('126', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('127', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('128', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('129', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('130', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('131', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('132', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('133', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('134', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('135', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('136', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('137', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('138', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('139', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('140', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('141', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('142', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('143', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('144', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('145', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('146', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('147', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('148', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('149', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('150', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('151', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('152', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('153', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('154', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('155', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('156', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('157', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('158', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('159', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('160', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('161', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('162', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('163', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('164', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('165', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('166', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('167', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('168', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('169', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('170', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('171', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('172', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('173', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('174', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('175', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('176', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('177', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('178', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('179', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('180', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('181', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('182', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('183', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('184', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('185', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('186', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('187', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('188', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('189', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('190', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('191', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('192', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('193', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('194', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('195', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('196', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('197', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('198', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('199', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('200', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('201', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('202', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('203', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('204', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('205', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('206', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('207', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('208', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('209', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('210', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('211', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('212', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('213', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('214', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
+INSERT INTO `tp_period` VALUES ('215', null, '5', '1', '0', '111', '1', '1', '1459408948', '1', null, '0', '1', null);
 
 -- ----------------------------
 -- Table structure for tp_picture
@@ -8690,12 +8696,11 @@ CREATE TABLE `tp_share` (
   PRIMARY KEY (`id`),
   KEY `pid` (`period_id`),
   KEY `uid` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of tp_share
 -- ----------------------------
-INSERT INTO `tp_share` VALUES ('1', '1', '1', '好好啊佛啊', '我win了', '1', '1451750400', '1451750400', '1', '1', 'fasf', '0');
 
 -- ----------------------------
 -- Table structure for tp_slider
@@ -8795,7 +8800,6 @@ CREATE TABLE `tp_user_address` (
 INSERT INTO `tp_user_address` VALUES ('1', '李瑞环', '13281563077', '110000-110100-110101', '高新区温州商贸128号', '1', '1', '1451750400', '1451750400', null, '1');
 INSERT INTO `tp_user_address` VALUES ('2', '李瑞', '18783318204', '0', '哈哈舒服撒', '1', '1', '1480582412', '1480582412', null, '1');
 INSERT INTO `tp_user_address` VALUES ('3', '李瑞', '18783318204', '0', '哈哈舒服撒', '1', '1', '1480582505', '1480582505', null, '1');
-INSERT INTO `tp_user_address` VALUES ('4', '李瑞', '18783318204', '0', '哈哈舒服撒', '1', '1', '1480582517', '1480582517', null, '1');
 
 -- ----------------------------
 -- Table structure for tp_user_info

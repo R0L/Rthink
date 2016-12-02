@@ -13,17 +13,17 @@ abstract class ChargeAbstract extends Api {
     /**
      * 支持支付的类型
      */
-    abstract function chargeType();
+    abstract function getChargeType();
 
     /**
      * 充值
      */
-    abstract function recharge();
+    abstract function recharge($userId,$money,$chargeType,$describle);
 
     /**
      * 提现
      */
-    abstract function tixian($userId,$money,$describle,$chargeStatus);
+    abstract function tixian($userId,$money,$describle);
 
     /**
      * 消费记录

@@ -10,20 +10,36 @@ namespace application\api\controller;
 abstract class OrderAbstract extends Api{
     
     
+//    /**
+//     * 购物车
+//     */
+//    abstract function shoppingcart($userId);
+//    
+//    
+//    /**
+//     * 购物编辑
+//     */
+//    abstract function eidt($orderId,$buyTime);
+//    
+//    /**
+//     * 购物编辑
+//     */
+//    abstract function add($userId,$periodId,$buyTime);
+    
+    
+    
     /**
-     * 购物车
+     * 进行中
      */
-    abstract function shoppingcart($userId);
-    
-    
+    abstract function inlottery($userId);
+
     /**
-     * 购物编辑
+     * 已揭晓
      */
-    abstract function shoppingcartEidt($orderId,$buyTime);
-    
+    abstract function haslottery($userId);
+
     /**
-     * 购物编辑
+     * 已中奖
      */
-    abstract function shoppingcartAdd($userId,$periodId,$buyTime);
-    
+    abstract function haswin($userId);
 }

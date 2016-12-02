@@ -11,10 +11,16 @@ namespace application\common\model;
 class Period extends BasePub {
 
     
-    const PERIODS_INLOTTERY = 0 ;// 开奖中
-    const PERIODS_HASLOTTERY = 1 ;// 已开奖
+    const PERIODS_PURCHASE = 0 ;// 购买中
+    const PERIODS_INLOTTERY = 1 ;// 开奖中
+    const PERIODS_HASLOTTERY = 2 ;// 已开奖
     
-    public static $periodsStstus=[0 => '开奖中',1=>'已开奖'];
+    public static $periodsStstus = [0 => '购买中', 0 => '开奖中', 1 => '已开奖'];
+
+    
+    //自动完成
+    protected $insert = [ 'create_time', 'pub_id'];
+    
     
     /**
      * 获取期数状态
@@ -28,6 +34,15 @@ class Period extends BasePub {
         }
         return self::$periodsStstus[intval($periods_status)];
     }
+    
+    /**
+     * 条件:购买中
+     * @param type $query
+     */
+    protected function scopePurchase($query){
+        $query->where(["periods_status"=>  Period::PERIODS_PURCHASE]);
+    }
+    
     
     /**
      * 期数中的商品

@@ -1,6 +1,5 @@
 <?php
 
- 
 return [
     
 //    '__rest__'  =>  [
@@ -28,34 +27,35 @@ return [
         
         //地址
         ':version/address/:userId'   => ['api/:version.address/index',['method'=>'get']],
-        ':version/address/add'   => ['api/:version.address/add',['method'=>'post']],
-        ':version/address/edit'   => ['api/:version.address/edit',['method'=>'post']],
-        ':version/address/del'   => ['api/:version.address/del',['method'=>'post']],
+        ':version/address'   => ['api/:version.address/add',['method'=>'post']],
+        ':version/address/:addresId'   => ['api/:version.address/edit',['method'=>'put']],
+        ':version/address/:addresId'   => ['api/:version.address/del',['method'=>'delete']],
         
         ':version/address/list'   => ['api/:version.address/amap',['method'=>'post']],
         
         
         //消费
-        ':version/chargetype'   => ['api/:version.charge/chargetype',['method'=>'get']], 
+        ':version/chargetype'   => ['api/:version.charge/getChargeType',['method'=>'get']], 
         ':version/recharge'   => ['api/:version.charge/recharge',['method'=>'post']], 
         ':version/tixian'   => ['api/:version.charge/tixian',['method'=>'post']], 
-        ':version/recordconsume'   => ['api/:version.charge/recordConsume',['method'=>'get']], 
-        ':version/recordrecharge'   => ['api/:version.charge/recordRecharge',['method'=>'get']], 
-        ':version/recordtixian'   => ['api/:version.charge/recordTixian',['method'=>'get']], 
+        ':version/consume/:userId'   => ['api/:version.charge/recordConsume',['method'=>'get']], 
+        ':version/recharge/:userId'   => ['api/:version.charge/recordRecharge',['method'=>'get']], 
+        ':version/tixian/:userId'   => ['api/:version.charge/recordTixian',['method'=>'get']], 
         
         
-
+        //订单
+        ':version/haslottery/:userId'   => ['api/:version.order/haslottery',['method'=>'get']],
+        ':version/inlottery/:userId'   => ['api/:version.order/inlottery',['method'=>'get']],
+        ':version/haswin/:userId'   => ['api/:version.order/haswin',['method'=>'get']],
         
         //购物车
-        ':version/shopcart/:userId'   => ['api/:version.order/shoppingcart',['method'=>'get']],
-        ':version/shopcartedit'   => ['api/:version.order/shoppingcartEidt',['method'=>'put']],
-        ':version/shopcartadd'   => ['api/:version.order/shoppingcartAdd',['method'=>'post']],
+        ':version/shopcart/:userId'   => ['api/:version.shoppingcart/index',['method'=>'get']],
+        ':version/shopcart/:orderId'   => ['api/:version.shoppingcart/edit',['method'=>'put']],
+        ':version/shopcart'   => ['api/:version.shoppingcart/add',['method'=>'post']],
+
         
         
         //期数
-        ':version/haslottery/:userId'   => ['api/:version.period/haslottery',['method'=>'get']],
-        ':version/inlottery/:userId'   => ['api/:version.period/inlottery',['method'=>'get']],
-        ':version/haswin/:userId'   => ['api/:version.period/haswin',['method'=>'get']],
         
         ':version/hotperiod'   => ['api/:version.period/hotPeriod',['method'=>'get']],
         ':version/newestperiod'   => ['api/:version.period/newestPeriod',['method'=>'get']],
@@ -66,9 +66,9 @@ return [
         
          //晒单
         ':version/share'   => ['api/:version.share/index',['method'=>'get']],
-        ':version/share/add'   => ['api/:version.share/add',['method'=>'post']],
-        ':version/share/edit'   => ['api/:version.share/edit',['method'=>'post']],
-        ':version/share/del'   => ['api/:version.share/del',['method'=>'post']],
+        ':version/share'   => ['api/:version.share/add',['method'=>'post']],
+        ':version/share/:shareId'   => ['api/:version.share/edit',['method'=>'post']],
+        ':version/share/:shareId'   => ['api/:version.share/del',['method'=>'delete']],
         
         
         

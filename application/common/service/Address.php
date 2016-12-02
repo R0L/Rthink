@@ -15,13 +15,18 @@ class Address extends Common {
 
     /**
      * 地址接口
-     * @param type $adcode
-     * @param type $level
      * @return type
      */
-    public static function listAmap($adcode = null, $level = "province") {
-        $amap = Amap::getAmap($adcode, $level);
-        return Result::success(1407,$amap);
+    public static function listAmap($adcode,$level) {
+        $amapList = Amap::getNextAmapList($adcode, $level);
+        
+        foreach ($amapList as $item) {
+            if($level == "district"){
+                $item->adcode = $item->areacode;
+            }
+            $item->visible(["adcode","name"]);
+        }
+        return Result::success(1407,$amapList);
     }
 
     /**

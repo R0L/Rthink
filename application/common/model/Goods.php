@@ -30,7 +30,7 @@ class Goods extends BaseCommon {
      * type 人次单价
      * @var type 
      */
-    protected $insert = ['status' => 1, 'create_time', 'pub_id', 'member_id', 'goods_status' => -1,'total_time', 'count_down', 'type' => 1,'cover_id','cover_list'];
+    protected $insert = ['create_time', 'pub_id', 'member_id', 'goods_status' => -1,'total_time', 'count_down', 'type' => 1,'cover_id','cover_list'];
 
     /**
      * 获取商品状态
@@ -89,6 +89,14 @@ class Goods extends BaseCommon {
             $cover_list =  $data["cover_list[]"];
         }
         return implode(",", $cover_list);
+    }
+    
+    /**
+     * 前台排除其它商品
+     * @param type $query
+     */
+    protected function scopeGoodsStatus($query){
+        $query->where(["goods_status"=>Goods::GOODS_ONLINE]);
     }
     
 

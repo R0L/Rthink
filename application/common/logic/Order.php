@@ -45,8 +45,18 @@ class Order extends OrderModel{
      * @param type $buyTime
      * @return type
      */
-    public function addOrder($userId,$periodId,$buyTime,$orderStatus=OrderModel::ORDER_SHOPPINGCART) {
-        return OrderLogic::create(["user_id"=>$userId,"period_id"=>$periodId,"buy_time"=>$buyTime,"order_status"=>$orderStatus]);
+    public static function addOrder($userId,$periodId,$buyTime,$orderStatus=OrderModel::ORDER_SHOPPINGCART) {
+        return OrderModel::create(["user_id"=>$userId,"period_id"=>$periodId,"buy_time"=>$buyTime,"order_status"=>$orderStatus]);
+    }
+    
+    
+    /**
+     * 获取中奖订单 通过$periodId
+     * @param type $periodId
+     * @return type
+     */
+    public static function findByPeriodIdWin($periodId) {
+        return OrderModel::get(["period_id"=>$periodId,"order_status"=>OrderModel::ORDER_HASWONTHEPRIZE]);
     }
     
 }

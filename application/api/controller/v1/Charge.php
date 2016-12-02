@@ -14,9 +14,9 @@ class Charge extends ChargeAbstract {
     /**
      * 充值类型接口
      */
-    public function chargeType() {
-        $chargeType = ChargeService::getChargeType();
-        return parent::jCode(0, 1600, $chargeType);
+    public function getChargeType() {
+        $result = ChargeService::getChargeType();
+        return parent::jResult($result);
     }
 
 
@@ -24,15 +24,14 @@ class Charge extends ChargeAbstract {
      * 充值接口
      * @param type $userId
      * @param type $money
+     * @param type $chargeType
      * @param type $describle
+     * @param type $chargeStatus
      * @return type
      */
-    public function recharge($userId,$money,$describle,$chargeStatus) {
-        $recharge = ChargeService::recharge($userId,$money,$describle,$chargeStatus);
-         if($recharge->getError()){
-            return parent::jCode(1633,$recharge->getError());
-        }
-        return parent::jCode(1634,null,$recharge->chargeCode);
+    public function recharge($userId,$money,$chargeType,$describle) {
+        $result = ChargeService::recharge($userId,$money,$chargeType,$describle);
+        return parent::jResult($result);
     }
     
     /**
@@ -43,11 +42,8 @@ class Charge extends ChargeAbstract {
      * @return type
      */
     public function tixian($userId,$money,$describle) {
-        $tixian = ChargeService::tixian($userId,$money,$describle);
-        if($tixian->getError()){
-            return parent::jCode(1631,$tixian->getError());
-        }
-        return parent::jCode(1632);
+        $result = ChargeService::tixian($userId,$money,$describle);
+        return parent::jResult($result);
     }
 
     /**
@@ -57,7 +53,7 @@ class Charge extends ChargeAbstract {
      */
     public function recordConsume($userId) {
         $recordConsume = ChargeService::recordConsume($userId);
-        return parent::jCode(0, 1610, $recordConsume->toArray());
+        return parent::jResult($recordConsume);
     }
     
     /**
@@ -67,7 +63,7 @@ class Charge extends ChargeAbstract {
      */
     public function recordRecharge($userId) {
         $recordRecharge = ChargeService::recordRecharge($userId);
-        return parent::jCode(0, 1620, $recordRecharge->toArray());
+        return parent::jResult($recordRecharge);
     }
     
     
@@ -78,7 +74,7 @@ class Charge extends ChargeAbstract {
      */
     public function recordTixian($userId) {
         $recordTixian = ChargeService::recordTixian($userId);
-        return parent::jCode(0, 1630, $recordTixian->toArray());
+        return parent::jResult($recordTixian);
     }
 
 }

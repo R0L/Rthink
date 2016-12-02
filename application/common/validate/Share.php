@@ -7,5 +7,5 @@ namespace application\common\validate;
  * @version V1.0
  * @desc   
  */
-class Slider extends Base {
+class Share extends Base {
 }
