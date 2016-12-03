@@ -156,4 +156,43 @@ class Order extends Common{
         return Result::success(1310,$haswin);
     }
     
+    
+    /**
+     * 添加订单
+     * @param type $userId
+     * @param type $periodId
+     */
+    public static function addOrder($userId, $periodId,$buyTime) {
+        $periodGet = PeriodLogic::get(["id"=>$periodId,"periods_status"=>PeriodLogic::PERIODS_PURCHASE]);
+        
+        if(empty($periodGet)){
+            return Result::error(1116);
+        }
+        
+        $goodsGet = GoodsLogic::get(["id"=>$periodGet["goods_id"],"goods_status"=>GoodsLogic::GOODS_ONLINE]);
+        
+        if(empty($goodsGet)){
+            return Result::error(1117);
+        }
+        
+        if($periodGet["buy_time"] + $buyTime - $goodsGet["total_time"] <= 0){
+            $addOrder = OrderLogic::addOrder($userId, $periodId, $buyTime, OrderLogic::ORDER_HAVEINHAND);
+            if($addOrder->getError()){
+                return Result::error(1850,$addOrder->getError());
+            }
+            
+            $addBuyTime = PeriodLogic::addBuyTime($periodId, $buyTime);
+            
+            if(empty($addBuyTime)){
+                return Result::error(1852);
+            }
+            
+            return Result::success(1851);
+        }
+        return Result::error(1853);
+        
+        
+        
+    }
+    
 }

@@ -21,7 +21,15 @@ class Period extends PeriodModel{
     }
     
     public static function selectToPeriods($periodsStatus=PeriodModel::PERIODS_PURCHASE) {
-       return PeriodModel::paginate(["periods_status"=>["in",$periodsStatus]]);
+//       return PeriodModel::paginate(["periods_status"=>["in",$periodsStatus]]);
+        return PeriodModel::scope("Purchase")->field('order_code,lucky_number,buy_time,periods_no,periods_status')->with([
+                    "goods" => function($query) {
+                        $query->withField('title,cover_id,total_time,count_down,total_periods,current_periods,goods_status');
+                    },
+                    "user" => function($query) {
+                        $query->withField('user_name');
+                    },
+                    ])->where(["periods_status"=>["in",$periodsStatus]])->order(["create_time"=>"desc"])->paginate();
     }
     
     /**
@@ -29,7 +37,15 @@ class Period extends PeriodModel{
      * @return type
      */
     public static function selectOyCreateTime() {
-        return PeriodModel::scopePurchase()->order("create_time desc")->paginate();
+//        return PeriodModel::scopePurchase()->order("create_time desc")->paginate();
+        return PeriodModel::scope("Purchase")->field('order_code,lucky_number,buy_time,periods_no,periods_status')->with([
+                    "goods" => function($query) {
+                        $query->withField('title,cover_id,total_time,count_down,total_periods,current_periods,goods_status');
+                    },
+                    "user" => function($query) {
+                        $query->withField('user_name');
+                    },
+                    ])->order(["create_time"=>"desc"])->paginate();
     }
     
     /**
@@ -38,8 +54,16 @@ class Period extends PeriodModel{
      */
     public static function selectOyBuyTimeTotalTime() {
 //        return PeriodModel::hasWhere($relation, $where)
-        return \think\Db::name("period")->alias('p')->field("*",false,"goods","p")->join("goods g","p.goods_id = g.id", 'LEFT' )->
-                order("p.buy_time/g.total_time desc")->paginate();
+//        return \think\Db::name("period")->alias('p')->field("*",false,"goods","p")->join("goods g","p.goods_id = g.id", 'LEFT' )->
+//                order("p.buy_time/g.total_time desc")->paginate();
+        return PeriodModel::scope("Purchase")->field('order_code,lucky_number,buy_time,periods_no,periods_status')->with([
+                    "goods" => function($query) {
+                        $query->withField('title,cover_id,total_time,count_down,total_periods,current_periods,goods_status');
+                    },
+                    "user" => function($query) {
+                        $query->withField('user_name');
+                    },
+                    ])->order(["period.buy_time/goods.total_time"=>"desc"])->paginate();
     }
     
     /**
@@ -48,7 +72,15 @@ class Period extends PeriodModel{
      */
     public static function selectOyBuyTime() {
 //        return PeriodModel::hasWhere($relation, $where)
-        return PeriodModel::scopePurchase()->order("buy_time desc")->paginate();
+//        return PeriodModel::scopePurchase()->order("buy_time desc")->paginate();
+        return PeriodModel::scope("Purchase")->field('order_code,lucky_number,buy_time,periods_no,periods_status')->with([
+                    "goods" => function($query) {
+                        $query->withField('title,cover_id,total_time,count_down,total_periods,current_periods,goods_status');
+                    },
+                    "user" => function($query) {
+                        $query->withField('user_name');
+                    },
+                    ])->order(["buy_time"=>"desc"])->paginate();
     }
     
     
@@ -57,7 +89,24 @@ class Period extends PeriodModel{
      * @param type $goodsId
      */
     public static function getCurrentPeriodByGoodsId($goodsId){
-        return PeriodModel::get(["goods_id"=>$goodsId,"periods_status"=>PeriodModel::PERIODS_PURCHASE]);
+        return PeriodModel::scope("Purchase")->order(["create_time"=>"desc"])->get($goodsId);
+    }
+    
+    /**
+     * 获取结束的期数  通过$goodsId,$periodsStatus
+     * @param type $goodsId
+     * @return type
+     */
+    public static function paginatePeriodByGoodsId($goodsId,$periodsStatus){
+//        return PeriodModel::where(["goods_id"=>$goodsId,"periods_status"=>$periodsStatus])->order(["create_time"=>"desc"])->paginate();
+        return PeriodModel::field('id,order_code,lucky_number,buy_time,periods_no,periods_status')->with([
+                    "user" => function($query) {
+                        $query->withField('user_name,last_login_ip');
+                    },
+                    "userinfo" => function($query) {
+                        $query->withField('portrait,nick_name');
+                    },
+                    ])->where(["goods_id"=>$goodsId,"periods_status"=>$periodsStatus])->order(["create_time"=>"desc"])->paginate();
     }
     
     
@@ -84,7 +133,48 @@ class Period extends PeriodModel{
     
     
     public static function selectOyCurrentPeriods() {
-        return PeriodModel::scope("Purchase")->with("goods")->select();
+        return PeriodModel::scope("Purchase")->field('order_code,lucky_number,buy_time,periods_no,periods_status')->with([
+                    "goods" => function($query) {
+                        $query->withField('title,cover_id,total_time,count_down,total_periods,current_periods,goods_status');
+                    },
+                    "user" => function($query) {
+                        $query->withField('user_name');
+                    },
+                    ])->order(["current_periods"=>"desc"])->paginate();
     }
+    
+    
+    
+    
+    /**
+     * 全平台获取购买完的期数
+     */
+    public static function lotteryPeriod() {
+        return DB::name("period")->join("goods", "period.goods_id == goods.id")->field("period.id as pid,goods.id as gid,*")->where(["goods.total_time"=>"period.buy_time","goods.goods_status"=>1,"period.periods_status"=>0])->select();
+    }
+        
+    
+    /**
+     * 添加期数 通过$goodsId,$periodsNo
+     */
+    public static function addPeriod($goodsId,$periodsNo) {
+       return PeriodModel::create(["goods_id"=>$goodsId,"periods_no"=>$periodsNo]);
+    }
+    
+    
+    /**
+     * 插入开奖数据
+     * @param type $periodsId
+     * @param type $userId
+     * @param type $luckyNumber
+     * @param type $buyTime
+     * @return type
+     */
+    public static function lotteryUpdate($periodsId,$userId,$luckyNumber) {
+        return PeriodModel::update(["user_id"=>$userId,"lucky_number"=>$luckyNumber,"periods_status"=>PeriodModel::PERIODS_INLOTTERY],["id"=>$periodsId]);
+        
+    }
+
+    
     
 }

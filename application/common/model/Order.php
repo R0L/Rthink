@@ -65,5 +65,13 @@ class Order extends BasePub {
         return $this->belongsTo('application\common\model\User', "user_id", "id");
     }
     
+    /**
+     * 订单中的用户信息
+     * @return type
+     */
+    public function userinfo() {
+        return $this->belongsTo('application\common\model\UserInfo', "user_id", "user_id");
+    }
+    
 
 }

@@ -53,5 +53,13 @@ class Period extends PeriodAbstract {
         return parent::jResult($soonPeriod);
     }
 
+    /**
+     * 当前期数参与的人数接口
+     * @param type $periodId
+     */
+    public function currentPeriodPerson($periodId) {
+        $currentPeriodPerson = PeriodService::currentPeriodPerson($periodId);
+        return parent::jResult($currentPeriodPerson);
+    }
 
 }

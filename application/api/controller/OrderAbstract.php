@@ -42,4 +42,12 @@ abstract class OrderAbstract extends Api{
      * 已中奖
      */
     abstract function haswin($userId);
+    
+    
+    /**
+     * 添加订单
+     */
+    abstract function addOrder($userId,$periodId,$buyTime);
+    
+    
 }

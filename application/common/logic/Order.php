@@ -59,4 +59,39 @@ class Order extends OrderModel{
         return OrderModel::get(["period_id"=>$periodId,"order_status"=>OrderModel::ORDER_HASWONTHEPRIZE]);
     }
     
+    
+    /**
+     * 获取订单，用户，用户信息 通过$periodId
+     * @param type $periodId
+     * @return type
+     */
+    public static function selectByPeriodId($periodId) {
+        return OrderModel::field('order_code,indiana_number,buy_time,create_time,order_status')->with([
+                    "user" => function($query) {
+                        $query->withField('user_name,last_login_ip');
+                    },
+                    "userinfo" => function($query) {
+                        $query->withField('portrait,nick_name');
+                    },
+                    ])->where(["period_id"=>$periodId])->order(["create_time"=>"desc"])->paginate();
+  
+    }
+    
+    /**
+     * 最后50个用户的开奖时间
+     * @param type $periodId
+     */
+    public static function getLastUserBuyTime($periodsId) {
+        return OrderModel::where(["period_id"=>$periodsId])->count("create_time");
+    }
+    
+    /**
+     * 获取中奖人订单信息
+     * @param type $periodsId
+     * @param type $lotteryValue
+     * @return type
+     */
+    public static function lotteryOrder($periodsId,$lotteryValue) {
+        return OrderModel::where(["period_id"=>$periodsId,"indiana_number"=>$lotteryValue])->find();
+    }
 }

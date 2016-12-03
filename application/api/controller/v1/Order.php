@@ -30,8 +30,20 @@ class Order extends OrderAbstract{
      * 已中奖接口
      */
     public function inlottery($userId) {
-         $inlottery = OrderService::inlottery($userId);
+        $inlottery = OrderService::inlottery($userId);
         return parent::jResult($inlottery);
     }
+    
+    
+    /**
+     * 添加订单接口
+     * @param type $userId
+     * @param type $periodId
+     */
+    public function addOrder($userId, $periodId,$buyTime) {
+        $addOrder = OrderService::addOrder($userId, $periodId,$buyTime);
+        return parent::jResult($addOrder);
+    }
+
 
 }

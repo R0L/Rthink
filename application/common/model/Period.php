@@ -59,5 +59,12 @@ class Period extends BasePub {
     public function user() {
         return $this->belongsTo('application\common\model\User', "user_id", "id");
     }
+    /**
+     * 期数中的中奖用户信息
+     * @return type
+     */
+    public function userinfo() {
+        return $this->belongsTo('application\common\model\UserInfo', "user_id", "id");
+    }
 
 }

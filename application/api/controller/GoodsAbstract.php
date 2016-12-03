@@ -8,8 +8,21 @@ namespace application\api\controller;
  * @version V1.0
  * @desc   
  */
-class GoodsAbstract extends Api {
+abstract class GoodsAbstract extends Api {
     
+    /**
+     * 商品详情
+     */
+    abstract function goodsDetails($goodsId);
     
+    /**
+     * 商品图文
+     */
+    abstract function goodsImageText($goodsId);
+    
+    /**
+     * 历史中奖记录
+     */
+    abstract function historyLottery($goodsId);
     
 }

@@ -105,7 +105,7 @@ class Goods extends BaseCommon {
      * @return type
      */
     public function category() {
-        return $this->belongsTo('Category', "category_id", "id");
+        return $this->belongsTo('application\common\Category', "category_id", "id");
     }
 
     /**
@@ -113,7 +113,7 @@ class Goods extends BaseCommon {
      * @return type
      */
     public function brand() {
-        return $this->belongsTo('Brand', "brand_id", "id");
+        return $this->belongsTo('application\common\Brand', "brand_id", "id");
     }
 
 }

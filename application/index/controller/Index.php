@@ -1,9 +1,8 @@
 <?php
 
 namespace application\index\controller;
-
-use application\common\controller\Common;
 use Workerman\Lib\Timer;
+use application\common\service\Period;
 
 class Index extends \think\worker\Server {
 
@@ -15,10 +14,11 @@ class Index extends \think\worker\Server {
      * @param $data
      */
     public function onMessage($connection, $data) {
-        $to = 'workerman@workerman.net';
-        $content = 'hello workerman';
-        // 10秒后执行发送邮件任务，最后一个参数传递false，表示只运行一次
-        Timer::add(10, 'send_mail', array($to, $content), false);
+        Timer::add(600, function(){
+            
+            
+            
+        }, NULL, true);
     }
 
 }

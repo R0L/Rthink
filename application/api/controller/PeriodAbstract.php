@@ -35,4 +35,11 @@ abstract class PeriodAbstract extends Api {
      * 即将揭晓
      */
     abstract function soonPeriod();
+    
+    
+    /**
+     * 当前期数参与的人数
+     */
+    abstract function currentPeriodPerson($periodId);
+    
 }

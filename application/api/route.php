@@ -47,6 +47,7 @@ return [
         ':version/haslottery/:userId'   => ['api/:version.order/haslottery',['method'=>'get']],
         ':version/inlottery/:userId'   => ['api/:version.order/inlottery',['method'=>'get']],
         ':version/haswin/:userId'   => ['api/:version.order/haswin',['method'=>'get']],
+        ':version/addOrder'   => ['api/:version.order/addOrder',['method'=>'post']],
         
         //购物车
         ':version/shopcart/:userId'   => ['api/:version.shoppingcart/index',['method'=>'get']],
@@ -62,6 +63,7 @@ return [
         ':version/progressperiod'   => ['api/:version.period/progressPeriod',['method'=>'get']],
         ':version/mantimeperiod'   => ['api/:version.period/mantimePeriod',['method'=>'get']],
         ':version/soonperiod'   => ['api/:version.period/soonPeriod',['method'=>'get']],
+        ':version/currentperson/:periodId'   => ['api/:version.period/currentPeriodPerson',['method'=>'get']],
         
         
          //晒单
@@ -70,6 +72,11 @@ return [
         ':version/share/:shareId'   => ['api/:version.share/edit',['method'=>'post']],
         ':version/share/:shareId'   => ['api/:version.share/del',['method'=>'delete']],
         
+        
+        //商品
+        ':version/goodsdetails/:goodsId'   => ['api/:version.goods/goodsDetails',['method'=>'get']],
+        ':version/goodsimagetext/:goodsId'   => ['api/:version.goods/goodsImageText',['method'=>'get']],
+        ':version/historylottery/:goodsId'   => ['api/:version.goods/historyLottery',['method'=>'get']],
         
         
         //Tools 
